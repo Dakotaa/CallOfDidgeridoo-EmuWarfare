@@ -132,7 +132,6 @@ void mousePressed() {
           gun1.shoot();    // Runs the shoot function for the gun
         }
       }
-      //gunShot.play();
     }
     if (mouseButton == RIGHT) {    // When right clicking, the gun "aiming" is true, draws the white line and makes the gun more accurate.
       aiming = true;

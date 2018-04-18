@@ -4,14 +4,15 @@ class Truck {
   PVector myLocation;
   PVector frontWheel;
   PVector backWheel;
-  float myHeading, mySpeed, myMaxSpeed, mySteerAngle, myMaxSteerAngle, myWheelBase, myMinWheelBase, myMaxWheelBase, myHP, maxHP;
+  float myHeading, mySpeed, myBaseMaxSpeed, myMaxSpeed, mySteerAngle, myMaxSteerAngle, myWheelBase, myMinWheelBase, myMaxWheelBase, myHP, maxHP;
   boolean plus, minus, up, down, left, right, steerLock;
   Truck(float maxSpeed) {
     up = down = left = right = steerLock = false;
     myLocation = new PVector(860, 540);
     myHeading = PI;
     mySpeed = 0;
-    myMaxSpeed = maxSpeed;
+    myBaseMaxSpeed = maxSpeed;
+    myMaxSpeed = myBaseMaxSpeed;
     mySteerAngle = 0;
     myWheelBase = 200;
     myMaxSteerAngle = PI/4;
@@ -71,15 +72,19 @@ class Truck {
 
   void reduceHP(float dmg) {
     myHP-=dmg;
-    myMaxSpeed-=0.1;
   }
-  
+
+
   void setHP (float h) {
-    myHP = h;  
+    myHP = h;
   }
-  
+
+  void setMaxSpeed() {
+     myMaxSpeed = myHP * myBaseMaxSpeed;
+  }
+
   void resetMaxSpeed() {
-    myMaxSpeed = 5;  
+    myMaxSpeed = 5;
   }
 
   void healthBar() {
@@ -96,7 +101,22 @@ class Truck {
       rectMode(CENTER);
     }
   }
-  
+
+  void hitEmu() {
+    for (Emu e : emus) {
+      if (e.getX() > myLocation.x - 100 && e.getX() < myLocation.x + 100 && e.getY() > myLocation.y - 100 && e.getY() < myLocation.y + 100) {
+        if (mySpeed > 2) {
+          e.reduceHP(50);
+          reduceHP(0.001);
+        } else {
+          if (frameCount%150 == 0) {
+            reduceHP(0.01);
+          }
+        }
+      }
+    }
+  }
+
   float getHP() {
     return myHP;
   }
@@ -178,17 +198,6 @@ class Truck {
     rect(0, 0, myWheelBase, myWheelBase+myWheelBase/1.5 + 30, 3, 3, myWheelBase/(myWheelBase/20), myWheelBase/(myWheelBase/20));
     fill(200);
     rect(0, 100, myWheelBase*.9, myWheelBase/2, 3, 3, myWheelBase/(myWheelBase/15), myWheelBase/(myWheelBase/15));
-    for (Emu e : emus) {
-      if (e.getX() > myLocation.x - 100 && e.getX() < myLocation.x + 100 && e.getY() > myLocation.y - 100 && e.getY() < myLocation.y + 100) {
-        if (mySpeed > 2) {
-          e.reduceHP(50);
-        } else {
-          if (frameCount%150 == 0) {
-            reduceHP(0.01);  
-          }
-        }
-      }
-    }
     popMatrix();
 
 
@@ -247,8 +256,10 @@ class Truck {
     if (mySpeed<0) mySpeed += 0.01; //friction for backward
 
     if ((!up && !down) && (abs(mySpeed)<0.01))  mySpeed=0;
-    
+
+    setMaxSpeed();
     healthBar();
+    hitEmu();
   }
 }
 
