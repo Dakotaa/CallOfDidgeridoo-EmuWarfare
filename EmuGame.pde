@@ -1,19 +1,11 @@
-//
+/*******************************************************************************
 
-//import processing.sound.*;
-//SoundFile gunShot;
-void setup() {
-  fullScreen();
-  cursor(CROSS);
-  thread("loadImages");
-  //gunShot = new SoundFile(this, "gunshot.wav");
-}
+                    CALL OF DIDGERIDOO: EMU WARFARE
 
-Button buttonOne = new Button(200, 250, 100, 75, "Test Level", color(100, 200, 250));
+                                  2018
+                           BY: Dakota, Angus
+********************************************************************************/
 
-Truck truck = new Truck (5);
-//Gun gun1 = new Gun();
-Gun gun1 = new Gun_Lewisgun();
 PImage lewisGun, miniGun, emuPhoto, blood;
 boolean isDone, autoFire, aiming = false;
 float gunInnac;
@@ -23,6 +15,21 @@ ArrayList<Emu> emus = new ArrayList();
 ArrayList<Blood> bloods = new ArrayList();
 ArrayList<Level> levels = new ArrayList();
 
+// TODO: Optimize how buttons are added or move them into a function
+Button buttonOne = new Button(200, 250, 100, 75, "Test Level", color(100, 200, 250));
+
+// TODO: initialize truck in level setup?
+Truck truck = new Truck (5);
+//Gun gun1 = new Gun();
+Gun gun1 = new Gun_Lewisgun();
+
+void setup() {
+  fullScreen();
+  cursor(CROSS);
+  thread("loadImages"); // Runs the loadImages function in another thread, this allows the loading screen to show while the images are being loaded.
+}
+
+// Loads all the images in another core thread, sets isDone to true after images are loaded to stop drawing of loading screen.
 void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-speedup-loadimage
   lewisGun = loadImage("lewisgun.png");
   miniGun = loadImage("minigun.png");
@@ -31,6 +38,19 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
   lewisGun.resize((int) (lewisGun.width*0.5), (int) (lewisGun.height*0.5));
   blood.resize(200, 200);
   isDone = true;
+}
+
+// TODO: Move title screen into level function
+void titleScreen() {
+  pushMatrix();
+  background(0);
+  fill(255);
+  textSize(100);
+  textAlign(CENTER);
+  text("CALL OF DIDGERIDOO: Emu Warfare", width/2, 100);
+  popMatrix();
+
+  buttonOne.update(); // Draws the first button
 }
 
 void draw() {
@@ -54,6 +74,8 @@ void draw() {
     }
   }
 }
+
+// KeyPressed function to control truck
 void keyPressed() {
   if (level != 0) {
     switch(keyCode) {
@@ -73,31 +95,31 @@ void keyPressed() {
   }
 }
 
-
+// KeyReleased function to control truck, add new emu, leave level, etc.
 void keyReleased() {
-  if (level != 0) {
+  if (level != 0) {  // Keys only work when not on the title screen
     switch(keyCode) {
-    case 65: 
+    case 65:    // Moves truck left
       truck.setLeft(false);
       break;
-    case 68:
+    case 68:    // Moves truck right
       truck.setRight(false);
       break;
-    case 87:
-      truck.setUp(false);
+    case 87:    // Moves truck up
+      truck.setUp(false); 
       break;
     case 81:
       emus.add(new Emu(mouseX, mouseY, (int) random(40, 100), random(0.1, 0.3)));
       break;
-    case 82:
+    case 82:    // Reloads gun
       gun1.reload();
       break;
-    case 83:
+    case 83:    // Moves truck down
       truck.setDown(false);
       break;
-    case 192:
+    case 192:    // Leave to title screen
       level = 0;
-      for (Level l : levels) {
+      for (Level l : levels) {    // Clears all levels
         l.clearLevel();
       }
       levels.clear();
@@ -108,8 +130,8 @@ void keyReleased() {
 
 void mousePressed() {
   if (mouseButton == LEFT) {
-    if (buttonOne.getDown()) {
-      buttonOne.setDown(false);
+    if (buttonOne.getDown()) {    // Level One button
+      buttonOne.setDown(false);    // If the mouse is over the button and clicked, sets the level to one, adds a new level one instance, and sets it up.
       level = 1;
       levels.add(new LevelOne());
       for (Level l : levels) {
@@ -117,107 +139,24 @@ void mousePressed() {
       }
     }
   }
-  if (level != 0) {
+  if (level != 0) {              // If not on the title screen, clicking will operate the gun.
     if (mouseButton == LEFT) {
       if (gun1.getAmmo() > 0 && !gun1.getReloading()) {
         if (aiming) {
-          bullets.add(new Bullet(new PVector(truck.gunX(), truck.gunY()), 30, gun1.getTheta(), mouseX, mouseY, true));
-          gun1.shoot();
+          bullets.add(new Bullet(new PVector(truck.gunX(), truck.gunY()), 30, gun1.getTheta(), mouseX, mouseY, true));    // Creates a new bullet
+          gun1.shoot();    // Runs the shoot function for the gun
         }
       }
       //gunShot.play();
     }
-    if (mouseButton == RIGHT) {
+    if (mouseButton == RIGHT) {    // When right clicking, the gun "aiming" is true, draws the white line and makes the gun more accurate.
       aiming = true;
     }
   }
 }
 
-void mouseReleased() {
+void mouseReleased() {    // Sets aiming to false when not on the title screen and the right mouse button is released.
   if (level != 0) {
     if (mouseButton == RIGHT) aiming = false;
   }
 }
-
-
-void titleScreen() {
-  pushMatrix();
-  background(0);
-  fill(255);
-  textSize(100);
-  textAlign(CENTER);
-  text("CALL OF DIDGERIDOO: Emu Warfare", width/2, 100);
-  popMatrix();
-
-  buttonOne.update();
-}
-
-
-
-
-
-
-
-
-
-/*
-void setupLevelOne() {
- for (int i = 0; i < 10; ++i) {
- emus.add(new Emu(random(width*.75, width), random(300, height-300), (int) random(40, 100), random(0.1, 0.3)));
- }
- }
- void levelOne() {
- background(255);
- truck.update();
- gun1.drawGun();
- ArrayList<Bullet> toRemove = new ArrayList();
- for (Bullet b : bullets) {
- b.drawBullet();
- if (b.getY() > height || b.getY() < 0 || b.getX() > width || b.getX() < 0) {
- toRemove.add(b);
- }
- }
- 
- ArrayList<Emu> emuRemove = new ArrayList();
- for (Emu e : emus) {
- e.update();
- if (e.isDead()) {
- emuRemove.add(e);
- }
- }
- 
- if (frameCount%gun1.getRateOfFire()==0 && mousePressed && mouseButton == LEFT) { // https://forum.processing.org/one/topic/shoot-multiple-bullets.html
- if (truck.getSpeed() > 0 || truck.getSpeed() < 0) {
- gunInnac = 2;
- } else {
- gunInnac = 0;
- }
- if (gun1.getAmmo() > 0 && !gun1.getReloading()) {
- if (aiming) {
- bullets.add(new Bullet(new PVector(truck.gunX(), truck.gunY()), 30, gun1.getTheta(), mouseX, mouseY, true));
- gun1.shoot();
- } else {
- bullets.add(new Bullet(new PVector(truck.gunX(), truck.gunY()), 30, gun1.getTheta(), 10000, 10000, false));
- gun1.shoot();
- }
- }
- //gunShot.play(); //https://processing.org/reference/libraries/sound/SoundFile.html
- }
- 
- if (aiming) {
- strokeWeight(3);
- stroke(200, 50);
- line(truck.gunX(), truck.gunY(), mouseX, mouseY);
- noStroke();
- }
- 
- bullets.removeAll(toRemove); // Removes offscreen bullets (https://stackoverflow.com/questions/18448671/how-to-avoid-concurrentmodificationexception-while-removing-elements-from-arr)
- emus.removeAll(emuRemove);
- fill(0, 255, 0);
- noStroke();
- rect(0, 0, 100, 40);
- fill(0);
- text("FPS: " + (int) frameRate, 2, 15);
- text((int) gun1.getAmmo() + " | " + (int) gun1.getMaxAmmo(), 200, 12);
- }
- */
