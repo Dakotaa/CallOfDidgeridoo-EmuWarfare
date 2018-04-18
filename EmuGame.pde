@@ -1,10 +1,11 @@
 /*******************************************************************************
-
-                    CALL OF DIDGERIDOO: EMU WARFARE
-
-                                  2018
-                           BY: Dakota, Angus
-********************************************************************************/
+ 
+ CALL OF DIDGERIDOO: EMU WARFARE
+ 
+ 2018
+ BY: Dakota, Angus
+ 
+ ********************************************************************************/
 
 PImage lewisGun, miniGun, emuPhoto, blood;
 boolean isDone, autoFire, aiming = false;
@@ -26,6 +27,7 @@ Gun gun1 = new Gun_Lewisgun();
 void setup() {
   fullScreen();
   cursor(CROSS);
+  levels.add(new TitleScreen()); // Adds the title screen level
   thread("loadImages"); // Runs the loadImages function in another thread, this allows the loading screen to show while the images are being loaded.
 }
 
@@ -40,40 +42,22 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
   isDone = true;
 }
 
-// TODO: Move title screen into level function
-void titleScreen() {
-  pushMatrix();
-  background(0);
-  fill(255);
-  textSize(100);
-  textAlign(CENTER);
-  text("CALL OF DIDGERIDOO: Emu Warfare", width/2, 100);
-  popMatrix();
-
-  buttonOne.update(); // Draws the first button
-}
-
 void draw() {
-  if (!isDone) {
+  if (!isDone) {  // If loading is not done, show the "LOADING..." screen.
     background(0);
     pushMatrix();
     textAlign(CENTER);
     textSize(50);
     text("LOADING...", width/2, height/2);
     popMatrix();
-  } else {
-    if (level == 0) {
-      titleScreen();
-    }
-
-    if (level == 1) {
-      for (Level l : levels) {
-        l.update();
-        text(truck.getSpeed(), 100, 100);
-      }
+  } else {  // If not loading, draw all the levels (only one level should be in the ArrayList at any time)
+    for (Level l : levels) {
+      l.update();
+      text(truck.getSpeed(), 100, 100);
     }
   }
 }
+
 
 // KeyPressed function to control truck
 void keyPressed() {
@@ -123,6 +107,7 @@ void keyReleased() {
         l.clearLevel();
       }
       levels.clear();
+      levels.add(new TitleScreen()); // Adds the title screen level
       break;
     }
   }
