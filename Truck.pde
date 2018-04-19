@@ -1,11 +1,12 @@
-// TODO: fix everything here
 // https://www.openprocessing.org/sketch/141841
 class Truck {
   PVector myLocation;
   PVector frontWheel;
   PVector backWheel;
   float myHeading, mySpeed, myBaseMaxSpeed, myMaxSpeed, mySteerAngle, myMaxSteerAngle, myWheelBase, myMinWheelBase, myMaxWheelBase, myHP, maxHP;
-  boolean plus, minus, up, down, left, right, steerLock;
+  boolean plus, minus, up, down, left, right, steerLock, exploding, timerStarted;
+  Timer explosionTimer = new Timer(8);
+  //Explosion truckExplosion = new Explosion(0, 0, 100);
   Truck(float maxSpeed) {
     up = down = left = right = steerLock = false;
     myLocation = new PVector(860, 540);
@@ -80,7 +81,7 @@ class Truck {
   }
 
   void setMaxSpeed() {
-     myMaxSpeed = myHP * myBaseMaxSpeed;
+    myMaxSpeed = myHP * myBaseMaxSpeed;
   }
 
   void resetMaxSpeed() {
@@ -88,17 +89,38 @@ class Truck {
   }
 
   void healthBar() {
-    if (myHP != maxHP) {
-      if (myHP > (maxHP*0.75)) {
-        fill(0, 255, 0);
-      } else if (myHP > (maxHP * 0.25)) {
-        fill(255, 255, 0);
-      } else {
-        fill(255, 0, 0);
+    if (myHP > 0) {
+      if (myHP != maxHP) {
+        if (myHP > (maxHP*0.75)) {
+          fill(0, 255, 0);
+        } else if (myHP > (maxHP * 0.25)) {
+          fill(255, 255, 0);
+        } else {
+          fill(255, 0, 0);
+        }
+        rectMode(CENTER);
+        rect(myLocation.x, myLocation.y - 50, (200)*(myHP/maxHP), 10);
+        rectMode(CENTER);
       }
-      rectMode(CENTER);
-      rect(myLocation.x, myLocation.y - 50, (200)*(myHP/maxHP), 10);
-      rectMode(CENTER);
+    }
+  }
+
+  void explode() {
+    if (!exploding) {
+      if (myHP <= 0) {
+        exploding = true;
+        
+        //truckExplosion.setX(myLocation.x);
+       // truckExplosion.setY(myLocation.y);
+      }
+    } else {
+      image(explosion, myLocation.x, myLocation.y);
+      explosionTimer.update();
+      //truckExplosion.update();
+      if (explosionTimer.isDone()) {
+        gameOver = true;
+        exploding = false;
+      }
     }
   }
 
@@ -107,7 +129,7 @@ class Truck {
       if (e.getX() > myLocation.x - 100 && e.getX() < myLocation.x + 100 && e.getY() > myLocation.y - 100 && e.getY() < myLocation.y + 100) {
         if (mySpeed > 2) {
           e.reduceHP(50);
-          reduceHP(0.001);
+          reduceHP(0.005);
         } else {
           if (frameCount%150 == 0) {
             reduceHP(0.01);
@@ -260,6 +282,9 @@ class Truck {
     setMaxSpeed();
     healthBar();
     hitEmu();
+    explode();
+
+    text(myHP, 600, 600);
   }
 }
 

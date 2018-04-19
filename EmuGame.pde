@@ -7,14 +7,16 @@
  
  ********************************************************************************/
 
-PImage lewisGun, miniGun, emuPhoto, blood;
-boolean isDone, autoFire, aiming = false;
+PImage lewisGun, miniGun, emuPhoto, emuPhotoFlipped, blood, explosion;
+boolean isDone, autoFire, aiming, gameOver = false;
 float gunInnac;
 int level = 0;
 ArrayList<Bullet> bullets = new ArrayList();
 ArrayList<Emu> emus = new ArrayList();
 ArrayList<Blood> bloods = new ArrayList();
 ArrayList<Level> levels = new ArrayList();
+Level lose = new LoseScreen();
+ArrayList<Timer> timers = new ArrayList();
 
 // TODO: Optimize how buttons are added or move them into a function
 Button buttonOne = new Button(200, 250, 100, 75, "Test Level", color(100, 200, 250));
@@ -36,7 +38,9 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
   lewisGun = loadImage("lewisgun.png");
   miniGun = loadImage("minigun.png");
   emuPhoto = loadImage("emu.png");
+  emuPhotoFlipped = loadImage("emuflipped.png");
   blood = loadImage("blood.png");
+  explosion = loadImage("explosion.png");
   lewisGun.resize((int) (lewisGun.width*0.5), (int) (lewisGun.height*0.5));
   blood.resize(200, 200);
   isDone = true;
@@ -51,9 +55,13 @@ void draw() {
     text("LOADING...", width/2, height/2);
     popMatrix();
   } else {  // If not loading, draw all the levels (only one level should be in the ArrayList at any time)
-    for (Level l : levels) {
-      l.update();
-      text(truck.getSpeed(), 100, 100);
+    if (!gameOver) {
+      for (Level l : levels) {
+        l.update();
+        //text(truck.getSpeed(), 100, 100);
+      }
+    } else {
+      lose.update();
     }
   }
 }
@@ -108,6 +116,7 @@ void keyReleased() {
       }
       levels.clear();
       levels.add(new TitleScreen()); // Adds the title screen level
+      gameOver = false;
       break;
     }
   }

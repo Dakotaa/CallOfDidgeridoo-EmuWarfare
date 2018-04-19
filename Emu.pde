@@ -1,7 +1,7 @@
 class Emu { 
   float myHP, maxHP, myX, myY, mySize, myFade, myXVel, myYVel;
   boolean dead, bleeding, movingUp = false;
-  PImage myPhoto;
+  PImage myPhoto, myPhotoF;
   Emu (float x, float y, float hp, float size) {
     myX = x;
     myY = y;
@@ -11,6 +11,9 @@ class Emu {
     myFade = 255;
     myPhoto = emuPhoto.copy();
     myPhoto.resize((int) (mySize*400), (int) (mySize*406));
+
+    myPhotoF = emuPhotoFlipped.copy();
+    myPhotoF.resize((int) (mySize*400), (int) (mySize*406));
   }
 
   void reduceHP (float damage) {
@@ -125,7 +128,12 @@ class Emu {
       dead = true;
     }
     fill(157, 100, 67);
-    image(myPhoto, myX, myY);
+    if (xVelocity() > 0) {
+      image(myPhotoF, myX, myY);
+    } else {
+      image(myPhoto, myX, myY);
+    }
+
     fill(0);
     healthBar();
   }
