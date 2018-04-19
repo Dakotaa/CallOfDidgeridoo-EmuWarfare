@@ -6,6 +6,11 @@ class Timer {
     seconds = s;
   }
 
+  void setSeconds(float s) {
+    seconds = s;
+    ended = false;
+  }
+  
   boolean isDone() {
     return ended;
   }

@@ -109,17 +109,24 @@ class Truck {
     if (!exploding) {
       if (myHP <= 0) {
         exploding = true;
-        
+        for (Emu e : emus) {
+          if (e.getX() > myLocation.x - 200 && e.getX() < myLocation.x + 200 && e.getY() > myLocation.y - 200 && e.getY() < myLocation.y + 200) {
+            e.reduceHP(100);
+          }
+        }
+
         //truckExplosion.setX(myLocation.x);
-       // truckExplosion.setY(myLocation.y);
+        // truckExplosion.setY(myLocation.y);
       }
     } else {
+      // TODO : Convert this into explosion object
       image(explosion, myLocation.x, myLocation.y);
       explosionTimer.update();
       //truckExplosion.update();
       if (explosionTimer.isDone()) {
         gameOver = true;
         exploding = false;
+        explosionTimer.setSeconds(8);
       }
     }
   }
