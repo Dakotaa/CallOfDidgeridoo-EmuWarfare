@@ -45,7 +45,6 @@ class Truck {
   float gunY() {
     return myLocation.y;
   }
-
   void setHeading(float heading) {
     myHeading = heading;
   }
@@ -87,6 +86,8 @@ class Truck {
   void resetMaxSpeed() {
     myMaxSpeed = 5;
   }
+
+
 
   void healthBar() {
     if (myHP > 0) {
@@ -138,10 +139,6 @@ class Truck {
         if (mySpeed > 2) {
           e.reduceHP(50);
           reduceHP(0.005);
-        } else {
-          if (frameCount%150 == 0) {
-            reduceHP(0.01);
-          }
         }
       }
     }
@@ -295,11 +292,6 @@ class Truck {
     text(myHP, 600, 600);
   }
 }
-
-
-
-
-
 
 
 

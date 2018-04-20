@@ -21,6 +21,7 @@ ArrayList<Level> levels = new ArrayList();
 ArrayList<Button> buttons = new ArrayList();
 Level lose = new LoseScreen();
 ArrayList<Timer> timers = new ArrayList();
+HUD hud = new HUD(true, true, true);
 // TODO: Optimize how buttons are added or move them into a function
 
 // TODO: initialize truck in level setup?
@@ -139,16 +140,13 @@ void keyReleased() {
 
 void mousePressed() {
   if (mouseButton == LEFT) {
-    if (level == 0) {
+    if (level == 0) {    // If in the title screen, buttons can be clicked.
       for (Button b : buttons) {
         if (b.getDown()) {
           b.pressed();
         }
       }
-    }
-  }
-  if (level != 0) {              // If not on the title screen, clicking will operate the gun.
-    if (mouseButton == LEFT) {
+    } else {
       for (Gun g : guns) {
         if (g.getAmmo() > 0 && !g.getReloading()) {
           if (aiming) {
@@ -158,11 +156,13 @@ void mousePressed() {
         }
       }
     }
-    if (mouseButton == RIGHT) {    // When right clicking, the gun "aiming" is true, draws the white line and makes the gun more accurate.
-      aiming = true;
-    }
+  }
+  
+  if (mouseButton == RIGHT) {    // When right clicking, the gun "aiming" is true, draws the white line and makes the gun more accurate.
+    aiming = true;
   }
 }
+
 
 void mouseReleased() {    // Sets aiming to false when not on the title screen and the right mouse button is released.
   if (level != 0) {

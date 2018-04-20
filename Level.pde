@@ -71,7 +71,8 @@ class Level {
     emus.removeAll(emuRemove);
     textAlign(CORNER);
     fill(0);
-    textSize(20);
+    //textSize(20);
     //text((int) gun1.getAmmo() + " | " + (int) gun1.getMaxAmmo(), 200, 30);
+    hud.update();
   }
 }

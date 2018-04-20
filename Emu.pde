@@ -2,7 +2,7 @@ class Emu {
   float myHP, maxHP, myX, myY, mySize, myFade, myXVel, myYVel, speedModifier;
   boolean dead, bleeding, movingUp = false;
   PImage myPhoto, myPhotoF;
-  int frameNum = (int) random(1,33);
+  int frameNum = (int) random(1, 33);
   PImage runPhotos[] = new PImage[34];
   PImage runPhotosF[] = new PImage[34];
   Emu (float x, float y, float hp, float size) {
@@ -111,7 +111,13 @@ class Emu {
     yVel = toTruckY() + bob();
     return yVel;
   }
-
+  void attack() { 
+    if (myX > truck.getX() - 100 && myX < truck.getX() + 100 && myY > truck.getY() - 100 && myY < truck.getY() + 100) { 
+      if (frameCount%(int(random(125, 175))) == 0) { 
+        truck.reduceHP(0.01);
+      }
+    }
+  }
   void update() {
     if (frameCount%(int(random(20, 40))) == 0) {
       myXVel = xVelocity();
@@ -144,9 +150,9 @@ class Emu {
       dead = true;
     }
     fill(157, 100, 67);
-      if (frameCount%2 == 0) {
-        frameNum++;
-      }
+    if (frameCount%2 == 0) {
+      frameNum++;
+    }
     if (frameNum > 30) {
       frameNum = 1;
     }
@@ -159,6 +165,7 @@ class Emu {
     }
 
     fill(0);
+    attack();
     healthBar();
   }
 }

@@ -10,14 +10,14 @@ class TitleScreen extends Level {
     textAlign(CENTER);
     text("CALL OF DIDGERIDOO: Emu Warfare", width/2, 100);
     textSize(25);
-    text("Version 0.0.3", width/2, 150);
+    text("Version 0.0.4", width/2, 150);
 
     textAlign(LEFT);
-    text("Version 0.0.3 Changelog:", 20, 600);
+    text("Version 0.0.4 Changelog:", 20, 600);
     textSize(20);
-    text(" - Truck now loses more health when running into emus.", 30, 650);
-    text(" - Truck will now explode and show Game Over screen when it reaches 0 HP.", 30, 675);
-    text(" - Emus image flips to show correct movement direction.", 30, 700);
+    text(" - Emus now animated", 30, 650);
+    text(" - Started work on HUD (currently shows FPS, truck condition, ammo)", 30, 675);
+    text(" - Optimized levels and buttons, added new Minigun test level.", 30, 700);
 
     popMatrix();
 
