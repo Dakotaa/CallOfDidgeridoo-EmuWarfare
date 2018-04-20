@@ -21,6 +21,8 @@ class TitleScreen extends Level {
 
     popMatrix();
 
-    buttonOne.update(); // Draws the first button
+    for (Button b : buttons) {
+      b.update();  
+    }
   }
 }

@@ -18,11 +18,10 @@ ArrayList<Emu> emus = new ArrayList();
 ArrayList<Blood> bloods = new ArrayList();
 ArrayList<Gun> guns = new ArrayList();
 ArrayList<Level> levels = new ArrayList();
+ArrayList<Button> buttons = new ArrayList();
 Level lose = new LoseScreen();
 ArrayList<Timer> timers = new ArrayList();
-
 // TODO: Optimize how buttons are added or move them into a function
-Button buttonOne = new Button(200, 250, 100, 75, "Test Level", color(100, 200, 250));
 
 // TODO: initialize truck in level setup?
 Truck truck = new Truck (5);
@@ -31,9 +30,12 @@ Truck truck = new Truck (5);
 
 void setup() {
   fullScreen();
+  //((PGraphicsOpenGL)g).textureSampling(3); // https://forum.processing.org/two/discussion/8075/why-are-text-and-graphics-so-ugly-and-blocky
   cursor(CROSS);
   levels.add(new TitleScreen()); // Adds the title screen level
   thread("loadImages"); // Runs the loadImages function in another thread, this allows the loading screen to show while the images are being loaded.
+  buttons.add(new Button(200, 250, 100, 75, "Test Level", color(100, 200, 250), 2, new LevelOne()));
+  buttons.add(new Button(350, 250, 100, 75, "Minigun Test", color(100, 200, 250), 2, new LevelTwo()));
 }
 
 // Loads all the images in another core thread, sets isDone to true after images are loaded to stop drawing of loading screen.
@@ -138,12 +140,9 @@ void keyReleased() {
 void mousePressed() {
   if (mouseButton == LEFT) {
     if (level == 0) {
-      if (buttonOne.getDown()) {    // Level One button
-        buttonOne.setDown(false);    // If the mouse is over the button and clicked, sets the level to one, adds a new level one instance, and sets it up.
-        level = 1;
-        levels.add(new LevelOne());
-        for (Level l : levels) {
-          l.setupLevel();
+      for (Button b : buttons) {
+        if (b.getDown()) {
+          b.pressed();
         }
       }
     }
