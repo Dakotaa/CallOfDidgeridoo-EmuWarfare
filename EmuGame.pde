@@ -16,6 +16,7 @@ int level = 0;
 ArrayList<Bullet> bullets = new ArrayList();
 ArrayList<Emu> emus = new ArrayList();
 ArrayList<Blood> bloods = new ArrayList();
+ArrayList<Gun> guns = new ArrayList();
 ArrayList<Level> levels = new ArrayList();
 Level lose = new LoseScreen();
 ArrayList<Timer> timers = new ArrayList();
@@ -26,7 +27,7 @@ Button buttonOne = new Button(200, 250, 100, 75, "Test Level", color(100, 200, 2
 // TODO: initialize truck in level setup?
 Truck truck = new Truck (5);
 //Gun gun1 = new Gun();
-Gun gun1 = new Gun_Lewisgun();
+//Gun gun1 = new Gun_Lewisgun();
 
 void setup() {
   fullScreen();
@@ -46,11 +47,11 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
   for (int i = 1; i < emuRun.length; i++) {
     emuRun[i] = loadImage(dataPath("EmuRun/EmuRun" + i + ".png"));    // https://forum.processing.org/two/discussion/4160/is-it-possible-to-load-files-from-a-folder-inside-the-data-folder
   }
-  
+
   for (int i = 1; i < emuRunFlip.length; i++) {
     emuRunFlip[i] = loadImage(dataPath("EmuRunFlip/EmuRunFlip" + i + ".png"));    // https://forum.processing.org/two/discussion/4160/is-it-possible-to-load-files-from-a-folder-inside-the-data-folder
   }
-  
+
   lewisGun.resize((int) (lewisGun.width*0.5), (int) (lewisGun.height*0.5));
   blood.resize(200, 200);
   isDone = true;
@@ -114,7 +115,9 @@ void keyReleased() {
       emus.add(new Emu(mouseX, mouseY, (int) random(40, 100), random(0.1, 0.3)));
       break;
     case 82:    // Reloads gun
-      gun1.reload();
+      for (Gun g : guns) {
+        g.reload();
+      }
       break;
     case 83:    // Moves truck down
       truck.setDown(false);
@@ -147,10 +150,12 @@ void mousePressed() {
   }
   if (level != 0) {              // If not on the title screen, clicking will operate the gun.
     if (mouseButton == LEFT) {
-      if (gun1.getAmmo() > 0 && !gun1.getReloading()) {
-        if (aiming) {
-          bullets.add(new Bullet(new PVector(truck.gunX(), truck.gunY()), 30, gun1.getTheta(), mouseX, mouseY, true));    // Creates a new bullet
-          gun1.shoot();    // Runs the shoot function for the gun
+      for (Gun g : guns) {
+        if (g.getAmmo() > 0 && !g.getReloading()) {
+          if (aiming) {
+            bullets.add(new Bullet(new PVector(truck.gunX(), truck.gunY()), 30, g.getTheta(), mouseX, mouseY, true));    // Creates a new bullet
+            g.shoot();    // Runs the shoot function for the gun
+          }
         }
       }
     }

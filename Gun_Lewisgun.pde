@@ -1,7 +1,7 @@
 final class Gun_Lewisgun extends Gun {
-  Gun_Lewisgun() {
+  Gun_Lewisgun(int maxAmmo) {
     super();
-    myMaxAmmo = 75;
+    myMaxAmmo = maxAmmo;
     myAmmo = myMaxAmmo;
     myRateOfFire = 6;
     //gunImage = miniGun;

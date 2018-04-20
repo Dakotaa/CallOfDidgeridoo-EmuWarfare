@@ -2,7 +2,7 @@ class Emu {
   float myHP, maxHP, myX, myY, mySize, myFade, myXVel, myYVel, speedModifier;
   boolean dead, bleeding, movingUp = false;
   PImage myPhoto, myPhotoF;
-  int frameNum = (int) random(0,33);
+  int frameNum = (int) random(1,33);
   PImage runPhotos[] = new PImage[34];
   PImage runPhotosF[] = new PImage[34];
   Emu (float x, float y, float hp, float size) {
