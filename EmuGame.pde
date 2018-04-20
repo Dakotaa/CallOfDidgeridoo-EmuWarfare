@@ -9,6 +9,7 @@
 
 PImage lewisGun, miniGun, emuPhoto, emuPhotoFlipped, blood, explosion;
 PImage[] emuRun = new PImage[34];    // https://processing.org/discourse/beta/num_1192465513.html
+PImage[] emuRunFlip = new PImage[34];
 boolean isDone, autoFire, aiming, gameOver = false;
 float gunInnac;
 int level = 0;
@@ -45,6 +46,11 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
   for (int i = 1; i < emuRun.length; i++) {
     emuRun[i] = loadImage(dataPath("EmuRun/EmuRun" + i + ".png"));    // https://forum.processing.org/two/discussion/4160/is-it-possible-to-load-files-from-a-folder-inside-the-data-folder
   }
+  
+  for (int i = 1; i < emuRunFlip.length; i++) {
+    emuRunFlip[i] = loadImage(dataPath("EmuRunFlip/EmuRunFlip" + i + ".png"));    // https://forum.processing.org/two/discussion/4160/is-it-possible-to-load-files-from-a-folder-inside-the-data-folder
+  }
+  
   lewisGun.resize((int) (lewisGun.width*0.5), (int) (lewisGun.height*0.5));
   blood.resize(200, 200);
   isDone = true;

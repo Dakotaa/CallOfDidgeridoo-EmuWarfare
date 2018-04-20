@@ -2,8 +2,9 @@ class Emu {
   float myHP, maxHP, myX, myY, mySize, myFade, myXVel, myYVel, speedModifier;
   boolean dead, bleeding, movingUp = false;
   PImage myPhoto, myPhotoF;
-  int frameNum = 1;
+  int frameNum = (int) random(0,33);
   PImage runPhotos[] = new PImage[34];
+  PImage runPhotosF[] = new PImage[34];
   Emu (float x, float y, float hp, float size) {
     myX = x;
     myY = y;
@@ -15,12 +16,19 @@ class Emu {
       runPhotos[i] = emuRun[i].copy();
       runPhotos[i].resize((int) (mySize*400), (int) (mySize*406));
     }
+
+    for (int i = 1; i < runPhotosF.length; i++) {
+      runPhotosF[i] = emuRunFlip[i].copy();
+      runPhotosF[i].resize((int) (mySize*400), (int) (mySize*406));
+    }
+
+    /*
     myPhoto = emuPhoto.copy();
-    myPhoto.resize((int) (mySize*400), (int) (mySize*406));
-
-    myPhotoF = emuPhotoFlipped.copy();
-    myPhotoF.resize((int) (mySize*400), (int) (mySize*406));
-
+     myPhoto.resize((int) (mySize*400), (int) (mySize*406));
+     
+     myPhotoF = emuPhotoFlipped.copy();
+     myPhotoF.resize((int) (mySize*400), (int) (mySize*406));
+     */
     speedModifier = 0.3/mySize;
   }
 
@@ -136,21 +144,19 @@ class Emu {
       dead = true;
     }
     fill(157, 100, 67);
-
-    if (frameCount%2 == 0) {
-      frameNum++;
-    }
+      if (frameCount%2 == 0) {
+        frameNum++;
+      }
     if (frameNum > 30) {
       frameNum = 1;
     }
     text(runPhotos.length, 300, 150);
     text(frameNum, 300, 200);
-    image(runPhotos[frameNum], myX, myY);
-    /*if (xVelocity() > 0) {
-     image(myPhotoF, myX, myY);
-     } else {
-     image(myPhoto, myX, myY);
-     }*/
+    if (xVelocity() > 0) {
+      image(runPhotosF[frameNum], myX, myY);
+    } else {
+      image(runPhotos[frameNum], myX, myY);
+    }
 
     fill(0);
     healthBar();
