@@ -4,7 +4,7 @@ class LevelTwo extends Level {
 
   void setupLevel() {
     for (int i = 0; i < 250; ++i) {
-      emus.add(new Emu(random(width*.75, width), random(300, height-300), (int) random(40, 100), random(0.1, 0.3)));
+      emus.add(new Emu(random(width*.75, width), random(300, height-300), random(0.05, 0.5)));
     }
     guns.add(new Gun_Minigun(500));
     for (Gun g : guns) {

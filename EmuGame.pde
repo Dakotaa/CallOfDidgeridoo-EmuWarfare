@@ -115,7 +115,7 @@ void keyReleased() {
       truck.setUp(false); 
       break;
     case 81:
-      emus.add(new Emu(mouseX, mouseY, (int) random(40, 100), random(0.1, 0.3)));
+      emus.add(new Emu(mouseX, mouseY, random(0.05, 0.5)));
       break;
     case 82:    // Reloads gun
       for (Gun g : guns) {

@@ -5,11 +5,11 @@ class Emu {
   int frameNum = (int) random(1, 33);
   PImage runPhotos[] = new PImage[34];
   PImage runPhotosF[] = new PImage[34];
-  Emu (float x, float y, float hp, float size) {
+  Emu (float x, float y, float size) {
     myX = x;
     myY = y;
-    myHP = hp;
-    maxHP = hp;
+    myHP = size*250;
+    maxHP = myHP;
     mySize = size;
     myFade = 255;
     for (int i = 1; i < runPhotos.length; i++) {
@@ -29,7 +29,7 @@ class Emu {
      myPhotoF = emuPhotoFlipped.copy();
      myPhotoF.resize((int) (mySize*400), (int) (mySize*406));
      */
-    speedModifier = 0.3/mySize;
+    speedModifier = 0.2/mySize;
   }
 
   void reduceHP (float damage) {
@@ -156,8 +156,7 @@ class Emu {
     if (frameNum > 30) {
       frameNum = 1;
     }
-    text(runPhotos.length, 300, 150);
-    text(frameNum, 300, 200);
+
     if (xVelocity() > 0) {
       image(runPhotosF[frameNum], myX, myY);
     } else {

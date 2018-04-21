@@ -20,6 +20,7 @@ class Truck {
     maxHP = 1;
     myHP = maxHP;
   }
+  
   float getSpeed() {
     return mySpeed;
   }
@@ -288,8 +289,6 @@ class Truck {
     healthBar();
     hitEmu();
     explode();
-
-    text(myHP, 600, 600);
   }
 }
 
