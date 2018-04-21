@@ -7,21 +7,23 @@
  
  ********************************************************************************/
 
-PImage lewisGun, miniGun, emuPhoto, emuPhotoFlipped, blood, explosion;
+PImage lewisGun, miniGun, emuPhoto, emuPhotoFlipped, blood, explosion, boomerang;
 PImage[] emuRun = new PImage[34];    // https://processing.org/discourse/beta/num_1192465513.html
 PImage[] emuRunFlip = new PImage[34];
 boolean isDone, autoFire, aiming, gameOver = false;
 float gunInnac;
 int level = 0;
+
 ArrayList<Bullet> bullets = new ArrayList();
 ArrayList<Emu> emus = new ArrayList();
 ArrayList<Blood> bloods = new ArrayList();
 ArrayList<Gun> guns = new ArrayList();
 ArrayList<Level> levels = new ArrayList();
 ArrayList<Button> buttons = new ArrayList();
-Level lose = new LoseScreen();
 ArrayList<Timer> timers = new ArrayList();
+ArrayList<Projectile> projectiles = new ArrayList();
 HUD hud = new HUD(true, true, true);
+Level lose = new LoseScreen();
 // TODO: Optimize how buttons are added or move them into a function
 
 // TODO: initialize truck in level setup?
@@ -44,6 +46,8 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
   lewisGun = loadImage("lewisgun.png");
   miniGun = loadImage("minigun.png");
   emuPhoto = loadImage("emu.png");
+  boomerang = loadImage("Boomerang.png");
+  boomerang.resize((int) (boomerang.width*0.15), (int) (boomerang.height*0.15));
   emuPhotoFlipped = loadImage("emuflipped.png");
   blood = loadImage("blood.png");
   explosion = loadImage("explosion.png");
@@ -96,6 +100,11 @@ void keyPressed() {
       break;
     case 83:
       truck.setDown(true);
+      break;
+    case 69:
+      for (Gun g : guns) {
+        projectiles.add(new Boomerang_Thrown(new PVector(truck.gunX(), truck.gunY()), 15, g.getTheta(), mouseX, mouseY));
+      }
       break;
     }
   }
@@ -157,7 +166,7 @@ void mousePressed() {
       }
     }
   }
-  
+
   if (mouseButton == RIGHT) {    // When right clicking, the gun "aiming" is true, draws the white line and makes the gun more accurate.
     aiming = true;
   }

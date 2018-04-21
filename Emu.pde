@@ -1,7 +1,7 @@
 class Emu { 
   float myHP, maxHP, myX, myY, mySize, myFade, myXVel, myYVel, speedModifier;
   boolean dead, bleeding, movingUp = false;
-  PImage myPhoto, myPhotoF;
+  //PImage myPhoto, myPhotoF;
   int frameNum = (int) random(1, 33);
   PImage runPhotos[] = new PImage[34];
   PImage runPhotosF[] = new PImage[34];
@@ -49,6 +49,14 @@ class Emu {
 
   float getY() {
     return myY;
+  }
+  
+  float getWidth() {
+    return (mySize*400);  
+  }
+  
+  float getHeight() {
+    return (mySize*406);  
   }
 
 
@@ -145,6 +153,7 @@ class Emu {
         reduceHP(5);
       }
     }
+
     bullets.removeAll(toRemove);
     if (myHP <= 0) {
       dead = true;

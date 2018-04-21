@@ -9,6 +9,7 @@ class Level {
     bloods.clear();
     bullets.clear();
     guns.clear();
+    projectiles.clear();
   }
 
   void update() {
@@ -22,6 +23,10 @@ class Level {
     truck.update();
     for (Gun g : guns) {
       g.drawGun();
+    }
+    
+    for (Projectile p : projectiles) {
+      p.update();  
     }
 
     ArrayList<Bullet> toRemove = new ArrayList();
