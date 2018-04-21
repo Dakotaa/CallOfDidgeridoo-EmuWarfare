@@ -1,11 +1,16 @@
 class Boomerang_Thrown extends Projectile {
-  boolean returning;
+  boolean returning, returned;
   Boomerang_Thrown(PVector position, float velocity, float theta, float xEnd, float yEnd) {
     super(position, velocity, theta, xEnd, yEnd);
   }
 
   void setReturning(boolean r) {
     returning = r;
+  }
+
+  void returned() {
+    inventory.put("Boomerang", inventory.get("Boomerang") + 1);  
+    toRemove = true;
   }
 
   void update() {
@@ -19,23 +24,26 @@ class Boomerang_Thrown extends Projectile {
     if (myPosition.x > myXEnd - 20 && myPosition.x < myXEnd + 20 && myPosition.y > myYEnd - 20 && myPosition.y < myYEnd - 20) {
       returning = true;
     }
-
+    
     if (returning) {
       myPosition.x += -myVelocity.x;
       myPosition.y += -myVelocity.y;
       if (myPosition.x > truck.gunX() - 10 && myPosition.x < truck.gunX() + 10 && myPosition.y > truck.gunY() - 10 && myPosition.y < truck.gunY() + 10) {
-        visible = false;  
+        returned();
       }
     } else {
       myPosition.x += myVelocity.x;
       myPosition.y += myVelocity.y;
     }
+    
     if (visible) {
       pushMatrix();
       translate(myPosition.x, myPosition.y);
       rotate(frameCount/3);
       image(boomerang, 0, 0);
       popMatrix();
+      text(myPosition.x, 200, 100);
+      text(myXEnd, 200, 200);
     }
   }
 }

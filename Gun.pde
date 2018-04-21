@@ -88,7 +88,7 @@ class Gun {
     imageMode(CENTER);
     translate(truck.getX(), truck.getY());
     rotate(myTheta);
-    image(lewisGun, 0, 0);
+    image(gunImage, 0, 0);
     popMatrix();
   }
 }

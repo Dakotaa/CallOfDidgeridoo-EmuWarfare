@@ -25,8 +25,16 @@ class Level {
       g.drawGun();
     }
     
+    ArrayList<Projectile> projectilesToRemove = new ArrayList();
     for (Projectile p : projectiles) {
-      p.update();  
+      p.update();
+      if (p.getToRemove()) {
+        projectilesToRemove.add(p);  
+      }
+      
+      if (p.getX() > width + 100 || p.getX() < - 00 || p.getY() > height + 100 || p.getY() < -100) {
+        projectilesToRemove.add(p);  
+      }
     }
 
     ArrayList<Bullet> toRemove = new ArrayList();
@@ -71,7 +79,7 @@ class Level {
       line(truck.gunX(), truck.gunY(), mouseX, mouseY);
       noStroke();
     }
-
+    projectiles.removeAll(projectilesToRemove);
     bullets.removeAll(toRemove); // Removes offscreen bullets (https://stackoverflow.com/questions/18448671/how-to-avoid-concurrentmodificationexception-while-removing-elements-from-arr)
     emus.removeAll(emuRemove);
     textAlign(CORNER);

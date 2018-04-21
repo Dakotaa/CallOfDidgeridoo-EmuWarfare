@@ -22,6 +22,7 @@ ArrayList<Level> levels = new ArrayList();
 ArrayList<Button> buttons = new ArrayList();
 ArrayList<Timer> timers = new ArrayList();
 ArrayList<Projectile> projectiles = new ArrayList();
+HashMap<String, Integer> inventory = new HashMap<String, Integer>();    // https://codereview.stackexchange.com/questions/148821/inventory-of-objects-with-item-types-and-quantities
 HUD hud = new HUD(true, true, true);
 Level lose = new LoseScreen();
 // TODO: Optimize how buttons are added or move them into a function
@@ -39,6 +40,7 @@ void setup() {
   thread("loadImages"); // Runs the loadImages function in another thread, this allows the loading screen to show while the images are being loaded.
   buttons.add(new Button(200, 250, 100, 75, "Test Level", color(100, 200, 250), 2, new LevelOne()));
   buttons.add(new Button(350, 250, 100, 75, "Minigun Test", color(100, 200, 250), 2, new LevelTwo()));
+  inventory.put("Boomerang", 5);
 }
 
 // Loads all the images in another core thread, sets isDone to true after images are loaded to stop drawing of loading screen.
@@ -103,7 +105,10 @@ void keyPressed() {
       break;
     case 69:
       for (Gun g : guns) {
-        projectiles.add(new Boomerang_Thrown(new PVector(truck.gunX(), truck.gunY()), 15, g.getTheta(), mouseX, mouseY));
+        if (inventory.get("Boomerang") > 0) {
+          projectiles.add(new Boomerang_Thrown(new PVector(truck.gunX(), truck.gunY()), 15, g.getTheta(), mouseX, mouseY));
+          inventory.put("Boomerang", inventory.get("Boomerang") - 1);
+        }
       }
       break;
     }

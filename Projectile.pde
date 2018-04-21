@@ -2,6 +2,7 @@ class Projectile{
   PVector myPosition, myVelocity, mySpeed;
   float myTheta, velocity, myXEnd, myYEnd;
   boolean visible = true;
+  boolean toRemove;
   Projectile (PVector position, float velocity, float theta, float xEnd, float yEnd) {
     myPosition = position;
     myVelocity = new PVector(15, 15);
@@ -20,7 +21,14 @@ class Projectile{
       myVelocity.x = ((float) Math.sqrt((((velocity)*(velocity))-((myVelocity.y)*(myVelocity.y)))))*-1;
     }
   }
-
+  
+  void setToRemove(boolean tr) {
+    toRemove = tr;  
+  }
+  
+  boolean getToRemove() {
+    return toRemove;  
+  }
   float getX() {
     return myPosition.x;
   }
