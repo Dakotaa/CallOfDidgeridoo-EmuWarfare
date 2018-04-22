@@ -34,6 +34,7 @@ Truck truck = new Truck (5);
 
 void setup() {
   fullScreen();
+  frameRate(60);
   //((PGraphicsOpenGL)g).textureSampling(3); // https://forum.processing.org/two/discussion/8075/why-are-text-and-graphics-so-ugly-and-blocky
   cursor(CROSS);
   levels.add(new TitleScreen()); // Adds the title screen level
