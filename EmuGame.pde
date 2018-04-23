@@ -7,28 +7,41 @@
  
  ********************************************************************************/
 
-PImage lewisGun, miniGun, emuPhoto, blood;
-boolean isDone, autoFire, aiming = false;
+PImage lewisGun, miniGun, emuPhoto, emuPhotoFlipped, blood, explosion, boomerang;
+PImage[] emuRun = new PImage[34];    // https://processing.org/discourse/beta/num_1192465513.html
+PImage[] emuRunFlip = new PImage[34];
+boolean isDone, autoFire, aiming, gameOver = false;
 float gunInnac;
 int level = 0;
+
 ArrayList<Bullet> bullets = new ArrayList();
 ArrayList<Emu> emus = new ArrayList();
 ArrayList<Blood> bloods = new ArrayList();
+ArrayList<Gun> guns = new ArrayList();
 ArrayList<Level> levels = new ArrayList();
-
+ArrayList<Button> buttons = new ArrayList();
+ArrayList<Timer> timers = new ArrayList();
+ArrayList<Projectile> projectiles = new ArrayList();
+HashMap<String, Integer> inventory = new HashMap<String, Integer>();    // https://codereview.stackexchange.com/questions/148821/inventory-of-objects-with-item-types-and-quantities
+HUD hud = new HUD(true, true, true);
+Level lose = new LoseScreen();
 // TODO: Optimize how buttons are added or move them into a function
-Button buttonOne = new Button(200, 250, 100, 75, "Test Level", color(100, 200, 250));
 
 // TODO: initialize truck in level setup?
 Truck truck = new Truck (5);
 //Gun gun1 = new Gun();
-Gun gun1 = new Gun_Lewisgun();
+//Gun gun1 = new Gun_Lewisgun();
 
 void setup() {
   fullScreen();
+  frameRate(60);
+  //((PGraphicsOpenGL)g).textureSampling(3); // https://forum.processing.org/two/discussion/8075/why-are-text-and-graphics-so-ugly-and-blocky
   cursor(CROSS);
   levels.add(new TitleScreen()); // Adds the title screen level
   thread("loadImages"); // Runs the loadImages function in another thread, this allows the loading screen to show while the images are being loaded.
+  buttons.add(new Button(200, 250, 100, 75, "Test Level", color(100, 200, 250), 2, new LevelOne()));
+  buttons.add(new Button(350, 250, 100, 75, "Minigun Test", color(100, 200, 250), 2, new LevelTwo()));
+  inventory.put("Boomerang", 5);
 }
 
 // Loads all the images in another core thread, sets isDone to true after images are loaded to stop drawing of loading screen.
@@ -36,7 +49,19 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
   lewisGun = loadImage("lewisgun.png");
   miniGun = loadImage("minigun.png");
   emuPhoto = loadImage("emu.png");
+  boomerang = loadImage("Boomerang.png");
+  boomerang.resize((int) (boomerang.width*0.15), (int) (boomerang.height*0.15));
+  emuPhotoFlipped = loadImage("emuflipped.png");
   blood = loadImage("blood.png");
+  explosion = loadImage("explosion.png");
+  for (int i = 1; i < emuRun.length; i++) {
+    emuRun[i] = loadImage(dataPath("EmuRun/EmuRun" + i + ".png"));    // https://forum.processing.org/two/discussion/4160/is-it-possible-to-load-files-from-a-folder-inside-the-data-folder
+  }
+
+  for (int i = 1; i < emuRunFlip.length; i++) {
+    emuRunFlip[i] = loadImage(dataPath("EmuRunFlip/EmuRunFlip" + i + ".png"));    // https://forum.processing.org/two/discussion/4160/is-it-possible-to-load-files-from-a-folder-inside-the-data-folder
+  }
+
   lewisGun.resize((int) (lewisGun.width*0.5), (int) (lewisGun.height*0.5));
   blood.resize(200, 200);
   isDone = true;
@@ -51,9 +76,13 @@ void draw() {
     text("LOADING...", width/2, height/2);
     popMatrix();
   } else {  // If not loading, draw all the levels (only one level should be in the ArrayList at any time)
-    for (Level l : levels) {
-      l.update();
-      text(truck.getSpeed(), 100, 100);
+    if (!gameOver) {
+      for (Level l : levels) {
+        l.update();
+        //text(truck.getSpeed(), 100, 100);
+      }
+    } else {
+      lose.update();
     }
   }
 }
@@ -63,6 +92,21 @@ void draw() {
 void keyPressed() {
   if (level != 0) {
     switch(keyCode) {
+    case 49: 
+      hud.setSelectedItem(0);
+      break;
+    case 50: 
+      hud.setSelectedItem(1);
+      break;
+    case 51: 
+      hud.setSelectedItem(2);
+      break;
+    case 52: 
+      hud.setSelectedItem(3);
+      break;
+    case 53: 
+      hud.setSelectedItem(4);
+      break;
     case 65: 
       truck.setLeft(true);
       break;
@@ -75,6 +119,20 @@ void keyPressed() {
     case 83:
       truck.setDown(true);
       break;
+    case 69:
+      throwBoomerang();
+      break;
+    }
+  }
+}
+
+void throwBoomerang() {
+  if (hud.getSelectedItem() == 0) {
+    for (Gun g : guns) {
+      if (inventory.get("Boomerang") > 0) {
+        projectiles.add(new Boomerang_Thrown(new PVector(truck.gunX(), truck.gunY()), 15, g.getTheta(), mouseX, mouseY));
+        inventory.put("Boomerang", inventory.get("Boomerang") - 1);
+      }
     }
   }
 }
@@ -93,10 +151,12 @@ void keyReleased() {
       truck.setUp(false); 
       break;
     case 81:
-      emus.add(new Emu(mouseX, mouseY, (int) random(40, 100), random(0.1, 0.3)));
+      emus.add(new Emu(mouseX, mouseY, random(0.05, 0.5)));
       break;
     case 82:    // Reloads gun
-      gun1.reload();
+      for (Gun g : guns) {
+        g.reload();
+      }
       break;
     case 83:    // Moves truck down
       truck.setDown(false);
@@ -108,6 +168,7 @@ void keyReleased() {
       }
       levels.clear();
       levels.add(new TitleScreen()); // Adds the title screen level
+      gameOver = false;
       break;
     }
   }
@@ -115,30 +176,29 @@ void keyReleased() {
 
 void mousePressed() {
   if (mouseButton == LEFT) {
-    if (buttonOne.getDown()) {    // Level One button
-      buttonOne.setDown(false);    // If the mouse is over the button and clicked, sets the level to one, adds a new level one instance, and sets it up.
-      level = 1;
-      levels.add(new LevelOne());
-      for (Level l : levels) {
-        l.setupLevel();
-      }
-    }
-  }
-  if (level != 0) {              // If not on the title screen, clicking will operate the gun.
-    if (mouseButton == LEFT) {
-      if (gun1.getAmmo() > 0 && !gun1.getReloading()) {
-        if (aiming) {
-          bullets.add(new Bullet(new PVector(truck.gunX(), truck.gunY()), 30, gun1.getTheta(), mouseX, mouseY, true));    // Creates a new bullet
-          gun1.shoot();    // Runs the shoot function for the gun
+    if (level == 0) {    // If in the title screen, buttons can be clicked.
+      for (Button b : buttons) {
+        if (b.getDown()) {
+          b.pressed();
         }
       }
-      //gunShot.play();
-    }
-    if (mouseButton == RIGHT) {    // When right clicking, the gun "aiming" is true, draws the white line and makes the gun more accurate.
-      aiming = true;
+    } else {
+      for (Gun g : guns) {
+        if (g.getAmmo() > 0 && !g.getReloading()) {
+          if (aiming) {
+            bullets.add(new Bullet(new PVector(truck.gunX(), truck.gunY()), 30, g.getTheta(), mouseX, mouseY, true));    // Creates a new bullet
+            g.shoot();    // Runs the shoot function for the gun
+          }
+        }
+      }
     }
   }
+
+  if (mouseButton == RIGHT) {    // When right clicking, the gun "aiming" is true, draws the white line and makes the gun more accurate.
+    aiming = true;
+  }
 }
+
 
 void mouseReleased() {    // Sets aiming to false when not on the title screen and the right mouse button is released.
   if (level != 0) {

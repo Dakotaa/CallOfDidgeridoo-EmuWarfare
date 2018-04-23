@@ -1,16 +1,20 @@
 // https://hadamlenz.wordpress.com/2014/07/16/building-a-button-in-processing/
 class Button {
   float myX, myY, myW, myH;
+  int levelNum;
   String myLabel;
   color myColour;
   boolean down;
-  Button (float x, float y, float w, float h, String label, color colour) {
+  Level levelType;
+  Button (float x, float y, float w, float h, String label, color colour, int num, Level l) {
     myX = x;
     myY = y;
     myW = w;
     myH = h;
     myLabel = label;
     myColour = colour;
+    levelNum = num;
+    levelType = l;
   }
 
   boolean getDown () {
@@ -20,7 +24,16 @@ class Button {
   void setDown (boolean d) {
     down = d;
   }
-  
+
+  void pressed() {
+    down = false;    // If the mouse is over the button and clicked, sets the level to one, adds a new level one instance, and sets it up.
+    level = levelNum;
+    levels.add(levelType);
+    for (Level l : levels) {
+      l.setupLevel();
+    }
+  }
+
   void update() {
     if (mouseX > myX && mouseX < myX + myW && mouseY > myY && mouseY < myY + myH) {
       down = true;

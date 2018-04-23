@@ -1,16 +1,35 @@
 class Emu { 
-  float myHP, maxHP, myX, myY, mySize, myFade, myXVel, myYVel;
+  float myHP, maxHP, myX, myY, mySize, myFade, myXVel, myYVel, speedModifier;
   boolean dead, bleeding, movingUp = false;
-  PImage myPhoto;
-  Emu (float x, float y, float hp, float size) {
+  //PImage myPhoto, myPhotoF;
+  int frameNum = (int) random(1, 33);
+  PImage runPhotos[] = new PImage[34];
+  PImage runPhotosF[] = new PImage[34];
+  Emu (float x, float y, float size) {
     myX = x;
     myY = y;
-    myHP = hp;
-    maxHP = hp;
+    myHP = size*250;
+    maxHP = myHP;
     mySize = size;
     myFade = 255;
+    for (int i = 1; i < runPhotos.length; i++) {
+      runPhotos[i] = emuRun[i].copy();
+      runPhotos[i].resize((int) (mySize*400), (int) (mySize*406));
+    }
+
+    for (int i = 1; i < runPhotosF.length; i++) {
+      runPhotosF[i] = emuRunFlip[i].copy();
+      runPhotosF[i].resize((int) (mySize*400), (int) (mySize*406));
+    }
+
+    /*
     myPhoto = emuPhoto.copy();
-    myPhoto.resize((int) (mySize*400), (int) (mySize*406));
+     myPhoto.resize((int) (mySize*400), (int) (mySize*406));
+     
+     myPhotoF = emuPhotoFlipped.copy();
+     myPhotoF.resize((int) (mySize*400), (int) (mySize*406));
+     */
+    speedModifier = 0.3/mySize;
   }
 
   void reduceHP (float damage) {
@@ -30,6 +49,14 @@ class Emu {
 
   float getY() {
     return myY;
+  }
+  
+  float getWidth() {
+    return (mySize*400);  
+  }
+  
+  float getHeight() {
+    return (mySize*406);  
   }
 
 
@@ -92,15 +119,21 @@ class Emu {
     yVel = toTruckY() + bob();
     return yVel;
   }
-
+  void attack() { 
+    if (myX > truck.getX() - 100 && myX < truck.getX() + 100 && myY > truck.getY() - 100 && myY < truck.getY() + 100) { 
+      if (frameCount%(int(random(125, 175))) == 0) { 
+        truck.reduceHP(0.01);
+      }
+    }
+  }
   void update() {
     if (frameCount%(int(random(20, 40))) == 0) {
       myXVel = xVelocity();
       myYVel = yVelocity();
     }
 
-    myX += myXVel;
-    myY += myYVel;
+    myX += myXVel*speedModifier;
+    myY += myYVel*speedModifier;
 
     if (bleeding) {
       if (myFade > 0) {
@@ -120,13 +153,27 @@ class Emu {
         reduceHP(5);
       }
     }
+
     bullets.removeAll(toRemove);
     if (myHP <= 0) {
       dead = true;
     }
     fill(157, 100, 67);
-    image(myPhoto, myX, myY);
+    if (frameCount%2 == 0) {
+      frameNum++;
+    }
+    if (frameNum > 30) {
+      frameNum = 1;
+    }
+
+    if (xVelocity() > 0) {
+      image(runPhotosF[frameNum], myX, myY);
+    } else {
+      image(runPhotos[frameNum], myX, myY);
+    }
+
     fill(0);
+    attack();
     healthBar();
   }
 }

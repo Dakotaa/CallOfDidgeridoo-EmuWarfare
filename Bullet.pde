@@ -37,14 +37,14 @@ class Bullet {
   }
 
   void drawBullet() {
-      pushMatrix();
-      myPosition.x += myVelocity.x;
-      myPosition.y += myVelocity.y;
-      translate(myPosition.x, myPosition.y);
-      rotate((myTheta));
-      rectMode(CENTER);
-      fill(0);
-      rect(0, 0, 5, 3);
-      popMatrix();
+    pushMatrix();
+    myPosition.x += myVelocity.x;
+    myPosition.y += myVelocity.y;
+    translate(myPosition.x, myPosition.y);
+    rotate((myTheta));
+    rectMode(CENTER);
+    fill(0);
+    rect(0, 0, 5, 3);
+    popMatrix();
   }
 }

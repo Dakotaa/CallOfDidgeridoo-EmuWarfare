@@ -1,23 +1,26 @@
-// TODO: fix everything here
 // https://www.openprocessing.org/sketch/141841
 class Truck {
   PVector myLocation;
   PVector frontWheel;
   PVector backWheel;
-  float myHeading, mySpeed, myMaxSpeed, mySteerAngle, myMaxSteerAngle, myWheelBase, myMinWheelBase, myMaxWheelBase, myHP, maxHP;
-  boolean plus, minus, up, down, left, right, steerLock;
+  float myHeading, mySpeed, myBaseMaxSpeed, myMaxSpeed, mySteerAngle, myMaxSteerAngle, myWheelBase, myMinWheelBase, myMaxWheelBase, myHP, maxHP;
+  boolean plus, minus, up, down, left, right, steerLock, exploding, timerStarted;
+  Timer explosionTimer = new Timer(8);
+  //Explosion truckExplosion = new Explosion(0, 0, 100);
   Truck(float maxSpeed) {
     up = down = left = right = steerLock = false;
     myLocation = new PVector(860, 540);
     myHeading = PI;
     mySpeed = 0;
-    myMaxSpeed = maxSpeed;
+    myBaseMaxSpeed = maxSpeed;
+    myMaxSpeed = myBaseMaxSpeed;
     mySteerAngle = 0;
     myWheelBase = 200;
     myMaxSteerAngle = PI/4;
     maxHP = 1;
     myHP = maxHP;
   }
+  
   float getSpeed() {
     return mySpeed;
   }
@@ -43,7 +46,6 @@ class Truck {
   float gunY() {
     return myLocation.y;
   }
-
   void setHeading(float heading) {
     myHeading = heading;
   }
@@ -71,32 +73,78 @@ class Truck {
 
   void reduceHP(float dmg) {
     myHP-=dmg;
-    myMaxSpeed-=0.1;
-  }
-  
-  void setHP (float h) {
-    myHP = h;  
-  }
-  
-  void resetMaxSpeed() {
-    myMaxSpeed = 5;  
   }
 
+
+  void setHP (float h) {
+    myHP = h;
+  }
+
+  void setMaxSpeed() {
+    myMaxSpeed = myHP * myBaseMaxSpeed;
+  }
+
+  void resetMaxSpeed() {
+    myMaxSpeed = 5;
+  }
+
+
+
   void healthBar() {
-    if (myHP != maxHP) {
-      if (myHP > (maxHP*0.75)) {
-        fill(0, 255, 0);
-      } else if (myHP > (maxHP * 0.25)) {
-        fill(255, 255, 0);
-      } else {
-        fill(255, 0, 0);
+    if (myHP > 0) {
+      if (myHP != maxHP) {
+        if (myHP > (maxHP*0.75)) {
+          fill(0, 255, 0);
+        } else if (myHP > (maxHP * 0.25)) {
+          fill(255, 255, 0);
+        } else {
+          fill(255, 0, 0);
+        }
+        rectMode(CENTER);
+        rect(myLocation.x, myLocation.y - 50, (200)*(myHP/maxHP), 10);
+        rectMode(CENTER);
       }
-      rectMode(CENTER);
-      rect(myLocation.x, myLocation.y - 50, (200)*(myHP/maxHP), 10);
-      rectMode(CENTER);
     }
   }
-  
+
+  void explode() {
+    if (!exploding) {
+      if (myHP <= 0) {
+        exploding = true;
+        guns.clear();
+        for (Emu e : emus) {
+          if (e.getX() > myLocation.x - 200 && e.getX() < myLocation.x + 200 && e.getY() > myLocation.y - 200 && e.getY() < myLocation.y + 200) {
+            e.reduceHP(100);
+          }
+        }
+
+        //truckExplosion.setX(myLocation.x);
+        // truckExplosion.setY(myLocation.y);
+      }
+    } else {
+      // TODO : Convert this into explosion object
+      image(explosion, myLocation.x, myLocation.y);
+      explosionTimer.update();
+      //truckExplosion.update();
+      if (explosionTimer.isDone()) {
+        gameOver = true;
+        exploding = false;
+        explosionTimer.setSeconds(8);
+      }
+    }
+  }
+
+  void hitEmu() {
+    for (Emu e : emus) {
+      if (e.getX() > myLocation.x - 100 && e.getX() < myLocation.x + 100 && e.getY() > myLocation.y - 100 && e.getY() < myLocation.y + 100) {
+        if (mySpeed > 2) {
+          e.reduceHP(50);
+          reduceHP(0.005);
+        }
+      }
+    }
+  }
+
   float getHP() {
     return myHP;
   }
@@ -178,17 +226,6 @@ class Truck {
     rect(0, 0, myWheelBase, myWheelBase+myWheelBase/1.5 + 30, 3, 3, myWheelBase/(myWheelBase/20), myWheelBase/(myWheelBase/20));
     fill(200);
     rect(0, 100, myWheelBase*.9, myWheelBase/2, 3, 3, myWheelBase/(myWheelBase/15), myWheelBase/(myWheelBase/15));
-    for (Emu e : emus) {
-      if (e.getX() > myLocation.x - 100 && e.getX() < myLocation.x + 100 && e.getY() > myLocation.y - 100 && e.getY() < myLocation.y + 100) {
-        if (mySpeed > 2) {
-          e.reduceHP(50);
-        } else {
-          if (frameCount%150 == 0) {
-            reduceHP(0.01);  
-          }
-        }
-      }
-    }
     popMatrix();
 
 
@@ -247,15 +284,13 @@ class Truck {
     if (mySpeed<0) mySpeed += 0.01; //friction for backward
 
     if ((!up && !down) && (abs(mySpeed)<0.01))  mySpeed=0;
-    
+
+    setMaxSpeed();
     healthBar();
+    hitEmu();
+    explode();
   }
 }
-
-
-
-
-
 
 
 

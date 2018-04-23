@@ -1,10 +1,10 @@
 final class Gun_Minigun extends Gun {
-  Gun_Minigun() {
+  Gun_Minigun(int maxAmmo) {
     super();
-    myMaxAmmo = 250;
+    myMaxAmmo = maxAmmo;
     myAmmo = myMaxAmmo;
     myRateOfFire = 2;
-    gunImage = miniGun;
+    gunImage = miniGun.copy();
   }
   void reload() {
     if (!reloading) {
