@@ -48,6 +48,10 @@ class HUD {
       image(boomerang, 30, height-30);
       text(inventory.get("Boomerang"), 10, height-50);
     }
+    if (inventory.get("Vegemite") > 0) {
+      image(vegemite, 115, height-30);
+      text(inventory.get("Vegemite"), 85, height-50);
+    }
   }
 
   void update() {

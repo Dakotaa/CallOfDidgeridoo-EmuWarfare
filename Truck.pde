@@ -78,6 +78,7 @@ class Truck {
 
   void setHP (float h) {
     myHP = h;
+    if (myHP > 1) myHP = 1;
   }
 
   void setMaxSpeed() {
@@ -291,84 +292,3 @@ class Truck {
     explode();
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-class Truck {
- float myX, myY, myTheta;
- int direction = 0;
- Truck(float x, float y) {
- myX = x;
- myY = y;
- myTheta = 0;
- }
- 
- void setTheta(float theta) {
- myTheta = theta;
- }
- float getTheta() {
- return myTheta;
- }
- 
- void setDirection(int d) {
- direction = d;
- }
- 
- int getDirection() {
- return direction;
- }
- float getX() {
- return myX;
- }
- 
- float getY() {
- return myY;
- }
- float gunX() {
- return myX;
- }
- float gunY() {
- return myY;
- }
- 
- void forward(float v) {
- myY-=(v * sin(myTheta));
- myX+=(v * cos(myTheta));
- }
- 
- void backward(float v) {
- myY+=v;
- }
- 
- void drawTruck() {
- fill(100);
- pushMatrix();
- translate(myX, myY);
- rectMode(CENTER);
- rotate(radians(myTheta));
- rect(0, 0, 200, 400);
- popMatrix();
- }
- }
- 
- */

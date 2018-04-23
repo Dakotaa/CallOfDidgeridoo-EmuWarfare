@@ -17,12 +17,12 @@ class Boomerang_Thrown extends Projectile {
     for (Emu e : emus) {
       if (myPosition.x > e.getX() - e.getWidth()/2 && myPosition.x < e.getX() + e.getWidth()/2 && myPosition.y > e.getY() - e.getHeight()/2 && myPosition.y < e.getY() + e.getHeight()/2) {
         returning = true;
-        e.reduceHP(15);
+        e.reduceHP(35);
       }
     }
     
     if (!returning) {
-      if (myPosition.x > myXEnd - 20 && myPosition.x < myXEnd + 20 && myPosition.y > myYEnd - 20 && myPosition.y < myYEnd + 20) {
+      if (myPosition.x > myXEnd - 30 && myPosition.x < myXEnd + 30 && myPosition.y > myYEnd - 30 && myPosition.y < myYEnd + 30) {
         returning = true;
       }
     }

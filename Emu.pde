@@ -8,6 +8,8 @@ class Emu {
   Emu (float x, float y, float size) {
     myX = x;
     myY = y;
+    constrain(myX, 0, width);
+    constrain(myY, 0, height);
     myHP = size*250;
     maxHP = myHP;
     mySize = size;

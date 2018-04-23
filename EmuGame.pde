@@ -7,7 +7,7 @@
  
  ********************************************************************************/
 
-PImage lewisGun, miniGun, emuPhoto, emuPhotoFlipped, blood, explosion, boomerang;
+PImage lewisGun, miniGun, emuPhoto, emuPhotoFlipped, blood, explosion, boomerang, vegemite;
 PImage[] emuRun = new PImage[34];    // https://processing.org/discourse/beta/num_1192465513.html
 PImage[] emuRunFlip = new PImage[34];
 boolean isDone, autoFire, aiming, gameOver = false;
@@ -33,7 +33,7 @@ Truck truck = new Truck (5);
 //Gun gun1 = new Gun_Lewisgun();
 
 void setup() {
-  fullScreen();
+  fullScreen(P2D);
   frameRate(60);
   //((PGraphicsOpenGL)g).textureSampling(3); // https://forum.processing.org/two/discussion/8075/why-are-text-and-graphics-so-ugly-and-blocky
   cursor(CROSS);
@@ -54,6 +54,8 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
   emuPhotoFlipped = loadImage("emuflipped.png");
   blood = loadImage("blood.png");
   explosion = loadImage("explosion.png");
+  vegemite = loadImage("vegemite.png");
+  vegemite.resize((int) (vegemite.width*.4), (int) (vegemite.height*.4));
   for (int i = 1; i < emuRun.length; i++) {
     emuRun[i] = loadImage(dataPath("EmuRun/EmuRun" + i + ".png"));    // https://forum.processing.org/two/discussion/4160/is-it-possible-to-load-files-from-a-folder-inside-the-data-folder
   }
@@ -120,12 +122,15 @@ void keyPressed() {
       truck.setDown(true);
       break;
     case 69:
-      throwBoomerang();
+      useItem();
       break;
     }
   }
 }
-
+void useItem() {
+   throwBoomerang();
+   useVegemite();
+}
 void throwBoomerang() {
   if (hud.getSelectedItem() == 0) {
     for (Gun g : guns) {
@@ -133,6 +138,15 @@ void throwBoomerang() {
         projectiles.add(new Boomerang_Thrown(new PVector(truck.gunX(), truck.gunY()), 15, g.getTheta(), mouseX, mouseY));
         inventory.put("Boomerang", inventory.get("Boomerang") - 1);
       }
+    }
+  }
+}
+
+void useVegemite() {
+  if (hud.getSelectedItem() == 1) {
+    if (inventory.get("Vegemite") > 0) {
+      truck.setHP(truck.getHP() + 0.1);
+      inventory.put("Vegemite", inventory.get("Vegemite") - 1);
     }
   }
 }

@@ -77,6 +77,7 @@ class Level {
       strokeWeight(3);
       stroke(200, 50);
       line(truck.gunX(), truck.gunY(), mouseX, mouseY);
+      strokeWeight(1);
       noStroke();
     }
     projectiles.removeAll(projectilesToRemove);

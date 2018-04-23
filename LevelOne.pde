@@ -17,6 +17,7 @@ class LevelOne extends Level {
     truck.setHP(1);
     truck.resetMaxSpeed();
     inventory.put("Boomerang", 5);
+    inventory.put("Vegemite", 3);
   }
 
 
