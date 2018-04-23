@@ -114,8 +114,8 @@ class Truck {
         exploding = true;
         guns.clear();
         for (Emu e : emus) {
-          if (e.getX() > myLocation.x - 200 && e.getX() < myLocation.x + 200 && e.getY() > myLocation.y - 200 && e.getY() < myLocation.y + 200) {
-            e.reduceHP(100);
+          if (e.getX() > myLocation.x - 300 && e.getX() < myLocation.x + 300 && e.getY() > myLocation.y - 300 && e.getY() < myLocation.y + 300) {
+            e.reduceHP(500);
           }
         }
 

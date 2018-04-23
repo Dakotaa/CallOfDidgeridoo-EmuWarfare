@@ -10,6 +10,8 @@
 PImage lewisGun, miniGun, emuPhoto, emuPhotoFlipped, blood, explosion, boomerang, vegemite;
 PImage[] emuRun = new PImage[34];    // https://processing.org/discourse/beta/num_1192465513.html
 PImage[] emuRunFlip = new PImage[34];
+PImage[] buffEmuRun = new PImage[39];
+PImage[] buffEmuRunFlip = new PImage[39];
 boolean isDone, autoFire, aiming, gameOver = false;
 float gunInnac;
 int level = 0;
@@ -61,7 +63,15 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
   }
 
   for (int i = 1; i < emuRunFlip.length; i++) {
-    emuRunFlip[i] = loadImage(dataPath("EmuRunFlip/EmuRunFlip" + i + ".png"));    // https://forum.processing.org/two/discussion/4160/is-it-possible-to-load-files-from-a-folder-inside-the-data-folder
+    emuRunFlip[i] = loadImage(dataPath("EmuRunFlip/EmuRunFlip" + i + ".png"));
+  }
+
+  for (int i = 1; i < buffEmuRunFlip.length; i++) {
+    buffEmuRun[i] = loadImage(dataPath("BuffEmuRun/BuffEmuRun" + i + ".png"));
+  }
+
+  for (int i = 1; i < buffEmuRun.length; i++) {
+    buffEmuRunFlip[i] = loadImage(dataPath("BuffEmuRunFlip/BuffEmuRun" + i + ".png"));
   }
 
   lewisGun.resize((int) (lewisGun.width*0.5), (int) (lewisGun.height*0.5));
@@ -127,10 +137,12 @@ void keyPressed() {
     }
   }
 }
+
 void useItem() {
-   throwBoomerang();
-   useVegemite();
+  throwBoomerang();
+  useVegemite();
 }
+
 void throwBoomerang() {
   if (hud.getSelectedItem() == 0) {
     for (Gun g : guns) {
