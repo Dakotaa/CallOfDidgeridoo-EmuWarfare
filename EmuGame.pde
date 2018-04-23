@@ -12,6 +12,8 @@ PImage[] emuRun = new PImage[34];    // https://processing.org/discourse/beta/nu
 PImage[] emuRunFlip = new PImage[34];
 PImage[] buffEmuRun = new PImage[39];
 PImage[] buffEmuRunFlip = new PImage[39];
+PImage[] vietEmuRun = new PImage[24];
+PImage[] vietEmuRunFlip = new PImage[24];
 boolean isDone, autoFire, aiming, gameOver = false;
 float gunInnac;
 int level = 0;
@@ -72,6 +74,14 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
 
   for (int i = 1; i < buffEmuRun.length; i++) {
     buffEmuRunFlip[i] = loadImage(dataPath("BuffEmuRunFlip/BuffEmuRun" + i + ".png"));
+  }
+  
+  for (int i = 1; i < vietEmuRunFlip.length; i++) {
+    vietEmuRun[i] = loadImage(dataPath("VietEmuRun/VietEmuRun" + i + ".png"));
+  }
+
+  for (int i = 1; i < vietEmuRun.length; i++) {
+    vietEmuRunFlip[i] = loadImage(dataPath("VietEmuRunFlip/VietEmuRun" + i + ".png"));
   }
 
   lewisGun.resize((int) (lewisGun.width*0.5), (int) (lewisGun.height*0.5));
