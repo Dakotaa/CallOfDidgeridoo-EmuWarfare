@@ -20,15 +20,10 @@ class Boomerang_Thrown extends Projectile {
         e.reduceHP(15);
       }
     }
-    text(myXEnd, 1000, 1000);
-    text(myYEnd, 1200, 1000);
     
-    text(myPosition.x, 1000, 1050);
-    text(myPosition.y, 1200, 1050);
     if (!returning) {
       if (myPosition.x > myXEnd - 20 && myPosition.x < myXEnd + 20 && myPosition.y > myYEnd - 20 && myPosition.y < myYEnd + 20) {
         returning = true;
-        println(".");
       }
     }
 
@@ -49,8 +44,6 @@ class Boomerang_Thrown extends Projectile {
       rotate(frameCount/3);
       image(boomerang, 0, 0);
       popMatrix();
-      text(myPosition.x, 200, 100);
-      text(myXEnd, 200, 200);
     }
   }
 }

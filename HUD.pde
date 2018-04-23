@@ -1,6 +1,7 @@
 class HUD {
   boolean HP, ammo, items;
   PImage boomerangIcon;
+  int selectedItem = 0;
   HUD (boolean hp, boolean a, boolean i) {
     HP = hp;
     ammo = a;
@@ -24,7 +25,14 @@ class HUD {
       }
     }
   }
-
+  
+  void setSelectedItem(int x) {
+    selectedItem = x;  
+  }
+  
+  int getSelectedItem() {
+    return selectedItem;  
+  }
   void showItems() {
     for (int i = 0; i < 5; i++) {
       stroke(10);
@@ -32,6 +40,8 @@ class HUD {
       rectMode(CORNER);
       rect(75*i, height-75, 75, 75);
     }
+    fill(100, 100);
+    rect(selectedItem*75, height-75, 75, 75);
     textAlign(CENTER);
     fill(0);
     if (inventory.get("Boomerang") > 0) {

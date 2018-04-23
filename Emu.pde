@@ -29,7 +29,7 @@ class Emu {
      myPhotoF = emuPhotoFlipped.copy();
      myPhotoF.resize((int) (mySize*400), (int) (mySize*406));
      */
-    speedModifier = 0.2/mySize;
+    speedModifier = 0.3/mySize;
   }
 
   void reduceHP (float damage) {

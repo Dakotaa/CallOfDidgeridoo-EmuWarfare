@@ -92,6 +92,21 @@ void draw() {
 void keyPressed() {
   if (level != 0) {
     switch(keyCode) {
+    case 49: 
+      hud.setSelectedItem(0);
+      break;
+    case 50: 
+      hud.setSelectedItem(1);
+      break;
+    case 51: 
+      hud.setSelectedItem(2);
+      break;
+    case 52: 
+      hud.setSelectedItem(3);
+      break;
+    case 53: 
+      hud.setSelectedItem(4);
+      break;
     case 65: 
       truck.setLeft(true);
       break;
@@ -105,13 +120,19 @@ void keyPressed() {
       truck.setDown(true);
       break;
     case 69:
-      for (Gun g : guns) {
-        if (inventory.get("Boomerang") > 0) {
-          projectiles.add(new Boomerang_Thrown(new PVector(truck.gunX(), truck.gunY()), 15, g.getTheta(), mouseX, mouseY));
-          inventory.put("Boomerang", inventory.get("Boomerang") - 1);
-        }
-      }
+      throwBoomerang();
       break;
+    }
+  }
+}
+
+void throwBoomerang() {
+  if (hud.getSelectedItem() == 0) {
+    for (Gun g : guns) {
+      if (inventory.get("Boomerang") > 0) {
+        projectiles.add(new Boomerang_Thrown(new PVector(truck.gunX(), truck.gunY()), 15, g.getTheta(), mouseX, mouseY));
+        inventory.put("Boomerang", inventory.get("Boomerang") - 1);
+      }
     }
   }
 }
