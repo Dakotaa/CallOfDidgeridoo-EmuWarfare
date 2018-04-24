@@ -164,6 +164,7 @@ class Emu {
     if (frameCount%2 == 0) {
       frameNum++;
     }
+    /*
     if (frameNum > 30) {
       frameNum = 1;
     }
@@ -173,7 +174,7 @@ class Emu {
     } else {
       image(runPhotos[frameNum], myX, myY);
     }
-
+  */
     fill(0);
     attack();
     healthBar();

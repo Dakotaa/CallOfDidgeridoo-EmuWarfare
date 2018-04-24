@@ -1,4 +1,6 @@
 class BuffEmu extends Emu {
+  PImage runPhotos[] = new PImage[38];
+  PImage runPhotosF[] = new PImage[38];
   BuffEmu(float x, float y, float size) {
     super(x, y, size);  
     for (int i = 1; i < runPhotos.length; i++) {
@@ -17,6 +19,20 @@ class BuffEmu extends Emu {
       if (frameCount%(int(random(125, 175))) == 0) { 
         truck.reduceHP(0.05);
       }
+    }
+  }
+
+  void update() {
+    super.update();
+
+    if (frameNum > runPhotos.length - 1) {
+      frameNum = 1;
+    }
+
+    if (xVelocity() > 0) {
+      image(runPhotosF[frameNum], myX, myY);
+    } else {
+      image(runPhotos[frameNum], myX, myY);
     }
   }
 }
