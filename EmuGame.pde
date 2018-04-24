@@ -14,6 +14,8 @@ PImage[] buffEmuRun = new PImage[39];
 PImage[] buffEmuRunFlip = new PImage[39];
 PImage[] vietEmuRun = new PImage[24];
 PImage[] vietEmuRunFlip = new PImage[24];
+PImage[] buffEmuSmash = new PImage[30];
+PImage[] buffEmuSmashFlip = new PImage[30];
 boolean isDone, autoFire, aiming, gameOver = false;
 float gunInnac;
 int level = 0;
@@ -37,7 +39,7 @@ Truck truck = new Truck (5);
 //Gun gun1 = new Gun_Lewisgun();
 
 void setup() {
-  fullScreen(P2D);
+  fullScreen();
   frameRate(60);
   //((PGraphicsOpenGL)g).textureSampling(3); // https://forum.processing.org/two/discussion/8075/why-are-text-and-graphics-so-ugly-and-blocky
   cursor(CROSS);
@@ -75,7 +77,15 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
   for (int i = 1; i < buffEmuRun.length; i++) {
     buffEmuRunFlip[i] = loadImage(dataPath("BuffEmuRunFlip/BuffEmuRun" + i + ".png"));
   }
-  
+
+  for (int i = 1; i < buffEmuSmash.length; i++) {
+    buffEmuSmash[i] = loadImage(dataPath("BuffEmuSmash/BuffEmuSmash" + i + ".png"));
+  }
+
+  for (int i = 1; i < buffEmuSmashFlip.length; i++) {
+    buffEmuSmashFlip[i] = loadImage(dataPath("BuffEmuSmashFlip/BuffEmuSmash" + i + ".png"));
+  }
+
   for (int i = 1; i < vietEmuRunFlip.length; i++) {
     vietEmuRun[i] = loadImage(dataPath("VietEmuRun/VietEmuRun" + i + ".png"));
   }
@@ -97,6 +107,7 @@ void draw() {
     textSize(50);
     text("LOADING...", width/2, height/2);
     popMatrix();
+    
   } else {  // If not loading, draw all the levels (only one level should be in the ArrayList at any time)
     if (!gameOver) {
       for (Level l : levels) {
