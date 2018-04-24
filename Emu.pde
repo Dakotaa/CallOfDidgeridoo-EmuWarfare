@@ -148,6 +148,7 @@ class Emu {
         bleeding = false;
       }
     }
+    
     ArrayList<Bullet> toRemove = new ArrayList();
     for (Bullet b : bullets) {
       if (b.getX() > myX-(200*mySize) && b.getX() < myX+(200*mySize) && b.getY() > myY-(203*mySize) && b.getY() < myY+(203*mySize)) {

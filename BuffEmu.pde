@@ -1,4 +1,7 @@
 class BuffEmu extends Emu {
+  int frameNum = (int) random(1, 38);
+  PImage runPhotos[] = new PImage[39];
+  PImage runPhotosF[] = new PImage[39];
   BuffEmu(float x, float y, float size) {
     super(x, y, size);  
     for (int i = 1; i < runPhotos.length; i++) {

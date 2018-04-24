@@ -1,12 +1,15 @@
 class VietEmu extends Emu {
+  PImage runPhotos[] = new PImage[24];
+  PImage runPhotosF[] = new PImage[24];
+  int frameNum = (int) random(1, 23);
   VietEmu(float x, float y, float size) {
     super(x, y, size);  
-    for (int i = 1; i < runPhotos.length; i++) {
+    for (int i = 1; i < vietEmuRun.length; i++) {
       runPhotos[i] = vietEmuRun[i].copy();
       runPhotos[i].resize((int) (mySize*400), (int) (mySize*406));
     }
 
-    for (int i = 1; i < runPhotosF.length; i++) {
+    for (int i = 1; i < vietEmuRunFlip.length; i++) {
       runPhotosF[i] = vietEmuRunFlip[i].copy();
       runPhotosF[i].resize((int) (mySize*400), (int) (mySize*406));
     }
