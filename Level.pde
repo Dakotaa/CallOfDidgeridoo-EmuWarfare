@@ -72,6 +72,14 @@ class Level {
         //gunShot.play(); //https://processing.org/reference/libraries/sound/SoundFile.html
       }
     }
+    
+    ArrayList<Explosion> explosionsToRemove = new ArrayList();
+    for (Explosion e : explosions) {
+      e.update(); 
+      if (e.isComplete()) {
+        explosionsToRemove.add(e);  
+      }
+    }
 
     if (aiming) {
       strokeWeight(3);
@@ -83,6 +91,7 @@ class Level {
     projectiles.removeAll(projectilesToRemove);
     bullets.removeAll(toRemove); // Removes offscreen bullets (https://stackoverflow.com/questions/18448671/how-to-avoid-concurrentmodificationexception-while-removing-elements-from-arr)
     emus.removeAll(emuRemove);
+    explosions.removeAll(explosionsToRemove);
     textAlign(CORNER);
     fill(0);
     //textSize(20);

@@ -16,6 +16,7 @@ PImage[] vietEmuRun = new PImage[24];
 PImage[] vietEmuRunFlip = new PImage[24];
 PImage[] buffEmuSmash = new PImage[30];
 PImage[] buffEmuSmashFlip = new PImage[30];
+PImage[] explosionAnimation = new PImage[64];
 boolean isDone, autoFire, aiming, gameOver = false;
 float gunInnac;
 int level = 0;
@@ -28,6 +29,7 @@ ArrayList<Level> levels = new ArrayList();
 ArrayList<Button> buttons = new ArrayList();
 ArrayList<Timer> timers = new ArrayList();
 ArrayList<Projectile> projectiles = new ArrayList();
+ArrayList<Explosion> explosions = new ArrayList();
 HashMap<String, Integer> inventory = new HashMap<String, Integer>();    // https://codereview.stackexchange.com/questions/148821/inventory-of-objects-with-item-types-and-quantities
 HUD hud = new HUD(true, true, true);
 Level lose = new LoseScreen();
@@ -94,6 +96,10 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
     vietEmuRunFlip[i] = loadImage(dataPath("VietEmuRunFlip/VietEmuRun" + i + ".png"));
   }
 
+  for (int i = 0; i < explosionAnimation.length; i++) {
+    explosionAnimation[i] = loadImage(dataPath("Explosion/tile0" + i + ".png"));
+  }
+
   lewisGun.resize((int) (lewisGun.width*0.5), (int) (lewisGun.height*0.5));
   blood.resize(200, 200);
   isDone = true;
@@ -107,7 +113,6 @@ void draw() {
     textSize(50);
     text("LOADING...", width/2, height/2);
     popMatrix();
-    
   } else {  // If not loading, draw all the levels (only one level should be in the ArrayList at any time)
     if (!gameOver) {
       for (Level l : levels) {
@@ -207,6 +212,7 @@ void keyReleased() {
       break;
     case 83:    // Moves truck down
       truck.setDown(false);
+      explosions.add(new Explosion(mouseX, mouseY, 100));
       break;
     case 192:    // Leave to title screen
       level = 0;

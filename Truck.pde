@@ -111,6 +111,7 @@ class Truck {
   void explode() {
     if (!exploding) {
       if (myHP <= 0) {
+        explosions.add(new Explosion(myLocation.x, myLocation.y, 300));
         exploding = true;
         guns.clear();
         for (Emu e : emus) {
@@ -124,7 +125,6 @@ class Truck {
       }
     } else {
       // TODO : Convert this into explosion object
-      image(explosion, myLocation.x, myLocation.y);
       explosionTimer.update();
       //truckExplosion.update();
       if (explosionTimer.isDone()) {
