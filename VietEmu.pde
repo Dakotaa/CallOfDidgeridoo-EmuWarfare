@@ -1,3 +1,4 @@
+
 class VietEmu extends Emu {
   VietEmu(float x, float y, float size) {
     super(x, y, size);  
