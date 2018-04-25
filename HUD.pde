@@ -25,13 +25,13 @@ class HUD {
       }
     }
   }
-  
+
   void setSelectedItem(int x) {
-    selectedItem = x;  
+    selectedItem = x;
   }
-  
+
   int getSelectedItem() {
-    return selectedItem;  
+    return selectedItem;
   }
   void showItems() {
     for (int i = 0; i < 5; i++) {
@@ -51,6 +51,16 @@ class HUD {
     if (inventory.get("Vegemite") > 0) {
       image(vegemite, 115, height-30);
       text(inventory.get("Vegemite"), 85, height-50);
+    }
+
+    if (inventory.get("Grenade") > 0) {
+      image(grenade, 190, height-30);
+      text(inventory.get("Grenade"), 160, height-50);
+    }
+
+    if (inventory.get("Landmine") > 0) {
+      image(grenade, 165, height-30);
+      text(inventory.get("Landmine"), 135, height-50);
     }
   }
 

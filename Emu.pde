@@ -52,29 +52,31 @@ class Emu {
   float getY() {
     return myY;
   }
-  
+
   float getWidth() {
-    return (mySize*400);  
+    return (mySize*400);
   }
-  
+
   float getHeight() {
-    return (mySize*406);  
+    return (mySize*406);
   }
 
 
   // HEALTH BAR DRAW FUNCTION
   void healthBar() {
-    if (myHP != maxHP) {
-      if (myHP > (maxHP*0.75)) {
-        fill(0, 255, 0);
-      } else if (myHP > (maxHP * 0.25)) {
-        fill(255, 255, 0);
-      } else {
-        fill(255, 0, 0);
+    if (myHP >= 0) {
+      if (myHP != maxHP) {
+        if (myHP > (maxHP*0.75)) {
+          fill(0, 255, 0);
+        } else if (myHP > (maxHP * 0.25)) {
+          fill(255, 255, 0);
+        } else {
+          fill(255, 0, 0);
+        }
+        rectMode(CORNER);
+        rect(myX-(203*mySize), (myY+(203*mySize))+5, (400*mySize)*(myHP/maxHP), 10);
+        rectMode(CENTER);
       }
-      rectMode(CORNER);
-      rect(myX-(203*mySize), (myY+(203*mySize))+5, (400*mySize)*(myHP/maxHP), 10);
-      rectMode(CENTER);
     }
   }
 
@@ -166,15 +168,15 @@ class Emu {
     }
     /*
     if (frameNum > 30) {
-      frameNum = 1;
-    }
-
-    if (xVelocity() > 0) {
-      image(runPhotosF[frameNum], myX, myY);
-    } else {
-      image(runPhotos[frameNum], myX, myY);
-    }
-  */
+     frameNum = 1;
+     }
+     
+     if (xVelocity() > 0) {
+     image(runPhotosF[frameNum], myX, myY);
+     } else {
+     image(runPhotos[frameNum], myX, myY);
+     }
+     */
     fill(0);
     attack();
     healthBar();

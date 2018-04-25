@@ -7,7 +7,7 @@
  
  ********************************************************************************/
 
-PImage lewisGun, miniGun, emuPhoto, emuPhotoFlipped, blood, explosion, boomerang, vegemite;
+PImage lewisGun, miniGun, emuPhoto, emuPhotoFlipped, blood, explosion, boomerang, vegemite, grenade, landmine;
 PImage[] emuRun = new PImage[34];    // https://processing.org/discourse/beta/num_1192465513.html
 PImage[] emuRunFlip = new PImage[34];
 PImage[] buffEmuRun = new PImage[39];
@@ -16,7 +16,7 @@ PImage[] vietEmuRun = new PImage[24];
 PImage[] vietEmuRunFlip = new PImage[24];
 PImage[] buffEmuSmash = new PImage[30];
 PImage[] buffEmuSmashFlip = new PImage[30];
-PImage[] explosionAnimation = new PImage[64];
+PImage[] explosionAnimation = new PImage[25];
 boolean isDone, autoFire, aiming, gameOver = false;
 float gunInnac;
 int level = 0;
@@ -64,6 +64,10 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
   explosion = loadImage("explosion.png");
   vegemite = loadImage("vegemite.png");
   vegemite.resize((int) (vegemite.width*.4), (int) (vegemite.height*.4));
+  grenade = loadImage("grenade.png");
+  grenade.resize((int) (grenade.width*.2), (int) (grenade.height*.2));
+  landmine = loadImage("landmine.png");
+  landmine.resize((int) (landmine.width*.1), (int) (landmine.height*.1));
   for (int i = 1; i < emuRun.length; i++) {
     emuRun[i] = loadImage(dataPath("EmuRun/EmuRun" + i + ".png"));    // https://forum.processing.org/two/discussion/4160/is-it-possible-to-load-files-from-a-folder-inside-the-data-folder
   }
@@ -167,12 +171,14 @@ void keyPressed() {
 void useItem() {
   throwBoomerang();
   useVegemite();
+  throwGrenade();
+  placeLandmine();
 }
 
 void throwBoomerang() {
   if (hud.getSelectedItem() == 0) {
-    for (Gun g : guns) {
-      if (inventory.get("Boomerang") > 0) {
+    if (inventory.get("Boomerang") > 0) {
+      for (Gun g : guns) {
         projectiles.add(new Boomerang_Thrown(new PVector(truck.gunX(), truck.gunY()), 15, g.getTheta(), mouseX, mouseY));
         inventory.put("Boomerang", inventory.get("Boomerang") - 1);
       }
@@ -185,6 +191,28 @@ void useVegemite() {
     if (inventory.get("Vegemite") > 0) {
       truck.setHP(truck.getHP() + 0.1);
       inventory.put("Vegemite", inventory.get("Vegemite") - 1);
+    }
+  }
+}
+
+void throwGrenade() {
+  if (hud.getSelectedItem() == 2) {
+    if (inventory.get("Grenade") > 0) {
+      for (Gun g : guns) {
+        projectiles.add(new Grenade_Thrown(new PVector(truck.gunX(), truck.gunY()), 10, g.getTheta(), mouseX, mouseY));
+        inventory.put("Grenade", inventory.get("Grenade") - 1);
+      }
+    }
+  }
+}
+
+void placeLandmine() {
+  if (hud.getSelectedItem() == 3) {
+    if (inventory.get("Landmine") > 0) {
+      for (Gun g : guns) {
+        projectiles.add(new LandMine(new PVector(truck.gunX(), truck.gunY()), 10, g.getTheta(), mouseX, mouseY));
+        inventory.put("Landmine", inventory.get("Landmine") - 1);
+      }
     }
   }
 }
@@ -212,7 +240,6 @@ void keyReleased() {
       break;
     case 83:    // Moves truck down
       truck.setDown(false);
-      explosions.add(new Explosion(mouseX, mouseY, 100));
       break;
     case 192:    // Leave to title screen
       level = 0;
