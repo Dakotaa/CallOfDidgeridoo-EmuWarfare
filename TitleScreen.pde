@@ -16,8 +16,8 @@ class TitleScreen extends Level {
     text("Version 0.0.5 Changelog:", 20, 600);
     textSize(20);
     text(" - BuffEmu and Vietnamese Emu added, with animations.", 30, 650);
-    text(" - New inventory system, with Boomerangs, Vegemite, and Grenades.)", 30, 675);
-    text(" - ", 30, 700);
+    text(" - New inventory system, with Boomerangs, Vegemite, Grenades, and Landmines.)", 30, 675);
+    text(" - Overhauled explosions, now more realistic and scale damage.", 30, 700);
 
     popMatrix();
 

@@ -13,6 +13,7 @@ class Level {
   }
 
   void update() {
+    boomerangTimer.update();
     fill(0, 255, 0);
     noStroke();
     rect(0, 0, 100, 40);
@@ -24,16 +25,16 @@ class Level {
     for (Gun g : guns) {
       g.drawGun();
     }
-    
+
     ArrayList<Projectile> projectilesToRemove = new ArrayList();
     for (Projectile p : projectiles) {
       p.update();
       if (p.getToRemove()) {
-        projectilesToRemove.add(p);  
+        projectilesToRemove.add(p);
       }
-      
+
       if (p.getX() > width + 100 || p.getX() < - 00 || p.getY() > height + 100 || p.getY() < -100) {
-        projectilesToRemove.add(p);  
+        projectilesToRemove.add(p);
       }
     }
 
@@ -52,7 +53,7 @@ class Level {
         emuRemove.add(e);
       }
     }
-    
+
     for (Gun g : guns) {
       if (frameCount%g.getRateOfFire()==0 && mousePressed && mouseButton == LEFT) { // https://forum.processing.org/one/topic/shoot-multiple-bullets.html
         if (truck.getSpeed() > 0 || truck.getSpeed() < 0) {
@@ -72,12 +73,12 @@ class Level {
         //gunShot.play(); //https://processing.org/reference/libraries/sound/SoundFile.html
       }
     }
-    
+
     ArrayList<Explosion> explosionsToRemove = new ArrayList();
     for (Explosion e : explosions) {
       e.update(); 
       if (e.isComplete()) {
-        explosionsToRemove.add(e);  
+        explosionsToRemove.add(e);
       }
     }
 

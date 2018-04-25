@@ -5,7 +5,7 @@ class LandMine extends Projectile {
 
   void update() {
     for (Emu e : emus) {
-      if (myPosition.x > e.getX() - e.getWidth()/2 && myPosition.x < e.getX() + e.getWidth()/2 && myPosition.y > e.getY() - e.getHeight()/2 && myPosition.y < e.getY() + e.getHeight()/2) {
+      if (e.getX() > myPosition.x - landmine.width/2 && e.getX() < myPosition.x + landmine.width/2 && e.getY() > myPosition.y - landmine.height/2 && e.getY() < myPosition.y + landmine.height/2) {
         explosions.add(new Explosion(myPosition.x, myPosition.y, 100));       
         toRemove = true;
       }

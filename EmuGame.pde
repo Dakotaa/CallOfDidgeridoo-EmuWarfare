@@ -32,6 +32,7 @@ ArrayList<Projectile> projectiles = new ArrayList();
 ArrayList<Explosion> explosions = new ArrayList();
 HashMap<String, Integer> inventory = new HashMap<String, Integer>();    // https://codereview.stackexchange.com/questions/148821/inventory-of-objects-with-item-types-and-quantities
 HUD hud = new HUD(true, true, true);
+Timer boomerangTimer = new Timer(3);
 Level lose = new LoseScreen();
 // TODO: Optimize how buttons are added or move them into a function
 
@@ -67,7 +68,7 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
   grenade = loadImage("grenade.png");
   grenade.resize((int) (grenade.width*.2), (int) (grenade.height*.2));
   landmine = loadImage("landmine.png");
-  landmine.resize((int) (landmine.width*.1), (int) (landmine.height*.1));
+  landmine.resize((int) (landmine.width*.075), (int) (landmine.height*.075));
   for (int i = 1; i < emuRun.length; i++) {
     emuRun[i] = loadImage(dataPath("EmuRun/EmuRun" + i + ".png"));    // https://forum.processing.org/two/discussion/4160/is-it-possible-to-load-files-from-a-folder-inside-the-data-folder
   }
@@ -178,9 +179,20 @@ void useItem() {
 void throwBoomerang() {
   if (hud.getSelectedItem() == 0) {
     if (inventory.get("Boomerang") > 0) {
-      for (Gun g : guns) {
-        projectiles.add(new Boomerang_Thrown(new PVector(truck.gunX(), truck.gunY()), 15, g.getTheta(), mouseX, mouseY));
-        inventory.put("Boomerang", inventory.get("Boomerang") - 1);
+      if (!boomerangTimer.isStarted()) {
+        boomerangTimer.setStarted(true);
+        for (Gun g : guns) {
+          projectiles.add(new Boomerang_Thrown(new PVector(truck.gunX(), truck.gunY()), 15, g.getTheta(), mouseX, mouseY));
+          inventory.put("Boomerang", inventory.get("Boomerang") - 1);
+        }
+      } else {
+        if (boomerangTimer.isDone()) {
+          boomerangTimer.setSeconds(3);
+          for (Gun g : guns) {
+            projectiles.add(new Boomerang_Thrown(new PVector(truck.gunX(), truck.gunY()), 15, g.getTheta(), mouseX, mouseY));
+            inventory.put("Boomerang", inventory.get("Boomerang") - 1);
+          }
+        }
       }
     }
   }
@@ -283,5 +295,25 @@ void mousePressed() {
 void mouseReleased() {    // Sets aiming to false when not on the title screen and the right mouse button is released.
   if (level != 0) {
     if (mouseButton == RIGHT) aiming = false;
+  }
+}
+
+// Scroll event to scroll through inventory slots
+void mouseWheel (MouseEvent event) {
+
+  // mouse wheel event returns -1 or 1 depending on scroll direction, so this checks the direction.
+  if (event.getCount() > 0) {
+    if (hud.getSelectedItem() == 4) {    // If last slot is currently selected, scrolling up will roll over to first slot.
+      hud.setSelectedItem(0);  
+      hud.setSelectedItem(hud.getSelectedItem() + 1);  // If not on last slot, rolls to next slot up.
+    } else {
+      hud.setSelectedItem(hud.getSelectedItem() + 1);
+    }
+  } else {
+    if (hud.getSelectedItem() == 0) {
+      hud.setSelectedItem(4);
+    } else {
+      hud.setSelectedItem(hud.getSelectedItem() - 1);
+    }
   }
 }

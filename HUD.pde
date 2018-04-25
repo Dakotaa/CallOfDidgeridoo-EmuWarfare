@@ -59,8 +59,8 @@ class HUD {
     }
 
     if (inventory.get("Landmine") > 0) {
-      image(grenade, 165, height-30);
-      text(inventory.get("Landmine"), 135, height-50);
+      image(landmine, 265, height-30);
+      text(inventory.get("Landmine"), 235, height-50);
     }
   }
 

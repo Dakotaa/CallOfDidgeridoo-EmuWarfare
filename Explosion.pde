@@ -1,6 +1,6 @@
 class Explosion {
   float myX, myY, myRadius;
-  int frameNum = 0;
+  int frameNum = 1;
   boolean completed;
   PImage myExplosion[] = new PImage[25];
   Explosion(float x, float y, float radius) {
@@ -22,21 +22,26 @@ class Explosion {
   }
 
   boolean isComplete() {
-    return completed;  
+    return completed;
   }
 
   void update () {
     if (!completed) {
       for (Emu e : emus) {
-          if (e.getX() > myX - myRadius && e.getX() < myX + myRadius && e.getY() > myY - myRadius && e.getY() < myY + myRadius) {
-            e.reduceHP(500);
-          }
+        if (e.getX() > myX - myRadius && e.getX() < myX + myRadius && e.getY() > myY - myRadius && e.getY() < myY + myRadius) {
+          e.reduceHP(500);
+        }
       }
-      frameNum++;
+
+      if (frameCount%2 == 0) {
+        frameNum++;
+        if (frameNum >= myExplosion.length - 1) {
+          completed = true;
+        }
+      }
+      
       image(myExplosion[frameNum], myX, myY);
-      if (frameNum >= myExplosion.length - 1) {
-        completed = true;
-      }
+      
     }
   }
 }

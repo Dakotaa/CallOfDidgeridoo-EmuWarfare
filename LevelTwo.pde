@@ -18,6 +18,8 @@ class LevelTwo extends Level {
     truck.resetMaxSpeed();
     inventory.put("Boomerang", 50);
     inventory.put("Vegemite", 25);
+    inventory.put("Grenade", 25);
+    inventory.put("Landmine", 25);
   }
 
 
