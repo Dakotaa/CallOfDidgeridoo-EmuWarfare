@@ -29,11 +29,12 @@ class VietEmu extends Emu {
     if (frameNum > runPhotos.length - 1) {
       frameNum = 1;
     }
-
+    tint(255, 150);
     if (xVelocity() > 0) {
       image(runPhotosF[frameNum], myX, myY);
     } else {
       image(runPhotos[frameNum], myX, myY);
     }
+    noTint();
   }
 }

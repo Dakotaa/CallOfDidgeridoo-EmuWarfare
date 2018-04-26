@@ -3,15 +3,15 @@ class LevelOne extends Level {
   }
 
   void setupLevel() {
-    
+    /*
     for (int i = 0; i < 5; ++i) {
       emus.add(new BasicEmu(random(width*.75, width), random(300, height-300), random(0.05, 0.4)));
     }
-    
+    */
     for (int i = 0; i < 5; ++i) {
       emus.add(new BuffEmu(random(width*.75, width), random(300, height-300), random(0.2, 0.9)));
     }
-    
+
     for (int i = 0; i < 5; ++i) {
       emus.add(new VietEmu(random(width*.75, width), random(300, height-300), random(0.08, 0.5)));
     }
@@ -27,6 +27,8 @@ class LevelOne extends Level {
     truck.resetMaxSpeed();
     inventory.put("Boomerang", 5);
     inventory.put("Vegemite", 3);
+    inventory.put("Grenade", 10);
+        inventory.put("Landmine", 10);
   }
 
 
