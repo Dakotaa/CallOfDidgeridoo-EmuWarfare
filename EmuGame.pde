@@ -304,8 +304,7 @@ void mouseWheel (MouseEvent event) {
   // mouse wheel event returns -1 or 1 depending on scroll direction, so this checks the direction.
   if (event.getCount() > 0) {
     if (hud.getSelectedItem() == 4) {    // If last slot is currently selected, scrolling up will roll over to first slot.
-      hud.setSelectedItem(0);  
-      hud.setSelectedItem(hud.getSelectedItem() + 1);  // If not on last slot, rolls to next slot up.
+      hud.setSelectedItem(0);   // If not on last slot, rolls to next slot up.
     } else {
       hud.setSelectedItem(hud.getSelectedItem() + 1);
     }
