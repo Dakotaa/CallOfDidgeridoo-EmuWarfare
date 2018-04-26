@@ -1,17 +1,26 @@
 class Blood {
- float myX, myY, myFade;
- 
- Blood(float x, float y) {
-    myX = x;
-    myY = y;
+  float myX, myY, myFade;
+  PImage myImage;
+  boolean faded;
+  Blood(float x, float y) {
+    myX = x  + random(-50, 50);
+    myY = y  + random(-50, 50);
     myFade = 255;
- }
- 
- void update() {
-   if (myFade > 0) {
-     myFade-=1;  
-   }
-   tint(255, myFade);
-   image(blood, myX, myY);
- }
+    myImage = blood[(int) random(4)].copy();
+  }
+
+  boolean toRemove() {
+    return faded;
+  }
+
+  void update() {
+    if (myFade > 0) {
+      myFade-=1;
+    } else {
+      faded = true;
+    }
+    tint(255, myFade);
+    image(myImage, myX, myY);
+    noTint();
+  }
 }

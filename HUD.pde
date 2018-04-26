@@ -63,6 +63,10 @@ class HUD {
       text(inventory.get("Landmine"), 235, height-50);
     }
   }
+  
+  void showEmusAlive() {
+    text("Emus Alive: " + emusAlive(), 700, 20);  
+  }
 
   void update() {
     fill(0);
@@ -72,5 +76,6 @@ class HUD {
     showHP();
     showAmmo();
     showItems();
+    showEmusAlive();
   }
 }

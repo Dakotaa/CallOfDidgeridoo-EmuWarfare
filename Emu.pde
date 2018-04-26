@@ -3,8 +3,6 @@ class Emu {
   boolean dead, bleeding, movingUp = false;
   //PImage myPhoto, myPhotoF;
   int frameNum = (int) random(1, 33);
-  PImage runPhotos[] = new PImage[34];
-  PImage runPhotosF[] = new PImage[34];
   Emu (float x, float y, float size) {
     myX = x;
     myY = y;
@@ -13,24 +11,6 @@ class Emu {
     myHP = size*250;
     maxHP = myHP;
     mySize = size;
-    myFade = 255;
-    for (int i = 1; i < runPhotos.length; i++) {
-      runPhotos[i] = emuRun[i].copy();
-      runPhotos[i].resize((int) (mySize*400), (int) (mySize*406));
-    }
-
-    for (int i = 1; i < runPhotosF.length; i++) {
-      runPhotosF[i] = emuRunFlip[i].copy();
-      runPhotosF[i].resize((int) (mySize*400), (int) (mySize*406));
-    }
-
-    /*
-    myPhoto = emuPhoto.copy();
-     myPhoto.resize((int) (mySize*400), (int) (mySize*406));
-     
-     myPhotoF = emuPhotoFlipped.copy();
-     myPhotoF.resize((int) (mySize*400), (int) (mySize*406));
-     */
     speedModifier = 0.3/mySize;
   }
 
@@ -39,6 +19,7 @@ class Emu {
     if (!bleeding) {
       bleeding = true;
     }
+    bloods.add(new Blood(myX, myY));
   }
 
   boolean isDead() {
@@ -138,18 +119,7 @@ class Emu {
 
     myX += myXVel*speedModifier;
     myY += myYVel*speedModifier;
-
-    if (bleeding) {
-      if (myFade > 0) {
-        myFade-=3;
-        tint(255, myFade);
-        image(blood, myX, myY);
-        noTint();
-      } else {
-        myFade = 255;
-        bleeding = false;
-      }
-    }
+  
     ArrayList<Bullet> toRemove = new ArrayList();
     for (Bullet b : bullets) {
       if (b.getX() > myX-(200*mySize) && b.getX() < myX+(200*mySize) && b.getY() > myY-(203*mySize) && b.getY() < myY+(203*mySize)) {

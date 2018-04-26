@@ -4,7 +4,7 @@ class Boomerang_Thrown extends Projectile {
     super(position, velocity, theta, xEnd, yEnd);
   }
 
-  void setReturning(boolean r) {
+  void setReturning (boolean r) {
     returning = r;
   }
 

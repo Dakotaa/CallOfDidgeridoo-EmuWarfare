@@ -7,7 +7,7 @@
  
  ********************************************************************************/
 
-PImage lewisGun, miniGun, emuPhoto, emuPhotoFlipped, blood, explosion, boomerang, vegemite, grenade, landmine;
+PImage lewisGun, miniGun, emuPhoto, emuPhotoFlipped, explosion, boomerang, vegemite, grenade, landmine;
 PImage[] emuRun = new PImage[34];    // https://processing.org/discourse/beta/num_1192465513.html
 PImage[] emuRunFlip = new PImage[34];
 PImage[] buffEmuRun = new PImage[39];
@@ -18,6 +18,7 @@ PImage[] carDamage = new PImage[3];
 PImage[] buffEmuSmash = new PImage[30];
 PImage[] buffEmuSmashFlip = new PImage[30];
 PImage[] explosionAnimation = new PImage[25];
+PImage[] blood = new PImage[5];
 boolean isDone, autoFire, aiming, gameOver = false;
 float gunInnac;
 int level = 0;
@@ -31,19 +32,16 @@ ArrayList<Button> buttons = new ArrayList();
 ArrayList<Timer> timers = new ArrayList();
 ArrayList<Projectile> projectiles = new ArrayList();
 ArrayList<Explosion> explosions = new ArrayList();
+
 HashMap<String, Integer> inventory = new HashMap<String, Integer>();    // https://codereview.stackexchange.com/questions/148821/inventory-of-objects-with-item-types-and-quantities
+
 HUD hud = new HUD(true, true, true);
 Timer boomerangTimer = new Timer(3);
 Level lose = new LoseScreen();
-// TODO: Optimize how buttons are added or move them into a function
-
-// TODO: initialize truck in level setup?
 Truck truck = new Truck (5);
-//Gun gun1 = new Gun();
-//Gun gun1 = new Gun_Lewisgun();
 
 void setup() {
-  fullScreen();
+  fullScreen(P2D);
   frameRate(60);
   //((PGraphicsOpenGL)g).textureSampling(3); // https://forum.processing.org/two/discussion/8075/why-are-text-and-graphics-so-ugly-and-blocky
   cursor(CROSS);
@@ -54,6 +52,26 @@ void setup() {
   inventory.put("Boomerang", 5);
 }
 
+void draw() {
+  if (!isDone) {  // If loading is not done, show the "LOADING..." screen.
+    background(0);
+    pushMatrix();
+    textAlign(CENTER);
+    textSize(50);
+    text("LOADING...", width/2, height/2);
+    popMatrix();
+  } else {  // If not loading, draw all the levels (only one level should be in the ArrayList at any time)
+    if (!gameOver) {
+      for (Level l : levels) {
+        l.update();
+        //text(truck.getSpeed(), 100, 100);
+      }
+    } else {
+      lose.update();
+    }
+  }
+}
+
 // Loads all the images in another core thread, sets isDone to true after images are loaded to stop drawing of loading screen.
 void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-speedup-loadimage
   lewisGun = loadImage("lewisgun.png");
@@ -62,7 +80,6 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
   boomerang = loadImage("Boomerang.png");
   boomerang.resize((int) (boomerang.width*0.15), (int) (boomerang.height*0.15));
   emuPhotoFlipped = loadImage("emuflipped.png");
-  blood = loadImage("blood.png");
   explosion = loadImage("explosion.png");
   vegemite = loadImage("vegemite.png");
   vegemite.resize((int) (vegemite.width*.4), (int) (vegemite.height*.4));
@@ -70,6 +87,7 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
   grenade.resize((int) (grenade.width*.2), (int) (grenade.height*.2));
   landmine = loadImage("landmine.png");
   landmine.resize((int) (landmine.width*.075), (int) (landmine.height*.075));
+
   for (int i = 1; i < emuRun.length; i++) {
     emuRun[i] = loadImage(dataPath("EmuRun/EmuRun" + i + ".png"));    // https://forum.processing.org/two/discussion/4160/is-it-possible-to-load-files-from-a-folder-inside-the-data-folder
   }
@@ -105,36 +123,19 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
   for (int i = 0; i < carDamage.length; i++) {
     carDamage[i] = loadImage(dataPath("CarDamage/CarDamage" + i + ".png"));
   }
-  
+
   for (int i = 0; i < explosionAnimation.length; i++) {
     explosionAnimation[i] = loadImage(dataPath("Explosion/tile0" + i + ".png"));
   }
 
+  for (int i = 0; i < blood.length; i++) {
+    blood[i] = loadImage(dataPath("Blood/blood" + i + ".png"));
+    blood[i].resize(200, 200);
+  }
+
   lewisGun.resize((int) (lewisGun.width*0.5), (int) (lewisGun.height*0.5));
-  blood.resize(200, 200);
   isDone = true;
 }
-
-void draw() {
-  if (!isDone) {  // If loading is not done, show the "LOADING..." screen.
-    background(0);
-    pushMatrix();
-    textAlign(CENTER);
-    textSize(50);
-    text("LOADING...", width/2, height/2);
-    popMatrix();
-  } else {  // If not loading, draw all the levels (only one level should be in the ArrayList at any time)
-    if (!gameOver) {
-      for (Level l : levels) {
-        l.update();
-        //text(truck.getSpeed(), 100, 100);
-      }
-    } else {
-      lose.update();
-    }
-  }
-}
-
 
 // KeyPressed function to control truck
 void keyPressed() {
@@ -172,6 +173,14 @@ void keyPressed() {
       break;
     }
   }
+}
+
+int emusAlive() {
+  int alive = 0;
+  for (Emu e : emus) {
+    alive++;
+  }
+  return alive;
 }
 
 void useItem() {

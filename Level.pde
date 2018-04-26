@@ -11,7 +11,7 @@ class Level {
     guns.clear();
     projectiles.clear();
   }
-
+  
   void update() {
     boomerangTimer.update();
     fill(0, 255, 0);
@@ -25,7 +25,15 @@ class Level {
     for (Gun g : guns) {
       g.drawGun();
     }
-
+    
+    ArrayList<Blood> bloodToRemove = new ArrayList();
+    for (Blood b : bloods) {
+      b.update();  
+      if (b.toRemove()) {
+        bloodToRemove.add(b);  
+      }
+    }
+    
     ArrayList<Projectile> projectilesToRemove = new ArrayList();
     for (Projectile p : projectiles) {
       p.update();
@@ -93,6 +101,7 @@ class Level {
     bullets.removeAll(toRemove); // Removes offscreen bullets (https://stackoverflow.com/questions/18448671/how-to-avoid-concurrentmodificationexception-while-removing-elements-from-arr)
     emus.removeAll(emuRemove);
     explosions.removeAll(explosionsToRemove);
+    bloods.removeAll(bloodToRemove);
     textAlign(CORNER);
     fill(0);
     //textSize(20);
