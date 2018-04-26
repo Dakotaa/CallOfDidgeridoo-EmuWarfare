@@ -104,7 +104,7 @@ class Truck {
           imageMode(CENTER); 
           pushMatrix();
           rotate(-myHeading);
-          image(runPhotos[0], myLocation.x, myLocation.y);
+            image(runPhotos[0], myLocation.x, myLocation.y);
           popMatrix();
         } else if (myHP < (maxHP*0.5)) {
           //runPhotos1[1] = carDamage[1].copy();
