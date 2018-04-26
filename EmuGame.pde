@@ -102,7 +102,7 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
     vietEmuRunFlip[i] = loadImage(dataPath("VietEmuRunFlip/VietEmuRun" + i + ".png"));
   }
 
-  for (int i = 1; i < carDamage.length; i++) {
+  for (int i = 0; i < carDamage.length; i++) {
     carDamage[i] = loadImage(dataPath("CarDamage/CarDamage" + i + ".png"));
   }
   
