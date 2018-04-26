@@ -14,13 +14,10 @@ PImage[] buffEmuRun = new PImage[39];
 PImage[] buffEmuRunFlip = new PImage[39];
 PImage[] vietEmuRun = new PImage[24];
 PImage[] vietEmuRunFlip = new PImage[24];
-<<<<<<< HEAD
 PImage[] carDamage = new PImage[3];
-=======
 PImage[] buffEmuSmash = new PImage[30];
 PImage[] buffEmuSmashFlip = new PImage[30];
 PImage[] explosionAnimation = new PImage[25];
->>>>>>> 3e2c61cf5c1fe21d7314bfb262ab6f80037b28dd
 boolean isDone, autoFire, aiming, gameOver = false;
 float gunInnac;
 int level = 0;
@@ -89,8 +86,6 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
     buffEmuRunFlip[i] = loadImage(dataPath("BuffEmuRunFlip/BuffEmuRun" + i + ".png"));
   }
 
-<<<<<<< HEAD
-=======
   for (int i = 1; i < buffEmuSmash.length; i++) {
     buffEmuSmash[i] = loadImage(dataPath("BuffEmuSmash/BuffEmuSmash" + i + ".png"));
   }
@@ -99,7 +94,6 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
     buffEmuSmashFlip[i] = loadImage(dataPath("BuffEmuSmashFlip/BuffEmuSmash" + i + ".png"));
   }
 
->>>>>>> 3e2c61cf5c1fe21d7314bfb262ab6f80037b28dd
   for (int i = 1; i < vietEmuRunFlip.length; i++) {
     vietEmuRun[i] = loadImage(dataPath("VietEmuRun/VietEmuRun" + i + ".png"));
   }
@@ -108,17 +102,14 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
     vietEmuRunFlip[i] = loadImage(dataPath("VietEmuRunFlip/VietEmuRun" + i + ".png"));
   }
 
-<<<<<<< HEAD
   for (int i = 1; i < carDamage.length; i++) {
     carDamage[i] = loadImage(dataPath("CarDamage/CarDamage" + i + ".png"));
   }
   
-=======
   for (int i = 0; i < explosionAnimation.length; i++) {
     explosionAnimation[i] = loadImage(dataPath("Explosion/tile0" + i + ".png"));
   }
 
->>>>>>> 3e2c61cf5c1fe21d7314bfb262ab6f80037b28dd
   lewisGun.resize((int) (lewisGun.width*0.5), (int) (lewisGun.height*0.5));
   blood.resize(200, 200);
   isDone = true;
@@ -310,10 +301,8 @@ void mouseReleased() {    // Sets aiming to false when not on the title screen a
   if (level != 0) {
     if (mouseButton == RIGHT) aiming = false;
   }
-<<<<<<< HEAD
 }
-=======
-}
+
 
 // Scroll event to scroll through inventory slots
 void mouseWheel (MouseEvent event) {
@@ -333,4 +322,3 @@ void mouseWheel (MouseEvent event) {
     }
   }
 }
->>>>>>> 3e2c61cf5c1fe21d7314bfb262ab6f80037b28dd

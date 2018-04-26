@@ -95,8 +95,8 @@ class Truck {
     //PImage runPhotos1[] = new PImage[3];
     //PImage runPhotos2[] = new PImage[3];
 
-    runPhotos[0] = carDamage[0].copy(); 
-    runPhotos[0].resize((int) (carSize*400), (int) (carSize*406));
+    //runPhotos[1] = carDamage[1].copy(); 
+    //runPhotos[0].resize((int) (carSize*400), (int) (carSize*406));
 
     if (myHP > 0) {
       if (myHP != maxHP) {
