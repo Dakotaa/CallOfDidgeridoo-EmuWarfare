@@ -292,7 +292,7 @@ void mousePressed() {
       for (Gun g : guns) {
         if (g.getAmmo() > 0 && !g.getReloading()) {
           if (aiming) {
-            bullets.add(new Bullet(new PVector(truck.gunX(), truck.gunY()), 30, g.getTheta(), mouseX, mouseY, true));    // Creates a new bullet
+            bullets.add(new Bullet(new PVector(truck.gunX(), truck.gunY()), 30, g.getTheta(), mouseX, mouseY, true, g.getDamage()));    // Creates a new bullet
             g.shoot();    // Runs the shoot function for the gun
           }
         }

@@ -5,6 +5,8 @@ final class Gun_Lewisgun extends Gun {
     myAmmo = myMaxAmmo;
     myRateOfFire = 6;
     gunImage = lewisGun.copy();
+    myDamage = 5;
+    numShots = 1;
   }
   void reload() {
     if (!reloading) {

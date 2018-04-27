@@ -4,7 +4,9 @@ final class Gun_Minigun extends Gun {
     myMaxAmmo = maxAmmo;
     myAmmo = myMaxAmmo;
     myRateOfFire = 2;
+    myDamage = 10;
     gunImage = miniGun.copy();
+    numShots = 3;
   }
   void reload() {
     if (!reloading) {

@@ -1,15 +1,16 @@
 class Bullet {
   PVector myPosition, myVelocity, mySpeed;
-  float myTheta, velocity, myXEnd, myYEnd;
+  float myTheta, velocity, myXEnd, myYEnd, myDamage;
   boolean myAiming;
   boolean visible = true;
-  Bullet (PVector position, float velocity, float theta, float xEnd, float yEnd, boolean aiming) {
+  Bullet (PVector position, float velocity, float theta, float xEnd, float yEnd, boolean aiming, float damage) {
     myPosition = position;
     myVelocity = new PVector(15, 15);
     this.velocity = velocity;
     myXEnd = xEnd;
     myYEnd = yEnd;
     myAiming = aiming;
+    myDamage = damage;
 
     if (myAiming) {
       myTheta = theta + radians(random(-gunInnac, gunInnac));
@@ -26,6 +27,10 @@ class Bullet {
       myVelocity.y = ((float) ((velocity) * (Math.sin(Math.abs((myTheta))))));
       myVelocity.x = ((float) Math.sqrt((((velocity)*(velocity))-((myVelocity.y)*(myVelocity.y)))))*-1;
     }
+  }
+
+  float getDamage() {
+    return myDamage;  
   }
 
   float getX() {

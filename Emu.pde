@@ -19,7 +19,9 @@ class Emu {
     if (!bleeding) {
       bleeding = true;
     }
-    bloods.add(new Blood(myX, myY));
+    if (frameCount%2 == 0) {
+      bloods.add(new Blood(myX, myY));
+    }
   }
 
   boolean isDead() {
@@ -119,16 +121,17 @@ class Emu {
 
     myX += myXVel*speedModifier;
     myY += myYVel*speedModifier;
-  
+
     ArrayList<Bullet> toRemove = new ArrayList();
     for (Bullet b : bullets) {
       if (b.getX() > myX-(200*mySize) && b.getX() < myX+(200*mySize) && b.getY() > myY-(203*mySize) && b.getY() < myY+(203*mySize)) {
         toRemove.add(b);
-        reduceHP(5);
+        reduceHP(b.getDamage());
       }
     }
 
     bullets.removeAll(toRemove);
+
     if (myHP <= 0) {
       dead = true;
     }

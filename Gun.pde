@@ -1,7 +1,7 @@
 class Gun {
-  float myX, myY, myTheta, myMaxAmmo, myAmmo;
+  float myX, myY, myTheta, myMaxAmmo, myAmmo, myDamage;
   int myID;
-  int myRateOfFire;
+  int myRateOfFire, numShots;
   boolean reloading;
   PImage gunImage;
   Gun () {
@@ -9,6 +9,8 @@ class Gun {
     myY = truck.gunY();
     myTheta = 0;
     myID = 0;
+    myDamage = 0;
+    numShots = 0;
     //gunImage = lewisGun;
   }
 
@@ -19,6 +21,14 @@ class Gun {
     return myID;
   }
 
+  float getDamage() {
+    return myDamage;
+  }
+  
+  int getNumShots() {
+    return numShots;  
+  }
+  
   float getTheta() {
     return myTheta;
   }
@@ -33,11 +43,11 @@ class Gun {
   float getMaxAmmo() {
     return myMaxAmmo;
   }
-  
+
   void setAmmo(float ammo) {
-    myAmmo = ammo;   
+    myAmmo = ammo;
   }
-  
+
   void reload() {
     if (!reloading) {
       myAmmo = 0;
@@ -73,7 +83,7 @@ class Gun {
   void drawGun() {
     myX = truck.gunX();
     myY = truck.gunY();
-    
+
     if (reloading) {
       reload();
     }
