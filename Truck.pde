@@ -5,9 +5,6 @@ class Truck {
   PVector backWheel;
   float myHeading, mySpeed, myBaseMaxSpeed, myMaxSpeed, mySteerAngle, myMaxSteerAngle, myWheelBase, myMinWheelBase, myMaxWheelBase, myHP, maxHP, carSize;
   boolean plus, minus, up, down, left, right, steerLock, exploding, timerStarted; 
-  PImage damagePhoto[] = new PImage[3]; 
-  //PImage damagePhoto1[] = new PImage[3];
-  //PImage damagePhoto2[] = new PImage[3];
   
   Timer explosionTimer = new Timer(8);
   
@@ -24,17 +21,6 @@ class Truck {
     maxHP = 1;
     myHP = maxHP;
     carSize = 10;
-    
-    for (int i = 0; i < damagePhoto.length; i++) {
-     //damagePhoto[i] = carDamage[i].copy();
-     //damagePhoto[i].resize((int) (carSize*400), (int) (carSize*406));
-    }
-    /*
-    damagePhoto1[1] = carDamage[1].copy(); 
-    damagePhoto1[1].resize((int) (carSize*400), (int) (carSize*406));
-    damagePhoto2[2] = carDamage[2].copy(); 
-    damagePhoto2[2].resize((int) (carSize*400), (int) (carSize*406));
-    */
 }
 
   float getSpeed() {
@@ -103,26 +89,6 @@ class Truck {
 
   void resetMaxSpeed() {
     myMaxSpeed = 5;
-  }
-
-  void damage() {
-    if (myHP > 0) {
-      if (myHP != maxHP) {
-        if (myHP < (maxHP*0.75)) {
-          imageMode(CENTER); 
-          pushMatrix();
-          rotate(-myHeading);
-          image(damagePhoto[1], myLocation.x, myLocation.y);
-          popMatrix();
-        } else if (myHP < (maxHP*0.5)) {
-          //runPhotos1[1] = carDamage[1].copy();
-          //runPhotos1[1].resize((int) (carSize*400), (int) (carSize*406));
-        } else if (myHP < (maxHP*0.25)) {
-          //runPhotos2[2] = carDamage[2].copy();
-          //runPhotos2[2].resize((int) (carSize*400), (int) (carSize*406));
-        }
-      }
-    }
   }
 
   void healthBar() {
