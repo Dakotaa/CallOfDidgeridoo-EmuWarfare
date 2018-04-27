@@ -11,7 +11,7 @@ class Level {
     guns.clear();
     projectiles.clear();
   }
-  
+
   void update() {
     boomerangTimer.update();
     fill(0, 255, 0);
@@ -25,15 +25,15 @@ class Level {
     for (Gun g : guns) {
       g.drawGun();
     }
-    
+
     ArrayList<Blood> bloodToRemove = new ArrayList();
     for (Blood b : bloods) {
       b.update();  
       if (b.toRemove()) {
-        bloodToRemove.add(b);  
+        bloodToRemove.add(b);
       }
     }
-    
+
     ArrayList<Projectile> projectilesToRemove = new ArrayList();
     for (Projectile p : projectiles) {
       p.update();
@@ -71,11 +71,15 @@ class Level {
         }
         if (g.getAmmo() > 0 && !g.getReloading()) {
           if (aiming) {
-            bullets.add(new Bullet(new PVector(truck.gunX(), truck.gunY()), 30, g.getTheta(), mouseX, mouseY, true));
-            g.shoot();
+            for (int i = 0; i < g.getNumShots(); i++) {
+              bullets.add(new Bullet(new PVector(truck.gunX(), truck.gunY()), 30, g.getTheta(), mouseX, mouseY, true, g.getDamage()));
+              g.shoot();
+            }
           } else {
-            bullets.add(new Bullet(new PVector(truck.gunX(), truck.gunY()), 30, g.getTheta(), 10000, 10000, false));
-            g.shoot();
+            for (int i = 0; i < g.getNumShots(); i++) {
+              bullets.add(new Bullet(new PVector(truck.gunX(), truck.gunY()), 30, g.getTheta(), 10000, 10000, false, g.getDamage()));
+              g.shoot();
+            }
           }
         }
         //gunShot.play(); //https://processing.org/reference/libraries/sound/SoundFile.html
