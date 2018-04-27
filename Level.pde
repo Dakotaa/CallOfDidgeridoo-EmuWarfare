@@ -73,13 +73,13 @@ class Level {
           if (aiming) {
             for (int i = 0; i < g.getNumShots(); i++) {
               bullets.add(new Bullet(new PVector(truck.gunX(), truck.gunY()), 30, g.getTheta(), mouseX, mouseY, true, g.getDamage()));
-              g.shoot();
             }
+            g.shoot();
           } else {
             for (int i = 0; i < g.getNumShots(); i++) {
               bullets.add(new Bullet(new PVector(truck.gunX(), truck.gunY()), 30, g.getTheta(), 10000, 10000, false, g.getDamage()));
-              g.shoot();
             }
+            g.shoot();
           }
         }
         //gunShot.play(); //https://processing.org/reference/libraries/sound/SoundFile.html

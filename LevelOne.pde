@@ -5,15 +5,15 @@ class LevelOne extends Level {
   void setupLevel() {
     /*
     for (int i = 0; i < 5; ++i) {
-      emus.add(new BasicEmu(random(width*.75, width), random(300, height-300), random(0.05, 0.4)));
+      emus.add(new BasicEmu(random(width*.75, width), random(300, height-300), random(0.1, 0.4)));
     }
     */
     for (int i = 0; i < 5; ++i) {
-      emus.add(new BuffEmu(random(width*.75, width), random(300, height-300), random(0.2, 0.9)));
+      emus.add(new BuffEmu(random(width*.75, width), random(300, height-300), random(0.3, 0.6)));
     }
 
     for (int i = 0; i < 5; ++i) {
-      emus.add(new VietEmu(random(width*.75, width), random(300, height-300), random(0.08, 0.5)));
+      emus.add(new VietEmu(random(width*.75, width), random(300, height-300), random(0.1, 0.3)));
     }
     guns.add(new Gun_Lewisgun(75));
     for (Gun g : guns) {

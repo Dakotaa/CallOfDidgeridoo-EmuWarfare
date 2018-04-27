@@ -17,7 +17,7 @@ class Blood {
 
   void update() {
     if (myFade > 0) {
-      myFade-=3;
+      myFade-=2;
     } else {
       faded = true;
     }

@@ -267,7 +267,7 @@ void keyReleased() {
     case 83:    // Moves truck down
       truck.setDown(false);
       break;
-    case 192:    // Leave to title screen
+    case 9:    // Leave to title screen
       level = 0;
       for (Level l : levels) {    // Clears all levels
         l.clearLevel();

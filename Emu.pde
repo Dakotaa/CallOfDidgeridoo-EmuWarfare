@@ -130,6 +130,12 @@ class Emu {
       }
     }
 
+    if (bleeding) {
+      if (frameCount%((int) random(180,500)) == 0) {
+        bloods.add(new Blood(myX, myY));
+      }
+    }
+
     bullets.removeAll(toRemove);
 
     if (myHP <= 0) {
