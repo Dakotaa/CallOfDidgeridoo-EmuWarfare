@@ -287,7 +287,6 @@ class Truck {
     if ((!up && !down) && (abs(mySpeed)<0.01))  mySpeed=0;
 
     setMaxSpeed();
-    damage();
     healthBar();
     hitEmu();
     explode();

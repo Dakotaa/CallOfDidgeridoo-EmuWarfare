@@ -32,6 +32,7 @@ ArrayList<Button> buttons = new ArrayList();
 ArrayList<Timer> timers = new ArrayList();
 ArrayList<Projectile> projectiles = new ArrayList();
 ArrayList<Explosion> explosions = new ArrayList();
+ArrayList<Gas> gasses = new ArrayList();
 
 HashMap<String, Integer> inventory = new HashMap<String, Integer>();    // https://codereview.stackexchange.com/questions/148821/inventory-of-objects-with-item-types-and-quantities
 
@@ -245,6 +246,9 @@ void keyReleased() {
     switch(keyCode) {
     case 65:    // Moves truck left
       truck.setLeft(false);
+      break;
+    case 71:    // Moves truck left
+      gasses.add(new Gas(mouseX, mouseY, 5));
       break;
     case 68:    // Moves truck right
       truck.setRight(false);

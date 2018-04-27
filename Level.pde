@@ -10,6 +10,7 @@ class Level {
     bullets.clear();
     guns.clear();
     projectiles.clear();
+    gasses.clear();
   }
 
   void update() {
@@ -92,6 +93,10 @@ class Level {
       if (e.isComplete()) {
         explosionsToRemove.add(e);
       }
+    }
+    
+    for (Gas g : gasses) {
+      g.update();  
     }
 
     if (aiming) {
