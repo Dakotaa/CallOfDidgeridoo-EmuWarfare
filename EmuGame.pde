@@ -18,6 +18,10 @@ PImage[] carDamage = new PImage[3];
 PImage[] buffEmuSmash = new PImage[30];
 PImage[] buffEmuSmashFlip = new PImage[30];
 PImage[] explosionAnimation = new PImage[25];
+PImage[] naziEmuRun = new PImage[34];
+PImage[] naziEmuRunFlip = new PImage[34];
+PImage[] naziEmuAttack = new PImage[35];
+PImage[] naziEmuAttackFlip = new PImage[35];
 PImage[] blood = new PImage[5];
 boolean isDone, autoFire, aiming, gameOver = false;
 float gunInnac;
@@ -121,6 +125,22 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
     vietEmuRunFlip[i] = loadImage(dataPath("VietEmuRunFlip/VietEmuRun" + i + ".png"));
   }
 
+  for (int i = 1; i < naziEmuRunFlip.length; i++) {
+    naziEmuRun[i] = loadImage(dataPath("NaziEmuRun/naziEmuRun" + i + ".png"));
+  }
+
+  for (int i = 1; i < naziEmuRun.length; i++) {
+    naziEmuRunFlip[i] = loadImage(dataPath("NaziEmuRunFlip/naziEmuRun" + i + ".png"));
+  }
+  
+    for (int i = 1; i < naziEmuAttackFlip.length; i++) {
+    naziEmuAttack[i] = loadImage(dataPath("NaziEmuAttack/naziEmuAttack" + i + ".png"));
+  }
+
+  for (int i = 1; i < naziEmuAttack.length; i++) {
+    naziEmuAttackFlip[i] = loadImage(dataPath("NaziEmuAttackFlip/naziEmuAttack" + i + ".png"));
+  }
+  
   for (int i = 0; i < explosionAnimation.length; i++) {
     explosionAnimation[i] = loadImage(dataPath("Explosion/tile0" + i + ".png"));
   }
