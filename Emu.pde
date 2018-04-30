@@ -1,9 +1,12 @@
 class Emu { 
-  float myHP, maxHP, myX, myY, mySize, myFade, myXVel, myYVel, speedModifier;
-  boolean dead, bleeding, movingUp = false;
+  float myHP, maxHP, myX, myY, mySize, myFade, myXVel, myYVel, speedModifier, mobXDistance, mobYDistance;
+  boolean dead, bleeding, movingUp, attacking, tracking = false;
+  boolean moving = true;
   //PImage myPhoto, myPhotoF;
   int frameNum = (int) random(1, 33);
   Emu (float x, float y, float size) {
+    mobXDistance = random (-200, 200);
+    mobYDistance = random (-200, 200);
     myX = x;
     myY = y;
     constrain(myX, 0, width);
@@ -19,6 +22,7 @@ class Emu {
     if (!bleeding) {
       bleeding = true;
     }
+
     if (frameCount%2 == 0) {
       bloods.add(new Blood(myX, myY));
     }
@@ -77,6 +81,24 @@ class Emu {
     return toY;
   }
 
+  float toMobX() {
+    float toMobX = 0;
+    for (Level l : levels) {
+      toMobX = myX - (l.getMobLocationX() + mobXDistance);
+      toMobX = (toMobX/Math.abs(toMobX))*-0.5;
+    }
+    return toMobX;
+  }
+
+  float toMobY() {
+    float toMobY = 0;
+    for (Level l : levels) {
+      toMobY = myY - (l.getMobLocationY() + mobYDistance);
+      toMobY = (toMobY/Math.abs(toMobY))*-0.5;
+    }
+    return toMobY;
+  }
+
   float bob() {
     float yVel = 0;
     if (frameCount%(int)random(60, 200) == 0) {
@@ -97,30 +119,52 @@ class Emu {
 
   float xVelocity() {
     float xVel;
-    xVel = toTruckX();
+    if (tracking) {
+      xVel = toTruckX();
+    } else {
+      xVel = toMobX();
+    }
     return xVel;
   }
 
   float yVelocity() {
     float yVel;
-    yVel = toTruckY() + bob();
+    if (tracking) {
+      yVel = toTruckY() + bob();
+    } else {
+      yVel = toMobY();
+    }
     return yVel;
   }
+
   void attack() { 
     if (myX > truck.getX() - 100 && myX < truck.getX() + 100 && myY > truck.getY() - 100 && myY < truck.getY() + 100) { 
+      attacking = true;
       if (frameCount%(int(random(125, 175))) == 0) { 
-        truck.reduceHP(0.01);
+        truck.reduceHP(0.05);
+        attacking = false;
       }
+    } else {
+      attacking = false;
     }
   }
   void update() {
+    tracking = track;
+    if (attacking) {
+      moving = false;
+    } else {
+      moving = true;
+    }
+
     if (frameCount%(int(random(20, 40))) == 0) {
       myXVel = xVelocity();
       myYVel = yVelocity();
     }
 
-    myX += myXVel*speedModifier;
-    myY += myYVel*speedModifier;
+    if (moving) {
+      myX += myXVel*speedModifier;
+      myY += myYVel*speedModifier;
+    }
 
     ArrayList<Bullet> toRemove = new ArrayList();
     for (Bullet b : bullets) {
@@ -131,7 +175,7 @@ class Emu {
     }
 
     if (bleeding) {
-      if (frameCount%((int) random(180,500)) == 0) {
+      if (frameCount%((int) random(180, 500)) == 0) {
         bloods.add(new Blood(myX, myY));
       }
     }

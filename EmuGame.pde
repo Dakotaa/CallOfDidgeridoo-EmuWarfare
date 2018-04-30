@@ -19,7 +19,7 @@ PImage[] buffEmuSmash = new PImage[30];
 PImage[] buffEmuSmashFlip = new PImage[30];
 PImage[] explosionAnimation = new PImage[25];
 PImage[] blood = new PImage[5];
-boolean isDone, autoFire, aiming, gameOver = false;
+boolean isDone, autoFire, aiming, gameOver, track = false;
 float gunInnac;
 int level = 0;
 
