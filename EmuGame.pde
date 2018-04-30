@@ -23,7 +23,7 @@ PImage[] naziEmuRunFlip = new PImage[34];
 PImage[] naziEmuAttack = new PImage[35];
 PImage[] naziEmuAttackFlip = new PImage[35];
 PImage[] blood = new PImage[5];
-boolean isDone, autoFire, aiming, gameOver = false;
+boolean isDone, autoFire, aiming, gameOver, track = false;
 float gunInnac;
 int level = 0;
 

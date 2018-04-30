@@ -5,9 +5,9 @@ class Truck {
   PVector backWheel;
   float myHeading, mySpeed, myBaseMaxSpeed, myMaxSpeed, mySteerAngle, myMaxSteerAngle, myWheelBase, myMinWheelBase, myMaxWheelBase, myHP, maxHP, carSize;
   boolean plus, minus, up, down, left, right, steerLock, exploding, timerStarted; 
-  
+
   Timer explosionTimer = new Timer(8);
-  
+
   Truck(float maxSpeed) {
     up = down = left = right = steerLock = false;
     myLocation = new PVector(860, 540);
@@ -21,7 +21,7 @@ class Truck {
     maxHP = 1;
     myHP = maxHP;
     carSize = 10;
-}
+  }
 
   float getSpeed() {
     return mySpeed;
@@ -124,13 +124,14 @@ class Truck {
         // truckExplosion.setY(myLocation.y);
       }
     } else {
+      text("exploding = true", 500, 500);
       // TODO : Convert this into explosion object
       explosionTimer.update();
       //truckExplosion.update();
       if (explosionTimer.isDone()) {
-        gameOver = true;
         exploding = false;
         explosionTimer.setSeconds(8);
+        gameOver = true;
       }
     }
   }

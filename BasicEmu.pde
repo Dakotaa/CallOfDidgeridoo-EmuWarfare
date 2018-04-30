@@ -14,6 +14,7 @@ class BasicEmu extends Emu {
     }
   }
 
+/*
   void attack() { 
     if (myX > truck.getX() - 100 && myX < truck.getX() + 100 && myY > truck.getY() - 100 && myY < truck.getY() + 100) { 
       if (frameCount%(int(random(125, 175))) == 0) { 
@@ -21,6 +22,7 @@ class BasicEmu extends Emu {
       }
     }
   }
+*/
 
   void update() {
     super.update();

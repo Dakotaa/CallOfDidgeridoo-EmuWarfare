@@ -1,5 +1,10 @@
 class Level {
+  float mobLocationX, mobLocationY;
   Level() {
+    mobLocationX = random(width-700, width);
+    mobLocationY = random(0, height);
+    constrain(mobLocationX, 0, width);
+    constrain(mobLocationY, 0, height);
   }
   void setupLevel() {
   }
@@ -11,9 +16,22 @@ class Level {
     guns.clear();
     projectiles.clear();
     gasses.clear();
+    track = false;
+  }
+
+  float getMobLocationX() {
+    return mobLocationX;
+  }
+
+  float getMobLocationY() {
+    return mobLocationY;
   }
 
   void update() {
+    if (frameCount%20 == 0) {
+    mobLocationX += random(-10, 10);
+    mobLocationY += random(-10, 10);
+    }
     boomerangTimer.update();
     fill(0, 255, 0);
     noStroke();
@@ -21,7 +39,9 @@ class Level {
     fill(0);
     text("FPS: " + (int) frameRate, 2, 15);
     background(214, 154, 0);
-
+    fill(0);
+    text(mobLocationX, 500, 500);
+    text(mobLocationY, 500, 600);
     truck.update();
     for (Gun g : guns) {
       g.drawGun();
@@ -94,9 +114,9 @@ class Level {
         explosionsToRemove.add(e);
       }
     }
-    
+
     for (Gas g : gasses) {
-      g.update();  
+      g.update();
     }
 
     if (aiming) {
