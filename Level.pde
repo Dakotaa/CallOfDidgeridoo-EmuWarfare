@@ -115,8 +115,12 @@ class Level {
       }
     }
 
+    ArrayList<Gas> gasToRemove = new ArrayList();
     for (Gas g : gasses) {
       g.update();
+      if (g.isComplete()) {
+        gasToRemove.add(g);  
+      }
     }
 
     if (aiming) {
@@ -131,6 +135,7 @@ class Level {
     emus.removeAll(emuRemove);
     explosions.removeAll(explosionsToRemove);
     bloods.removeAll(bloodToRemove);
+    gasses.removeAll(gasToRemove);
     textAlign(CORNER);
     fill(0);
     //textSize(20);

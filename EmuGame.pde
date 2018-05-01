@@ -268,7 +268,7 @@ void keyReleased() {
       truck.setLeft(false);
       break;
     case 71:    // Moves truck left
-      gasses.add(new Gas(mouseX, mouseY, 5));
+      gasses.add(new Gas(mouseX, mouseY));
       break;
     case 68:    // Moves truck right
       truck.setRight(false);
