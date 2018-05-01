@@ -1,5 +1,5 @@
 class BuffEmu extends Emu {
-  boolean smashing, smashDone;
+  boolean smashing;
   PImage runPhotos[] = new PImage[38];
   PImage runPhotosF[] = new PImage[38];
   PImage smashPhotos[] = new PImage[30];
