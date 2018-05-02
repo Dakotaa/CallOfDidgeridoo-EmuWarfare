@@ -12,20 +12,26 @@ class Gas {
   }
 
   boolean isComplete() {
-    return completed;  
+    return completed;
   }
 
   void update() {
     for (int i = 0; i < circles.length; i++) {
+      for (Emu e : emus) {
+        if (e.getX() > circles[i].x - 125 && e.getX() < circles[i].x + 125 && e.getY() > circles[i].y - 125 && e.getY() < circles[i].y + 125) {
+          println("true");
+          e.reduceHP(5);  
+        }
+      }
       fill(252, 205, 33, alpha);
       ellipse(circles[i].x, circles[i].y, 250, 250);
       circles[i].x += random(-1, 1);
       circles[i].y += random(-1, 1);
     }
     alpha -= 0.4;
-    
+
     if (alpha <= 0) {
-        completed = true;
+      completed = true;
     }
   }
 }

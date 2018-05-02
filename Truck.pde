@@ -5,7 +5,7 @@ class Truck {
   PVector backWheel;
   float myHeading, mySpeed, myBaseMaxSpeed, myMaxSpeed, mySteerAngle, myMaxSteerAngle, myWheelBase, myMinWheelBase, myMaxWheelBase, myHP, maxHP, carSize;
   boolean plus, minus, up, down, left, right, steerLock, exploding, timerStarted; 
-  PImage damagePhotos[] = new PImage[3];
+  //PImage damagePhotos[] = new PImage[3];
 
   Timer explosionTimer = new Timer(8);
 
@@ -22,11 +22,12 @@ class Truck {
     maxHP = 1;
     myHP = maxHP;
     carSize = 10;
-  
+  /*
     for(int i = 1; i < damagePhotos.length; i++) {
      damagePhotos[i] = carDamage[i].copy(); 
      damagePhotos[i].resize((int) (carSize*400), (int) (carSize*406));
   }
+  */
 }
 
   float getSpeed() {
