@@ -1,4 +1,5 @@
 class LevelOne extends Level {
+  //String[] textScene = new String[3];
   LevelOne() {
     super();
   }
@@ -30,6 +31,10 @@ class LevelOne extends Level {
     inventory.put("Vegemite", 3);
     inventory.put("Grenade", 10);
     inventory.put("Landmine", 10);
+
+    textScene[0] = "test test test test test test";
+    textScene[1] = "test1";
+    textScene[2] = "test2";
   }
 
 

@@ -1,6 +1,6 @@
 class Gas {
   PVector myPosition;
-  PVector[] circles = new PVector[4];
+  PVector[] circles = new PVector[1];
   float alpha = 255;
   boolean completed = false;
   Gas (float x, float y) {
@@ -19,8 +19,9 @@ class Gas {
     for (int i = 0; i < circles.length; i++) {
       for (Emu e : emus) {
         if (e.getX() > circles[i].x - 125 && e.getX() < circles[i].x + 125 && e.getY() > circles[i].y - 125 && e.getY() < circles[i].y + 125) {
-          println("true");
-          e.reduceHP(5);  
+          if (frameCount%20 == 0) {
+            e.reduceHP(5);
+          }
         }
       }
       fill(252, 205, 33, alpha);
