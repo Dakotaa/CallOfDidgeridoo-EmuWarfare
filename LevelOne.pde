@@ -32,7 +32,7 @@ class LevelOne extends Level {
     inventory.put("Grenade", 10);
     inventory.put("Landmine", 10);
 
-    textScene[0] = "test test test test test test";
+    textScene[0] = "November 2, 1932 \n \n \n A herd of 50 emus have been spotted in Campon, Australia. \n The Australians deployed Sergeant S. McMurray and Gunner J. O'Hallora, under the command of Major G.P.W Meredith.";
     textScene[1] = "test1";
     textScene[2] = "test2";
   }

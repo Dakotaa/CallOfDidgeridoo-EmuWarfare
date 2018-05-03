@@ -26,6 +26,7 @@ PImage[] blood = new PImage[5];
 boolean isDone, autoFire, aiming, gameOver, track = false;
 float gunInnac;
 int level = 0;
+PFont typeWriterFont;
 
 ArrayList<Bullet> bullets = new ArrayList();
 ArrayList<Emu> emus = new ArrayList();
@@ -79,6 +80,9 @@ void draw() {
 
 // Loads all the images in another core thread, sets isDone to true after images are loaded to stop drawing of loading screen.
 void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-speedup-loadimage
+  
+  typeWriterFont = createFont("TravelingTypewriter.ttf", 30);
+
   lewisGun = loadImage("lewisgun.png");
   miniGun = loadImage("minigun.png");
   emuPhoto = loadImage("emu.png");

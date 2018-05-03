@@ -20,6 +20,8 @@ class Level {
     projectiles.clear();
     gasses.clear();
     track = false;
+    character = 0;
+    scene = 0;
   }
 
   float getMobLocationX() {
@@ -32,12 +34,15 @@ class Level {
 
   void update() {
     if (scene <= textScene.length) {
-      background(0);
-      fill(255);
+      pushMatrix();
+      background(255);
+      fill(0);
       String text = textScene[scene].substring(0, character);
-      text(text, width/2, height/2);
-
-      if (frameCount%10 == 0) {
+      textFont(typeWriterFont);
+      text(text + "|", width/2, height/2);
+      popMatrix();
+      
+      if (frameCount%6 == 0) {
         if (character < textScene[scene].length()) {
           character++;
         }
