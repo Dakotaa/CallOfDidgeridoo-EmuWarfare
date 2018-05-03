@@ -51,10 +51,10 @@ void setup() {
   frameRate(60);
   ((PGraphicsOpenGL)g).textureSampling(3); // https://forum.processing.org/two/discussion/8075/why-are-text-and-graphics-so-ugly-and-blocky
   cursor(CROSS);
-  levels.add(new TitleScreen()); // Adds the title screen level
+  levels.add(new LevelOpening()); // Adds the title screen level
   thread("loadImages"); // Runs the loadImages function in another thread, this allows the loading screen to show while the images are being loaded.
-  buttons.add(new Button(200, 250, 100, 75, "Test Level", color(100, 200, 250), 2, new LevelOne()));
-  buttons.add(new Button(350, 250, 100, 75, "Minigun Test", color(100, 200, 250), 2, new LevelTwo()));
+  buttons.add(new Button(200, 250, 100, 75, "Test\nLevel", color(100, 200, 250), 2, new LevelOne()));
+  buttons.add(new Button(350, 250, 100, 75, "Minigun\nTest", color(100, 200, 250), 2, new LevelTwo()));
   inventory.put("Boomerang", 5);
 }
 
@@ -81,7 +81,7 @@ void draw() {
 // Loads all the images in another core thread, sets isDone to true after images are loaded to stop drawing of loading screen.
 void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-speedup-loadimage
   
-  typeWriterFont = createFont("TravelingTypewriter.ttf", 30);
+  typeWriterFont = createFont("TravelingTypewriter.ttf", 26);
 
   lewisGun = loadImage("lewisgun.png");
   miniGun = loadImage("minigun.png");
@@ -160,6 +160,8 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
 
   lewisGun.resize((int) (lewisGun.width*0.5), (int) (lewisGun.height*0.5));
   isDone = true;
+  
+  level = 1;
 }
 
 // KeyPressed function to control truck

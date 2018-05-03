@@ -3,6 +3,7 @@ class Level {
   String[] textScene = new String[3];
   int scene = 0;
   int character = 0;
+  boolean textComplete;
   Level() {
     mobLocationX = random(width-700, width);
     mobLocationY = random(0, height);
@@ -38,14 +39,19 @@ class Level {
       background(255);
       fill(0);
       String text = textScene[scene].substring(0, character);
+      textAlign(LEFT);
       textFont(typeWriterFont);
-      text(text + "|", width/2, height/2);
+      text(text + "|", 100, 100);
       popMatrix();
       
-      if (frameCount%6 == 0) {
+      if (frameCount%3 == 0) {
         if (character < textScene[scene].length()) {
           character++;
         }
+      }
+      
+      if (character == textScene[scene].length()) {
+        textComplete = true;  
       }
     } else {
       if (frameCount%20 == 0) {
