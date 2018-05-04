@@ -170,9 +170,6 @@ class Truck {
 
 
   void update() {
-    rectMode(CORNER);
-    rect(myLocation.x - 100, myLocation.y - 100, 200, 200);
-
     frontWheel = new PVector(myLocation.x+(myWheelBase/2)*sin(myHeading), myLocation.y+(myWheelBase/2)*cos(myHeading));
     backWheel = new PVector(myLocation.x-(myWheelBase/2)*sin(myHeading), myLocation.y-(myWheelBase/2)*cos(myHeading));
     // front axle

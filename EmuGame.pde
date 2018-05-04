@@ -7,6 +7,8 @@
  
  ********************************************************************************/
 
+
+// Declaring all images, image arrays, booleans, and other global variables.
 PImage lewisGun, miniGun, emuPhoto, emuPhotoFlipped, explosion, boomerang, vegemite, grenade, landmine;
 PImage[] emuRun = new PImage[34];    // https://processing.org/discourse/beta/num_1192465513.html
 PImage[] emuRunFlip = new PImage[34];
@@ -25,9 +27,11 @@ PImage[] naziEmuAttackFlip = new PImage[35];
 PImage[] blood = new PImage[5];
 boolean isDone, autoFire, aiming, gameOver, track = false;
 float gunInnac;
-int level = 0;
-PFont typeWriterFont;
+int level = -1;
+PFont typeWriterFont, stamp20, stamp30, stamp50, stamp100;
 
+
+// ArrayLists for objects.
 ArrayList<Bullet> bullets = new ArrayList();
 ArrayList<Emu> emus = new ArrayList();
 ArrayList<Blood> bloods = new ArrayList();
@@ -49,7 +53,7 @@ Truck truck = new Truck (5);
 void setup() {
   fullScreen(P2D);
   frameRate(60);
-  ((PGraphicsOpenGL)g).textureSampling(3); // https://forum.processing.org/two/discussion/8075/why-are-text-and-graphics-so-ugly-and-blocky
+  //((PGraphicsOpenGL)g).textureSampling(3); // https://forum.processing.org/two/discussion/8075/why-are-text-and-graphics-so-ugly-and-blocky
   cursor(CROSS);
   levels.add(new LevelOpening()); // Adds the title screen level
   thread("loadImages"); // Runs the loadImages function in another thread, this allows the loading screen to show while the images are being loaded.
@@ -80,8 +84,12 @@ void draw() {
 
 // Loads all the images in another core thread, sets isDone to true after images are loaded to stop drawing of loading screen.
 void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-speedup-loadimage
-  
+
   typeWriterFont = createFont("TravelingTypewriter.ttf", 26);
+  stamp20 = createFont("stamp.ttf", 20);
+  stamp30 = createFont("stamp.ttf", 30);
+  stamp50 = createFont("stamp.ttf", 50);
+  stamp100 = createFont("stamp.ttf", 100);
 
   lewisGun = loadImage("lewisgun.png");
   miniGun = loadImage("minigun.png");
@@ -136,15 +144,15 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
   for (int i = 1; i < naziEmuRun.length; i++) {
     naziEmuRunFlip[i] = loadImage(dataPath("NaziEmuRunFlip/naziEmuRun" + i + ".png"));
   }
-  
-    for (int i = 1; i < naziEmuAttackFlip.length; i++) {
+
+  for (int i = 1; i < naziEmuAttackFlip.length; i++) {
     naziEmuAttack[i] = loadImage(dataPath("NaziEmuAttack/naziEmuAttack" + i + ".png"));
   }
 
   for (int i = 1; i < naziEmuAttack.length; i++) {
     naziEmuAttackFlip[i] = loadImage(dataPath("NaziEmuAttackFlip/naziEmuAttack" + i + ".png"));
   }
-  
+
   for (int i = 0; i < explosionAnimation.length; i++) {
     explosionAnimation[i] = loadImage(dataPath("Explosion/tile0" + i + ".png"));
   }
@@ -154,14 +162,14 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
     blood[i].resize(200, 200);
   }
 
-  for(int i = 1; i < carDamage.length; i++) {
+  for (int i = 1; i < carDamage.length; i++) {
     carDamage[i] = loadImage(dataPath("CarDamage/CarDamage" + i + ".png"));
   }
 
   lewisGun.resize((int) (lewisGun.width*0.5), (int) (lewisGun.height*0.5));
   isDone = true;
-  
-  level = 1;
+
+  //level = -1;
 }
 
 // KeyPressed function to control truck
@@ -319,6 +327,13 @@ void mousePressed() {
         }
       }
     } else {
+      if (level >= 0) {
+        for (Level l : levels) {
+          if (l.getScene() == 0) {
+            l.setScene(l.getScene() + 1);
+          }
+        }
+      }
       for (Gun g : guns) {
         if (g.getAmmo() > 0 && !g.getReloading()) {
           if (aiming) {

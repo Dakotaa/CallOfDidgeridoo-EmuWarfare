@@ -48,6 +48,9 @@ class Emu {
     return (mySize*406);
   }
 
+  void setAttacking(boolean a) {
+      attacking = a;
+  }
 
   // HEALTH BAR DRAW FUNCTION
   void healthBar() {
@@ -148,6 +151,7 @@ class Emu {
       attacking = false;
     }
   }
+  
   void update() {
     tracking = track;
     if (attacking) {

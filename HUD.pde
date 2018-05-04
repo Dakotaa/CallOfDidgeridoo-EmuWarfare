@@ -10,18 +10,18 @@ class HUD {
     //boomerangIcon.resize(75, 75);
   }
   void showFPS() {
-    text("FPS: " + (int) frameRate, 10, 20);
+    text("FPS: " + (int) frameRate, 10, 30);
   }
   void showHP() {
-    text("Truck Condition: " + (int) (truck.getHP()*100) + "%", 100, 20);
+    text("Truck Condition: " + (int) (truck.getHP()*100) + "%", 150, 30);
   }
 
   void showAmmo() {
     for (Gun g : guns) {
       if (g.getReloading()) {
-        text("Reloading", 400, 20);
+        text("Reloading", 500, 30);
       } else {
-        text("Ammo: " + (int) g.getAmmo() + " | " + (int) g.getMaxAmmo(), 400, 20);
+        text("Ammo: " + (int) g.getAmmo() + " | " + (int) g.getMaxAmmo(), 500, 30);
       }
     }
   }
@@ -65,12 +65,12 @@ class HUD {
   }
   
   void showEmusAlive() {
-    text("Emus Alive: " + emusAlive(), 700, 20);  
+    text("Emus Alive: " + emusAlive(), 900, 30);  
   }
 
   void update() {
+    textFont(stamp30);
     fill(0);
-    textSize(20);
     textAlign(LEFT);
     showFPS();
     showHP();

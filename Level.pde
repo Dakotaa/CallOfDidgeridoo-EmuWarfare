@@ -1,9 +1,10 @@
 class Level {
   float mobLocationX, mobLocationY;
-  String[] textScene = new String[3];
+  String[] textScene = new String[1];
   int scene = 0;
   int character = 0;
   boolean textComplete;
+  boolean showHUD, gunWorking = true;
   Level() {
     mobLocationX = random(width-700, width);
     mobLocationY = random(0, height);
@@ -33,8 +34,18 @@ class Level {
     return mobLocationY;
   }
 
+  int getScene() {
+    return scene;
+  }
+
+  void setScene (int s) {
+    scene = s;
+  }
+
   void update() {
-    if (scene <= textScene.length) {
+
+    // Typing text scene.
+    if (scene < textScene.length) {
       pushMatrix();
       background(255);
       fill(0);
@@ -43,15 +54,15 @@ class Level {
       textFont(typeWriterFont);
       text(text + "|", 100, 100);
       popMatrix();
-      
+      textFont(stamp30);
       if (frameCount%3 == 0) {
         if (character < textScene[scene].length()) {
           character++;
         }
       }
-      
+
       if (character == textScene[scene].length()) {
-        textComplete = true;  
+        textComplete = true;
       }
     } else {
       if (frameCount%20 == 0) {
@@ -109,27 +120,29 @@ class Level {
         }
       }
 
-      for (Gun g : guns) {
-        if (frameCount%g.getRateOfFire()==0 && mousePressed && mouseButton == LEFT) { // https://forum.processing.org/one/topic/shoot-multiple-bullets.html
-          if (truck.getSpeed() > 0 || truck.getSpeed() < 0) {
-            gunInnac = 2;
-          } else {
-            gunInnac = 0;
-          }
-          if (g.getAmmo() > 0 && !g.getReloading()) {
-            if (aiming) {
-              for (int i = 0; i < g.getNumShots(); i++) {
-                bullets.add(new Bullet(new PVector(truck.gunX(), truck.gunY()), 30, g.getTheta(), mouseX, mouseY, true, g.getDamage()));
-              }
-              g.shoot();
+      if (gunWorking) {
+        for (Gun g : guns) {
+          if (frameCount%g.getRateOfFire()==0 && mousePressed && mouseButton == LEFT) { // https://forum.processing.org/one/topic/shoot-multiple-bullets.html
+            if (truck.getSpeed() > 0 || truck.getSpeed() < 0) {
+              gunInnac = 2;
             } else {
-              for (int i = 0; i < g.getNumShots(); i++) {
-                bullets.add(new Bullet(new PVector(truck.gunX(), truck.gunY()), 30, g.getTheta(), 10000, 10000, false, g.getDamage()));
-              }
-              g.shoot();
+              gunInnac = 0;
             }
+            if (g.getAmmo() > 0 && !g.getReloading()) {
+              if (aiming) {
+                for (int i = 0; i < g.getNumShots(); i++) {
+                  bullets.add(new Bullet(new PVector(truck.gunX(), truck.gunY()), 30, g.getTheta(), mouseX, mouseY, true, g.getDamage()));
+                }
+                g.shoot();
+              } else {
+                for (int i = 0; i < g.getNumShots(); i++) {
+                  bullets.add(new Bullet(new PVector(truck.gunX(), truck.gunY()), 30, g.getTheta(), 10000, 10000, false, g.getDamage()));
+                }
+                g.shoot();
+              }
+            }
+            //gunShot.play(); //https://processing.org/reference/libraries/sound/SoundFile.html
           }
-          //gunShot.play(); //https://processing.org/reference/libraries/sound/SoundFile.html
         }
       }
 
@@ -166,7 +179,10 @@ class Level {
       fill(0);
       //textSize(20);
       //text((int) gun1.getAmmo() + " | " + (int) gun1.getMaxAmmo(), 200, 30);
-      hud.update();
+
+      if (showHUD) {
+        hud.update();
+      }
     }
   }
 }
