@@ -2,6 +2,7 @@ class LevelTwo extends Level {
   LevelTwo() {
     super();
     showHUD = true;
+    allowItems = true;
   }
 
   void setupLevel() {

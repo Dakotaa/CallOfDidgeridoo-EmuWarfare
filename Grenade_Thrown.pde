@@ -1,12 +1,13 @@
 class Grenade_Thrown extends Projectile {
   boolean moving = true;
   int fuse = 0;
+  Timer myTimer = new Timer(5);
   Grenade_Thrown(PVector position, float velocity, float theta, float xEnd, float yEnd) {
     super(position, velocity, theta, xEnd, yEnd);
   }
 
   void update() {
-
+    myTimer.update();
     if (myPosition.x > myXEnd - 30 && myPosition.x < myXEnd + 30 && myPosition.y > myYEnd - 30 && myPosition.y < myYEnd + 30) {
       moving = false;
     }
@@ -16,11 +17,7 @@ class Grenade_Thrown extends Projectile {
       myPosition.y += myVelocity.y;
     }
 
-    if (frameCount%60 == 0) {
-      fuse++;  
-    }
-    
-    if (fuse >= 5) {
+    if (myTimer.isDone()) {
       explosions.add(new Explosion(myPosition.x, myPosition.y, 100));  
       toRemove = true;
     }
