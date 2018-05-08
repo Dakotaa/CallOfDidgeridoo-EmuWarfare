@@ -51,15 +51,14 @@ Level lose = new LoseScreen();
 Truck truck = new Truck (5);
 
 void setup() {
+  thread("loadImages"); // Runs the loadImages function in another thread, this allows the loading screen to show while the images are being loaded.
   fullScreen(P2D);
   frameRate(60);
   //((PGraphicsOpenGL)g).textureSampling(3); // https://forum.processing.org/two/discussion/8075/why-are-text-and-graphics-so-ugly-and-blocky
   cursor(CROSS);
   levels.add(new LevelOpening()); // Adds the title screen level
-  thread("loadImages"); // Runs the loadImages function in another thread, this allows the loading screen to show while the images are being loaded.
   buttons.add(new Button(200, 250, 100, 75, "Test\nLevel", color(100, 200, 250), 2, new LevelOne()));
   buttons.add(new Button(350, 250, 100, 75, "Minigun\nTest", color(100, 200, 250), 2, new LevelTwo()));
-  inventory.put("Boomerang", 5);
 }
 
 void draw() {
@@ -74,7 +73,6 @@ void draw() {
     if (!gameOver) {
       for (Level l : levels) {
         l.update();
-        //text(truck.getSpeed(), 100, 100);
       }
     } else {
       lose.update();
@@ -85,6 +83,7 @@ void draw() {
 // Loads all the images in another core thread, sets isDone to true after images are loaded to stop drawing of loading screen.
 void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-speedup-loadimage
 
+  // Load fonts (multiple sizes)
   typeWriterFont = createFont("TravelingTypewriter.ttf", 26);
   stamp20 = createFont("stamp.ttf", 20);
   stamp30 = createFont("stamp.ttf", 30);
@@ -211,11 +210,7 @@ void keyPressed() {
 }
 
 int emusAlive() {
-  int alive = 0;
-  for (Emu e : emus) {
-    alive++;
-  }
-  return alive;
+  return emus.size();
 }
 
 void useItem() {
