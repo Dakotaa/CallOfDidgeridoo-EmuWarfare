@@ -219,6 +219,7 @@ void useItem() {
     useVegemite();
     throwGrenade();
     placeLandmine();
+    throwGas();
   }
 }
 
@@ -275,6 +276,17 @@ void placeLandmine() {
   }
 }
 
+void throwGas() {
+  if (hud.getSelectedItem() == 4) {
+    if (inventory.get("Gas") > 0) {
+      for (Gun g : guns) {
+        projectiles.add(new Gas_Thrown(new PVector(truck.gunX(), truck.gunY()), 10, g.getTheta(), mouseX, mouseY));
+        inventory.put("Gas", inventory.get("Gas") - 1);
+      }
+    }
+  }
+}
+
 // KeyReleased function to control truck, add new emu, leave level, etc.
 void keyReleased() {
   if (level != 0) {  // Keys only work when not on the title screen
@@ -283,7 +295,7 @@ void keyReleased() {
       truck.setLeft(false);
       break;
     case 71:    // Moves truck left
-      gasses.add(new Gas(mouseX, mouseY));
+      gasses.add(new Gas(mouseX, mouseY, 250));
       break;
     case 68:    // Moves truck right
       truck.setRight(false);

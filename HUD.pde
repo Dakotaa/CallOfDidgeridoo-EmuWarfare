@@ -62,10 +62,15 @@ class HUD {
       image(landmine, 265, height-30);
       text(inventory.get("Landmine"), 235, height-50);
     }
+
+    if (inventory.get("Gas") > 0) {
+      image(grenade, 340, height-30);
+      text(inventory.get("Gas"), 310, height-50);
+    }
   }
-  
+
   void showEmusAlive() {
-    text("Emus Alive: " + emusAlive(), 900, 30);  
+    text("Emus Alive: " + emusAlive(), 900, 30);
   }
 
   void update() {

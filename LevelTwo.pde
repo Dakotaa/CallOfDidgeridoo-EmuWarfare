@@ -23,6 +23,7 @@ class LevelTwo extends Level {
     inventory.put("Vegemite", 25);
     inventory.put("Grenade", 25);
     inventory.put("Landmine", 25);
+    inventory.put("Gas", 10);
 
     scene = 4;
   }
