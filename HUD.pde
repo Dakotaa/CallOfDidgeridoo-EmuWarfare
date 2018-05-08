@@ -6,8 +6,6 @@ class HUD {
     HP = hp;
     ammo = a;
     items = i;
-    //boomerangIcon = boomerang.copy(); 
-    //boomerangIcon.resize(75, 75);
   }
   void showFPS() {
     text("FPS: " + (int) frameRate, 10, 30);

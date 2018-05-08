@@ -294,9 +294,6 @@ void keyReleased() {
     case 65:    // Moves truck left
       truck.setLeft(false);
       break;
-    case 71:    // Moves truck left
-      gasses.add(new Gas(mouseX, mouseY, 250));
-      break;
     case 68:    // Moves truck right
       truck.setRight(false);
       break;
@@ -369,7 +366,6 @@ void mouseReleased() {    // Sets aiming to false when not on the title screen a
 
 // Scroll event to scroll through inventory slots
 void mouseWheel (MouseEvent event) {
-
   // mouse wheel event returns -1 or 1 depending on scroll direction, so this checks the direction.
   if (event.getCount() > 0) {
     if (hud.getSelectedItem() == 4) {    // If last slot is currently selected, scrolling up will roll over to first slot.

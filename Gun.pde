@@ -11,7 +11,6 @@ class Gun {
     myID = 0;
     myDamage = 0;
     numShots = 0;
-    //gunImage = lewisGun;
   }
 
   int getRateOfFire() {

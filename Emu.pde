@@ -22,10 +22,7 @@ class Emu {
     if (!bleeding) {
       bleeding = true;
     }
-
-    if (frameCount%2 == 0) {
-      bloods.add(new Blood(myX, myY));
-    }
+    bloods.add(new Blood(myX, myY));
   }
 
   boolean isDead() {
@@ -49,7 +46,7 @@ class Emu {
   }
 
   void setAttacking(boolean a) {
-      attacking = a;
+    attacking = a;
   }
 
   // HEALTH BAR DRAW FUNCTION
@@ -151,7 +148,7 @@ class Emu {
       attacking = false;
     }
   }
-  
+
   void update() {
     tracking = track;
     if (attacking) {
