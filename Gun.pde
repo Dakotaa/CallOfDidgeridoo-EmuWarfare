@@ -34,7 +34,10 @@ class Gun {
 
   void shoot() {
     myAmmo--;
-    track = true;
+    if (!group) {
+      group = true;  
+    }
+    //track = true;
   }
   float getAmmo() {
     return myAmmo;

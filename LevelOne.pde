@@ -16,6 +16,8 @@ class LevelOne extends Level {
       g.setAmmo(g.getMaxAmmo());
     }
 
+    allowItems = false;
+
     truck.setX(200);
     truck.setY(200);
     truck.setHeading(PI);
@@ -38,7 +40,7 @@ class LevelOne extends Level {
     if (emusAlive() < 20) {
       gunWorking = false;
       for (Emu e : emus) {
-        e.setAttacking(false);
+        e.setTracking(false);
       }
     }
   }

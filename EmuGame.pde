@@ -25,7 +25,7 @@ PImage[] naziEmuRunFlip = new PImage[34];
 PImage[] naziEmuAttack = new PImage[35];
 PImage[] naziEmuAttackFlip = new PImage[35];
 PImage[] blood = new PImage[5];
-boolean isDone, autoFire, aiming, gameOver, track, allowItems = false;
+boolean isDone, autoFire, aiming, gameOver, track, group, allowItems = false;
 float gunInnac;
 int level = -1;
 PFont typeWriterFont, stamp20, stamp30, stamp50, stamp100;

@@ -1,6 +1,7 @@
 class Level {
   float mobLocationX, mobLocationY;
   String[] textScene = new String[1];
+  PVector[] groups = new PVector[10];
   int scene = 0;
   int character = 0;
   boolean textComplete;
@@ -10,7 +11,13 @@ class Level {
     mobLocationY = random(0, height);
     constrain(mobLocationX, 0, width);
     constrain(mobLocationY, 0, height);
+    for (int i = 0; i < groups.length; i++) {
+      groups[i] = new PVector(random(50, width-50), random(40, height-40));
+      //groups[i].x = random(300, width-300);
+      //groups[i].y = random(200, height-200);
+    }
   }
+
   void setupLevel() {
   }
 
@@ -24,6 +31,14 @@ class Level {
     track = false;
     character = 0;
     scene = 0;
+  }
+
+  float getGroupLocationX(int groupNum) {
+    return groups[groupNum].x;
+  }
+
+  float getGroupLocationY(int groupNum) {
+    return groups[groupNum].y;
   }
 
   float getMobLocationX() {
@@ -69,6 +84,14 @@ class Level {
         mobLocationX += random(-10, 10);
         mobLocationY += random(-10, 10);
       }
+
+      if (frameCount%20 == 0) {
+        for (int i = 0; i < groups.length; i++) {
+          groups[i].x += random(-10, 10);
+          groups[i].y += random(-10, 10);
+        }
+      }
+
       boomerangTimer.update();
       fill(0, 255, 0);
       noStroke();
@@ -77,8 +100,6 @@ class Level {
       text("FPS: " + (int) frameRate, 2, 15);
       background(214, 154, 0);
       fill(0);
-      text(mobLocationX, 500, 500);
-      text(mobLocationY, 500, 600);
       truck.update();
       for (Gun g : guns) {
         g.drawGun();

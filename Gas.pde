@@ -1,6 +1,6 @@
 class Gas {
   PVector myPosition;
-  PVector[] circles = new PVector[1];
+  PVector[] circles = new PVector[3];
   float alpha = 255;
   boolean completed = false;
   int maxSize;
@@ -10,7 +10,7 @@ class Gas {
     maxSize = max;
     for (int i = 0; i < circles.length; i++) {
       circles[i] = new PVector();
-      circles[i].set((myPosition.x + random(-100, 100)), myPosition.y + random(-100, 100));
+      circles[i].set((myPosition.x + random(-50, 50)), myPosition.y + random(-50, 50));
     }
   }
 
@@ -25,8 +25,8 @@ class Gas {
     for (int i = 0; i < circles.length; i++) {
       for (Emu e : emus) {
         if (e.getX() > circles[i].x - size/2 && e.getX() < circles[i].x + size/2 && e.getY() > circles[i].y - size/2 && e.getY() < circles[i].y + size/2) {
-          if (frameCount%20 == 0) {
-            e.reduceHP(5);
+          if (frameCount%40 == 0) {
+            e.reduceHP(5, false);
           }
         }
       }

@@ -1,9 +1,10 @@
 class Emu { 
   float myHP, maxHP, myX, myY, mySize, myFade, myXVel, myYVel, speedModifier, mobXDistance, mobYDistance;
-  boolean dead, bleeding, movingUp, attacking, tracking = false;
+  boolean dead, bleeding, movingUp, attacking, tracking, grouping = false;
   boolean moving = true;
   //PImage myPhoto, myPhotoF;
   int frameNum = (int) random(1, 33);
+  int myGroup;
   Emu (float x, float y, float size) {
     mobXDistance = random (-200, 200);
     mobYDistance = random (-200, 200);
@@ -15,6 +16,7 @@ class Emu {
     maxHP = myHP;
     mySize = size;
     speedModifier = 0.3/mySize;
+    myGroup = int(random(0, 10));
   }
 
   void reduceHP (float damage) {
@@ -23,6 +25,16 @@ class Emu {
       bleeding = true;
     }
     bloods.add(new Blood(myX, myY));
+  }
+
+  void reduceHP (float damage, boolean b) {
+    myHP-=damage;
+    if (b) {
+      if (!bleeding) {
+        bleeding = true;
+      }
+      bloods.add(new Blood(myX, myY));
+    }
   }
 
   boolean isDead() {
@@ -47,6 +59,14 @@ class Emu {
 
   void setAttacking(boolean a) {
     attacking = a;
+  }
+
+  void setTracking(boolean t) {
+    tracking = t;
+  }
+
+  void setGrouping(boolean g) {
+    grouping = g;
   }
 
   // HEALTH BAR DRAW FUNCTION
@@ -99,6 +119,24 @@ class Emu {
     return toMobY;
   }
 
+  float toGroupX() {
+    float toGroupX = 0;
+    for (Level l : levels) {
+      toGroupX = myX - l.getGroupLocationX(myGroup);
+      toGroupX = (toGroupX/Math.abs(toGroupX))*-1;
+    }
+    return toGroupX;
+  }
+
+  float toGroupY() {
+    float toGroupY = 0;
+    for (Level l : levels) {
+      toGroupY = myY - l.getGroupLocationY(myGroup);
+      toGroupY = (toGroupY/Math.abs(toGroupY))*-1;
+    }
+    return toGroupY;
+  }
+
   float bob() {
     float yVel = 0;
     if (frameCount%(int)random(60, 200) == 0) {
@@ -121,6 +159,8 @@ class Emu {
     float xVel;
     if (tracking) {
       xVel = toTruckX();
+    } else if (grouping) {
+      xVel = toGroupX();
     } else {
       xVel = toMobX();
     }
@@ -131,6 +171,8 @@ class Emu {
     float yVel;
     if (tracking) {
       yVel = toTruckY() + bob();
+    } else if (grouping) {
+      yVel = toGroupY();
     } else {
       yVel = toMobY();
     }
@@ -150,6 +192,7 @@ class Emu {
   }
 
   void update() {
+    grouping = group;    // Sets this emu's grouping and tracking variable based on the global group and track variable (set in the gun shoot method)
     tracking = track;
     if (attacking) {
       moving = false;
@@ -157,9 +200,16 @@ class Emu {
       moving = true;
     }
 
-    if (frameCount%(int(random(20, 40))) == 0) {
-      myXVel = xVelocity();
-      myYVel = yVelocity();
+    if (!grouping) {
+      if (frameCount%(int(random(20, 40))) == 0) {
+        myXVel = xVelocity();
+        myYVel = yVelocity();
+      }
+    } else {
+      if (frameCount%(int(random(10, 20))) == 0) {
+        myXVel = xVelocity();
+        myYVel = yVelocity();
+      }
     }
 
     if (moving) {
@@ -174,14 +224,13 @@ class Emu {
         reduceHP(b.getDamage());
       }
     }
+    bullets.removeAll(toRemove);
 
     if (bleeding) {
       if (frameCount%((int) random(180, 500)) == 0) {
         bloods.add(new Blood(myX, myY));
       }
     }
-
-    bullets.removeAll(toRemove);
 
     if (myHP <= 0) {
       dead = true;
@@ -190,17 +239,7 @@ class Emu {
     if (frameCount%2 == 0) {
       frameNum++;
     }
-    /*
-    if (frameNum > 30) {
-     frameNum = 1;
-     }
-     
-     if (xVelocity() > 0) {
-     image(runPhotosF[frameNum], myX, myY);
-     } else {
-     image(runPhotos[frameNum], myX, myY);
-     }
-     */
+
     fill(0);
     attack();
     healthBar();
