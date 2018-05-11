@@ -2,7 +2,7 @@ class Gun {
   float myX, myY, myTheta, myMaxAmmo, myAmmo, myDamage;
   int myID;
   int myRateOfFire, numShots;
-  boolean reloading;
+  boolean reloading, flashing;
   PImage gunImage;
   Gun () {
     myX = truck.gunX();
@@ -23,11 +23,11 @@ class Gun {
   float getDamage() {
     return myDamage;
   }
-  
+
   int getNumShots() {
-    return numShots;  
+    return numShots;
   }
-  
+
   float getTheta() {
     return myTheta;
   }
@@ -35,8 +35,9 @@ class Gun {
   void shoot() {
     myAmmo--;
     if (!group) {
-      group = true;  
+      group = true;
     }
+    flashing = true;
     //track = true;
   }
   float getAmmo() {
@@ -84,6 +85,7 @@ class Gun {
   }
 
   void drawGun() {
+
     myX = truck.gunX();
     myY = truck.gunY();
 
@@ -102,6 +104,15 @@ class Gun {
     translate(truck.getX(), truck.getY());
     rotate(myTheta);
     image(gunImage, 0, 0);
+
+    if (flashing) {
+      image(flash, gunImage.width/2 + gunImage.width*.15, 0);
+
+      if (frameCount%4==0) {
+        flashing = false;
+      }
+    }
+
     popMatrix();
   }
 }

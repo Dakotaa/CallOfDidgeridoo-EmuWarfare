@@ -85,10 +85,10 @@ class Level {
         mobLocationY += random(-10, 10);
       }
 
-      if (frameCount%20 == 0) {
+      if (frameCount%120 == 0) {
         for (int i = 0; i < groups.length; i++) {
-          groups[i].x += random(-10, 10);
-          groups[i].y += random(-10, 10);
+          groups[i].x += random(-30, 30);
+          groups[i].y += random(-30, 30);
         }
       }
 
@@ -101,9 +101,6 @@ class Level {
       background(214, 154, 0);
       fill(0);
       truck.update();
-      for (Gun g : guns) {
-        g.drawGun();
-      }
 
       ArrayList<Blood> bloodToRemove = new ArrayList();
       for (Blood b : bloods) {
@@ -123,6 +120,10 @@ class Level {
         if (p.getX() > width + 100 || p.getX() < - 00 || p.getY() > height + 100 || p.getY() < -100) {
           projectilesToRemove.add(p);
         }
+      }
+
+      for (Gun g : guns) {
+        g.drawGun();
       }
 
       ArrayList<Bullet> toRemove = new ArrayList();

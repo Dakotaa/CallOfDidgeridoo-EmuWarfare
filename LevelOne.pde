@@ -37,7 +37,7 @@ class LevelOne extends Level {
   void update() {
     super.update();
 
-    if (emusAlive() < 20) {
+    if (emusAlive() < 27) {
       gunWorking = false;
       for (Emu e : emus) {
         e.setTracking(false);

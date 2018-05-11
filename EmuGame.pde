@@ -9,7 +9,7 @@
 
 
 // Declaring all images, image arrays, booleans, and other global variables.
-PImage lewisGun, miniGun, emuPhoto, emuPhotoFlipped, explosion, boomerang, vegemite, grenade, landmine;
+PImage lewisGun, miniGun, emuPhoto, emuPhotoFlipped, explosion, boomerang, vegemite, grenade, landmine, flash;
 PImage[] emuRun = new PImage[34];    // https://processing.org/discourse/beta/num_1192465513.html
 PImage[] emuRunFlip = new PImage[34];
 PImage[] buffEmuRun = new PImage[39];
@@ -92,6 +92,7 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
 
   lewisGun = loadImage("lewisgun.png");
   miniGun = loadImage("minigun.png");
+  miniGun.resize((int) (miniGun.width*.75), (int) (miniGun.height*.75));
   emuPhoto = loadImage("emu.png");
   boomerang = loadImage("Boomerang.png");
   boomerang.resize((int) (boomerang.width*0.15), (int) (boomerang.height*0.15));
@@ -103,6 +104,8 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
   grenade.resize((int) (grenade.width*.2), (int) (grenade.height*.2));
   landmine = loadImage("landmine.png");
   landmine.resize((int) (landmine.width*.075), (int) (landmine.height*.075));
+  flash = loadImage("flash.png");
+  flash.resize((int) (flash.width*.15), (int) (flash.height*.15));
 
   for (int i = 1; i < emuRun.length; i++) {
     emuRun[i] = loadImage(dataPath("EmuRun/EmuRun" + i + ".png"));    // https://forum.processing.org/two/discussion/4160/is-it-possible-to-load-files-from-a-folder-inside-the-data-folder

@@ -49,7 +49,7 @@ class Bullet {
     rotate((myTheta));
     rectMode(CENTER);
     fill(0);
-    rect(0, 0, 5, 3);
+    rect(80, 0, 5, 3);
     popMatrix();
   }
 }
