@@ -11,6 +11,8 @@ class Explosion {
       myExplosion[i] = explosionAnimation[i].copy();
       myExplosion[i].resize((int) (myRadius * 3), (int) (myRadius * 3));
     }
+    explosionSound.rewind();
+    explosionSound.play();
   }
 
   void setX(float x) {

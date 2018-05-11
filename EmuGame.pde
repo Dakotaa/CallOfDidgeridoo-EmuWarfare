@@ -6,8 +6,10 @@
  BY: Dakota, Angus
  
  ********************************************************************************/
+import ddf.minim.*;
 
-
+Minim minim;
+AudioPlayer gunshot, explosionSound;
 // Declaring all images, image arrays, booleans, and other global variables.
 PImage lewisGun, miniGun, emuPhoto, emuPhotoFlipped, explosion, boomerang, vegemite, grenade, landmine, flash;
 PImage[] emuRun = new PImage[34];    // https://processing.org/discourse/beta/num_1192465513.html
@@ -29,7 +31,6 @@ boolean isDone, autoFire, aiming, gameOver, track, group, allowItems = false;
 float gunInnac;
 int level = -1;
 PFont typeWriterFont, stamp20, stamp30, stamp50, stamp100;
-
 
 // ArrayLists for objects.
 ArrayList<Bullet> bullets = new ArrayList();
@@ -59,6 +60,8 @@ void setup() {
   levels.add(new LevelOpening()); // Adds the title screen level
   buttons.add(new Button(200, 250, 100, 75, "Test\nLevel", color(100, 200, 250), 2, new LevelOne()));
   buttons.add(new Button(350, 250, 100, 75, "Minigun\nTest", color(100, 200, 250), 2, new LevelTwo()));
+
+  minim = new Minim(this);
 }
 
 void draw() {
@@ -169,6 +172,10 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
   }
 
   lewisGun.resize((int) (lewisGun.width*0.5), (int) (lewisGun.height*0.5));
+
+  gunshot = minim.loadFile(dataPath("gunshot.wav"));
+  explosionSound = minim.loadFile(dataPath("explode.mp3"));
+
   isDone = true;
 
   //level = -1;

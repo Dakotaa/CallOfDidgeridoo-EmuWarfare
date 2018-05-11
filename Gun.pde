@@ -33,6 +33,8 @@ class Gun {
   }
 
   void shoot() {
+    gunshot.rewind();
+    gunshot.play();
     myAmmo--;
     if (!group) {
       group = true;
