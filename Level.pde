@@ -138,6 +138,8 @@ class Level {
       for (Emu e : emus) {
         e.update();
         if (e.isDead()) {
+          oof.play();
+          oof.rewind();
           emuRemove.add(e);
         }
       }

@@ -9,7 +9,7 @@
 import ddf.minim.*;
 
 Minim minim;
-AudioPlayer gunshot, explosionSound;
+AudioPlayer gunshot, explosionSound, oof, music1;
 // Declaring all images, image arrays, booleans, and other global variables.
 PImage lewisGun, miniGun, emuPhoto, emuPhotoFlipped, explosion, boomerang, vegemite, grenade, landmine, flash;
 PImage[] emuRun = new PImage[34];    // https://processing.org/discourse/beta/num_1192465513.html
@@ -50,6 +50,7 @@ HUD hud = new HUD(true, true, true);
 Timer boomerangTimer = new Timer(3);
 Level lose = new LoseScreen();
 Truck truck = new Truck (5);
+
 
 void setup() {
   thread("loadImages"); // Runs the loadImages function in another thread, this allows the loading screen to show while the images are being loaded.
@@ -175,7 +176,8 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
 
   gunshot = minim.loadFile(dataPath("gunshot.wav"));
   explosionSound = minim.loadFile(dataPath("explode.mp3"));
-
+  oof = minim.loadFile(dataPath("oof.wav"));
+  music1 = minim.loadFile(dataPath("music1.mp3"));
   isDone = true;
 
   //level = -1;
