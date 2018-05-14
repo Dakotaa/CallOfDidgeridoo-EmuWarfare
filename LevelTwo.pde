@@ -26,6 +26,9 @@ class LevelTwo extends Level {
     inventory.put("Landmine", 25);
     inventory.put("Gas", 10);
 
+    music1.rewind();
+    music1.loop(5);
+
     scene = 4;
   }
 
