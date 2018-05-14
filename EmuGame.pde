@@ -167,9 +167,10 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
     blood[i].resize(200, 200);
   }
 
-  for (int i = 1; i < carDamage.length; i++) {
+  for (int i = 0; i < carDamage.length; i++) {
     carDamage[i] = loadImage(dataPath("CarDamage/CarDamage" + i + ".png"));
-  }
+    carDamage[i].resize(200, 200);
+}
 
   lewisGun.resize((int) (lewisGun.width*0.5), (int) (lewisGun.height*0.5));
 

@@ -5,11 +5,12 @@ class Truck {
   PVector backWheel;
   float myHeading, mySpeed, myBaseMaxSpeed, myMaxSpeed, mySteerAngle, myMaxSteerAngle, myWheelBase, myMinWheelBase, myMaxWheelBase, myHP, maxHP, carSize;
   boolean plus, minus, up, down, left, right, steerLock, exploding, timerStarted; 
-  //PImage damagePhotos[] = new PImage[3];
 
   Timer explosionTimer = new Timer(8);
 
   Truck(float maxSpeed) {
+
+
     up = down = left = right = steerLock = false;
     myLocation = new PVector(860, 540);
     myHeading = PI;
@@ -22,13 +23,7 @@ class Truck {
     maxHP = 1;
     myHP = maxHP;
     carSize = 10;
-  /*
-    for(int i = 1; i < damagePhotos.length; i++) {
-     damagePhotos[i] = carDamage[i].copy(); 
-     damagePhotos[i].resize((int) (carSize*400), (int) (carSize*406));
   }
-  */
-}
 
   float getSpeed() {
     return mySpeed;
@@ -101,6 +96,25 @@ class Truck {
     myMaxSpeed = 5;
   }
 
+  void carDamage() {
+    if (myHP > 0) {
+      if (myHP != maxHP) {
+        pushMatrix();
+        imageMode(CENTER);
+        translate(myLocation.x, myLocation.y);
+        rotate(-myHeading);
+        if (myHP < 0.25) {
+          image(carDamage[2], 0, 0);
+        } else if (myHP < 0.5) {
+          image(carDamage[1], 0, 0);
+        } else if (myHP < 0.75) {
+          image(carDamage[0], 0, 0);
+        }
+        popMatrix();
+      }
+    }
+  }
+
   void healthBar() {
     if (myHP > 0) {
       if (myHP != maxHP) {
@@ -122,7 +136,6 @@ class Truck {
     if (myHP > 0) {
       if (myHP != maxHP) {
         if (myHP > (maxHP*0.75)) {
-        
         }
       }
     }
@@ -304,6 +317,7 @@ class Truck {
 
     if ((!up && !down) && (abs(mySpeed)<0.01))  mySpeed=0;
 
+    carDamage();
     setMaxSpeed();
     healthBar();
     hitEmu();
