@@ -105,10 +105,13 @@ class Truck {
         rotate(-myHeading);
         if (myHP < 0.25) {
           image(carDamage[2], 0, 0);
+          image(carDamage[5], 0, 0);
         } else if (myHP < 0.5) {
           image(carDamage[1], 0, 0);
+          image(carDamage[4], 0, 0);
         } else if (myHP < 0.75) {
           image(carDamage[0], 0, 0);
+          image(carDamage[3], 0, 0);
         }
         popMatrix();
       }
@@ -186,6 +189,8 @@ class Truck {
 
 
   void update() {
+    println(myWheelBase, myWheelBase+myWheelBase/1.5);
+
     frontWheel = new PVector(myLocation.x+(myWheelBase/2)*sin(myHeading), myLocation.y+(myWheelBase/2)*cos(myHeading));
     backWheel = new PVector(myLocation.x-(myWheelBase/2)*sin(myHeading), myLocation.y-(myWheelBase/2)*cos(myHeading));
     // front axle

@@ -1,11 +1,11 @@
-/*******************************************************************************
+/**********************************************************************************************************************************************************************************************************************************************************************
  
  CALL OF DIDGERIDOO: EMU WARFARE
  
  2018
  BY: Dakota, Angus
  
- ********************************************************************************/
+**********************************************************************************************************************************************************************************************************************************************************************/
 import ddf.minim.*;
 
 Minim minim;
@@ -18,7 +18,7 @@ PImage[] buffEmuRun = new PImage[39];
 PImage[] buffEmuRunFlip = new PImage[39];
 PImage[] vietEmuRun = new PImage[24];
 PImage[] vietEmuRunFlip = new PImage[24];
-PImage[] carDamage = new PImage[3];
+PImage[] carDamage = new PImage[6];
 PImage[] buffEmuSmash = new PImage[30];
 PImage[] buffEmuSmashFlip = new PImage[30];
 PImage[] explosionAnimation = new PImage[25];
@@ -170,7 +170,7 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
 
   for (int i = 0; i < carDamage.length; i++) {
     carDamage[i] = loadImage(dataPath("CarDamage/CarDamage" + i + ".png"));
-    carDamage[i].resize(200, 200);
+    carDamage[i].resize(204, 364);
 }
 
   lewisGun.resize((int) (lewisGun.width*0.5), (int) (lewisGun.height*0.5));
