@@ -5,13 +5,13 @@
  2018
  BY: Dakota, Angus
  
-**********************************************************************************************************************************************************************************************************************************************************************/
+ **********************************************************************************************************************************************************************************************************************************************************************/
 import ddf.minim.*;
 
 Minim minim;
-AudioPlayer gunshot, explosionSound, oof, music1;
+AudioPlayer gunshot, explosionSound, oof, music1, fortunateson;
 // Declaring all images, image arrays, booleans, and other global variables.
-PImage lewisGun, miniGun, emuPhoto, emuPhotoFlipped, explosion, boomerang, vegemite, grenade, landmine, flash;
+PImage lewisGun, miniGun, M60, emuPhoto, emuPhotoFlipped, explosion, boomerang, vegemite, grenade, landmine, flash;
 PImage[] emuRun = new PImage[34];    // https://processing.org/discourse/beta/num_1192465513.html
 PImage[] emuRunFlip = new PImage[34];
 PImage[] buffEmuRun = new PImage[39];
@@ -62,6 +62,7 @@ void setup() {
   levels.add(new LevelOpening()); // Adds the title screen level
   buttons.add(new Button(200, 250, 100, 75, "Test\nLevel", color(100, 200, 250), 2, new LevelOne()));
   buttons.add(new Button(350, 250, 100, 75, "Minigun\nTest", color(100, 200, 250), 2, new LevelTwo()));
+  buttons.add(new Button(500, 250, 100, 75, "'Nam", color(50, 150, 50), 2, new LevelVietnam()));
 
   minim = new Minim(this);
 }
@@ -97,6 +98,8 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
 
   lewisGun = loadImage("lewisgun.png");
   miniGun = loadImage("minigun.png");
+  M60 = loadImage("M60.png");
+  M60.resize(int(M60.width*.2), int(M60.height*.2));
   miniGun.resize((int) (miniGun.width*.75), (int) (miniGun.height*.75));
   emuPhoto = loadImage("emu.png");
   boomerang = loadImage("Boomerang.png");
@@ -172,7 +175,7 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
   for (int i = 0; i < carDamage.length; i++) {
     carDamage[i] = loadImage(dataPath("CarDamage/CarDamage" + i + ".png"));
     carDamage[i].resize(204, 364);
-}
+  }
 
   lewisGun.resize((int) (lewisGun.width*0.5), (int) (lewisGun.height*0.5));
 
@@ -180,36 +183,37 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
   explosionSound = minim.loadFile(dataPath("explode.mp3"));
   oof = minim.loadFile(dataPath("oof.wav"));
   music1 = minim.loadFile(dataPath("music1.mp3"));
+  fortunateson = minim.loadFile(dataPath("fortunateson.mp3"));
   isDone = true;
 
   //level = -1;
 }
 
 void spawnItem(String type) {
-  groundItems.add(new GroundItem(type, 10, random(0, width), random(0, height)));  
+  groundItems.add(new GroundItem(type, 10, random(0, width), random(0, height)));
 }
 
 void spawnItem() {
   int r = (int) random(4);
   String type = "Boomerang";
   switch (r) {
-    case 0:
-      type = "Boomerang";
-      break;
-    case 1: 
-      type = "Vegemite";
-      break;
-    case 2: 
-      type = "Grenade";
-      break;
-    case 3: 
-      type = "Landmine";
-      break;
-    case 4:
-      type = "Gas";
-      break;
+  case 0:
+    type = "Boomerang";
+    break;
+  case 1: 
+    type = "Vegemite";
+    break;
+  case 2: 
+    type = "Grenade";
+    break;
+  case 3: 
+    type = "Landmine";
+    break;
+  case 4:
+    type = "Gas";
+    break;
   }
-  groundItems.add(new GroundItem(type, 10, random(0, width), random(0, height)));  
+  groundItems.add(new GroundItem(type, 10, random(0, width), random(0, height)));
 }
 
 // KeyPressed function to control truck

@@ -4,6 +4,7 @@ class LevelTwo extends Level {
   }
 
   void setupLevel() {
+    backgroundColour = color(214, 154, 0);
     showHUD = true;
     allowItems = true;
     for (int i = 0; i < 50; ++i) {
@@ -20,13 +21,11 @@ class LevelTwo extends Level {
     truck.setSpeed(0);
     truck.setHP(1);
     truck.resetMaxSpeed();
-    /*
-    inventory.put("Boomerang", 50);
-    inventory.put("Vegemite", 25);
-    inventory.put("Grenade", 25);
-    inventory.put("Landmine", 25);
-    inventory.put("Gas", 10);
-    */
+    inventory.put("Boomerang", 0);
+    inventory.put("Vegemite", 0);
+    inventory.put("Grenade", 0);
+    inventory.put("Landmine", 0);
+    inventory.put("Gas", 0);
     music1.rewind();
     music1.loop(5);
 
@@ -35,6 +34,7 @@ class LevelTwo extends Level {
 
 
   void update() {  
+    track = true;
     super.update();
 
     if (emusAlive() < 50) {

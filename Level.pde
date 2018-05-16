@@ -6,7 +6,9 @@ class Level {
   int character = 0;
   boolean textComplete;
   boolean showHUD, gunWorking = true;
+  color backgroundColour;
   Level() {
+    backgroundColour = color(214, 154, 0);
     mobLocationX = random(width-700, width);
     mobLocationY = random(0, height);
     constrain(mobLocationX, 0, width);
@@ -29,7 +31,9 @@ class Level {
     projectiles.clear();
     gasses.clear();
     groundItems.clear();
+    explosions.clear();
     music1.pause();
+    fortunateson.pause();
     track = false;
     character = 0;
     scene = 0;
@@ -100,7 +104,7 @@ class Level {
       rect(0, 0, 100, 40);
       fill(0);
       text("FPS: " + (int) frameRate, 2, 15);
-      background(214, 154, 0);
+      background(backgroundColour);
       fill(0);
       truck.update();
 

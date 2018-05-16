@@ -17,7 +17,7 @@ class Boomerang_Thrown extends Projectile {
     for (Emu e : emus) {
       if (myPosition.x > e.getX() - e.getWidth()/2 && myPosition.x < e.getX() + e.getWidth()/2 && myPosition.y > e.getY() - e.getHeight()/2 && myPosition.y < e.getY() + e.getHeight()/2) {
         returning = true;
-        e.reduceHP(35);
+        e.reduceHP(75);
       }
     }
     

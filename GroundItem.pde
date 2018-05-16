@@ -23,6 +23,9 @@ class GroundItem {
     case "Landmine":
       icon = landmine.copy();
       break;
+    case "Gas": 
+      icon = grenade.copy();
+      break;
     default:
       icon = boomerang.copy();
       break;
@@ -30,7 +33,7 @@ class GroundItem {
   }
 
   void pickup () {
-    if (truck.getX() < myX + 50 && truck.getX() > myX - 50 && truck.getY() < myY + 50 && truck.getY() > myY - 50) {
+    if (truck.getX() < myX + 150 && truck.getX() > myX - 150 && truck.getY() < myY + 150 && truck.getY() > myY - 150) {
       inventory.put(myType, inventory.get(myType) + 1);
       pickedUp = true;
     }
