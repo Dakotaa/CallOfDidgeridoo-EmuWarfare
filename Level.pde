@@ -28,6 +28,8 @@ class Level {
     guns.clear();
     projectiles.clear();
     gasses.clear();
+    groundItems.clear();
+    music1.pause();
     track = false;
     character = 0;
     scene = 0;
@@ -138,9 +140,21 @@ class Level {
       for (Emu e : emus) {
         e.update();
         if (e.isDead()) {
+          int r = (int) random(20);
+          if (r == 1) {
+            spawnItem();  
+          }
           oof.play();
           oof.rewind();
           emuRemove.add(e);
+        }
+      }
+      
+      ArrayList<GroundItem> groundItemsToRemove = new ArrayList();
+      for (GroundItem g : groundItems) {
+        g.update();
+        if (g.toRemove()) {
+          groundItemsToRemove.add(g);  
         }
       }
 
@@ -199,6 +213,7 @@ class Level {
       explosions.removeAll(explosionsToRemove);
       bloods.removeAll(bloodToRemove);
       gasses.removeAll(gasToRemove);
+      groundItems.removeAll(groundItemsToRemove);
       textAlign(CORNER);
       fill(0);
       //textSize(20);

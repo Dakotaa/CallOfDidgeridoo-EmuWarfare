@@ -43,6 +43,7 @@ ArrayList<Timer> timers = new ArrayList();
 ArrayList<Projectile> projectiles = new ArrayList();
 ArrayList<Explosion> explosions = new ArrayList();
 ArrayList<Gas> gasses = new ArrayList();
+ArrayList<GroundItem> groundItems = new ArrayList();
 
 HashMap<String, Integer> inventory = new HashMap<String, Integer>();    // https://codereview.stackexchange.com/questions/148821/inventory-of-objects-with-item-types-and-quantities
 
@@ -182,6 +183,33 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
   isDone = true;
 
   //level = -1;
+}
+
+void spawnItem(String type) {
+  groundItems.add(new GroundItem(type, 10, random(0, width), random(0, height)));  
+}
+
+void spawnItem() {
+  int r = (int) random(4);
+  String type = "Boomerang";
+  switch (r) {
+    case 0:
+      type = "Boomerang";
+      break;
+    case 1: 
+      type = "Vegemite";
+      break;
+    case 2: 
+      type = "Grenade";
+      break;
+    case 3: 
+      type = "Landmine";
+      break;
+    case 4:
+      type = "Gas";
+      break;
+  }
+  groundItems.add(new GroundItem(type, 10, random(0, width), random(0, height)));  
 }
 
 // KeyPressed function to control truck

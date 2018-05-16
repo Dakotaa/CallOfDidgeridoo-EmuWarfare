@@ -189,7 +189,6 @@ class Truck {
 
 
   void update() {
-    println(myWheelBase, myWheelBase+myWheelBase/1.5);
 
     frontWheel = new PVector(myLocation.x+(myWheelBase/2)*sin(myHeading), myLocation.y+(myWheelBase/2)*cos(myHeading));
     backWheel = new PVector(myLocation.x-(myWheelBase/2)*sin(myHeading), myLocation.y-(myWheelBase/2)*cos(myHeading));
