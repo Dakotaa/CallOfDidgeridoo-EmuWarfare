@@ -43,7 +43,7 @@ class Button {
 
     pushMatrix();
     if (down) {
-      fill (myColour + 10);
+      fill (myColour + color(10, 50, 100));
     } else {
       fill(myColour);
     }
