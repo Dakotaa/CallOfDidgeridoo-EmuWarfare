@@ -34,6 +34,7 @@ class Level {
     explosions.clear();
     music1.pause();
     fortunateson.pause();
+    nasheed.pause();
     track = false;
     character = 0;
     scene = 0;

@@ -29,8 +29,8 @@ class LevelAfghan extends Level {
     inventory.put("Grenade", 0);
     inventory.put("Landmine", 10);
     inventory.put("Gas", 0);
-    fortunateson.rewind();
-    fortunateson.loop(5);
+    nasheed.rewind();
+    nasheed.loop(5);
 
     scene = 4;
   }
