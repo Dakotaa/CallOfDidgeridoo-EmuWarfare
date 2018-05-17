@@ -4,6 +4,7 @@ class LevelOne extends Level {
     super();
     showHUD = false;
     allowItems = false;
+    dropItems = false;
   }
 
   void setupLevel() {

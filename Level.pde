@@ -5,7 +5,7 @@ class Level {
   int scene = 0;
   int character = 0;
   boolean textComplete;
-  boolean showHUD, gunWorking = true;
+  boolean showHUD, gunWorking, dropItems = true;
   color backgroundColour;
   Level() {
     backgroundColour = color(214, 154, 0);
@@ -146,19 +146,21 @@ class Level {
         if (e.isDead()) {
           int r = (int) random(20);
           if (r == 1) {
-            spawnItem();  
+            if (dropItems) {
+              spawnItem();
+            }
           }
           oof.play();
           oof.rewind();
           emuRemove.add(e);
         }
       }
-      
+
       ArrayList<GroundItem> groundItemsToRemove = new ArrayList();
       for (GroundItem g : groundItems) {
         g.update();
         if (g.toRemove()) {
-          groundItemsToRemove.add(g);  
+          groundItemsToRemove.add(g);
         }
       }
 

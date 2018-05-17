@@ -79,10 +79,6 @@ class Truck {
     myHP-=dmg;
   }
 
-  void reduceHP(float dmg, boolean b) {
-    myHP-=dmg;
-  }
-
   void setHP (float h) {
     myHP = h;
     if (myHP > 1) myHP = 1;

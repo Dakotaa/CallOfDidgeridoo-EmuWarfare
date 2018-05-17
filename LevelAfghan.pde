@@ -1,15 +1,17 @@
-class LevelVietnam extends Level {
-  LevelVietnam() {
+class LevelAfghan extends Level {
+  LevelAfghan() {
     super();
+    gunWorking = true;
+    allowItems = true;
     dropItems = true;
   }
 
   void setupLevel() {
-    backgroundColour = color(19, 110, 0);
+    backgroundColour = color(219, 197, 106);
     showHUD = true;
     allowItems = true;
-    for (int i = 0; i < 30; ++i) {
-      emus.add(new VietEmu(random(width*.75, width), random(300, height-300), random(0.1, 0.4)));
+    for (int i = 0; i < 10; ++i) {
+      emus.add(new SuicideEmu(random(width*.75, width), random(300, height-300), random(0.1, 0.4)));
     }
     guns.add(new Gun_M60(200));
     for (Gun g : guns) {
@@ -24,8 +26,8 @@ class LevelVietnam extends Level {
     truck.resetMaxSpeed();
     inventory.put("Boomerang", 0);
     inventory.put("Vegemite", 0);
-    inventory.put("Grenade", 3);
-    inventory.put("Landmine", 3);
+    inventory.put("Grenade", 0);
+    inventory.put("Landmine", 10);
     inventory.put("Gas", 0);
     fortunateson.rewind();
     fortunateson.loop(5);
@@ -38,8 +40,9 @@ class LevelVietnam extends Level {
     track = true;
     super.update();
 
-    if (emusAlive() < 30) {
+    /*if (emusAlive() < 30) {
+     
       emus.add(new VietEmu(random(width*.75, width), random(300, height-300), random(0.1, 0.4)));
-    }
+    }*/
   }
 }
