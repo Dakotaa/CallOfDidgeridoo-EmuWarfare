@@ -63,7 +63,8 @@ void setup() {
   buttons.add(new Button(200, 250, 100, 75, "Test\nLevel", color(100, 200, 250), 2, new LevelOne()));
   buttons.add(new Button(350, 250, 100, 75, "Minigun\nTest", color(100, 200, 250), 2, new LevelTwo()));
   buttons.add(new Button(500, 250, 100, 75, "'Nam", color(50, 150, 50), 2, new LevelVietnam()));
-  buttons.add(new Button(650, 250, 100, 75, "'Afghan", color(50, 150, 50), 2, new LevelAfghan()));
+  buttons.add(new Button(650, 250, 100, 75, "Afghan", color(50, 150, 50), 2, new LevelAfghan()));
+  buttons.add(new Button(800, 250, 100, 75, "Zombies", color(50, 150, 50), 2, new LevelZombies()));
 
   minim = new Minim(this);
 }
