@@ -4,6 +4,7 @@ class TitleScreen extends Level {
 
   void update() {
     pushMatrix();
+    
     background(0);
     fill(255);
     textAlign(CENTER);

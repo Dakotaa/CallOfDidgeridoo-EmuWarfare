@@ -103,17 +103,33 @@ class Truck {
         imageMode(CENTER);
         translate(myLocation.x, myLocation.y);
         rotate(-myHeading);
-        if (myHP < 0.25) {
-          image(carDamage[2], 0, 0);
-          image(carDamage[5], 0, 0);
-        } else if (myHP < 0.5) {
-          image(carDamage[1], 0, 0);
-          image(carDamage[4], 0, 0);
-        } else if (myHP < 0.75) {
-          image(carDamage[0], 0, 0);
-          image(carDamage[3], 0, 0);
+        for (Level l : levels) {
+          l.update();
+          if (l instanceof LevelOne|| l instanceof LevelTwo) {  
+            if (myHP < 0.25) {
+              image(carDamage[2], 0, 0);
+              image(carDamage[5], 0, 0);
+            } else if (myHP < 0.5) {
+              image(carDamage[1], 0, 0);
+              image(carDamage[4], 0, 0);
+            } else if (myHP < 0.75) {
+              image(carDamage[0], 0, 0);
+              image(carDamage[3], 0, 0);
+            }
+          } else if (l instanceof LevelVietnam) {
+            if (myHP < 0.25) {
+              image(carDamage[2], 0, 0);
+              image(vietCarDamage[2], 0, 0);
+            } else if (myHP < 0.5) {
+              image(carDamage[1], 0, 0);
+              image(vietCarDamage[1], 0, 0);
+            } else if (myHP < 0.75) {
+              image(carDamage[0], 0, 0);
+              image(vietCarDamage[0], 0, 0);
+            }
+            popMatrix();
+          }
         }
-        popMatrix();
       }
     }
   }
