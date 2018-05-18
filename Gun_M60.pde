@@ -3,7 +3,7 @@ final class Gun_M60 extends Gun {
     super();
     myMaxAmmo = maxAmmo;
     myAmmo = myMaxAmmo;
-    myRateOfFire = 12;
+    myRateOfFire = 10;
     myDamage = 10;
     gunImage = M60.copy();
     numShots = 1;

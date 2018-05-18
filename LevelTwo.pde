@@ -1,6 +1,7 @@
 class LevelTwo extends Level {
   LevelTwo() {
     super();
+    dropItems = true;
   }
 
   void setupLevel() {

@@ -1,6 +1,7 @@
 class LevelVietnam extends Level {
   LevelVietnam() {
     super();
+    dropItems = true;
   }
 
   void setupLevel() {

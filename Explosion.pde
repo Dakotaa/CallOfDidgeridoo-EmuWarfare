@@ -35,15 +35,18 @@ class Explosion {
         }
       }
 
+      if (truck.getX() > myX - myRadius && truck.getX() < myX + myRadius && truck.getY() > myY - myRadius && truck.getY() < myY + myRadius) {
+        truck.reduceHP(0.001);
+      }
+
       if (frameCount%2 == 0) {
         frameNum++;
         if (frameNum >= myExplosion.length - 1) {
           completed = true;
         }
       }
-      
+
       image(myExplosion[frameNum], myX, myY);
-      
     }
   }
 }
