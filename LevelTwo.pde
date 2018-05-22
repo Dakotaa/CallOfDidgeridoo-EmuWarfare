@@ -16,6 +16,8 @@ class LevelTwo extends Level {
       g.setAmmo(g.getMaxAmmo());
     }
 
+    gunWorking = true;
+
     truck.setX(200);
     truck.setY(200);
     truck.setHeading(PI);
