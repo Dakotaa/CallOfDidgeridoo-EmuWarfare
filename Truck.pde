@@ -22,7 +22,7 @@ class Truck {
     myMaxSteerAngle = PI/4;
     maxHP = 1;
     myHP = maxHP;
-    carSize = 10;
+    carSize = 8;
   }
 
   float getSpeed() {
@@ -89,7 +89,7 @@ class Truck {
   }
 
   void resetMaxSpeed() {
-    myMaxSpeed = 5;
+    myMaxSpeed = 6;
   }
 
   void carDamage() {
@@ -309,7 +309,7 @@ class Truck {
     // UP
     if (up)
     { 
-      if (mySpeed<myMaxSpeed) mySpeed += 0.05;
+      if (mySpeed<myMaxSpeed) mySpeed += 0.08;
     } else
     {
     }  

@@ -52,7 +52,7 @@ HashMap<String, Integer> inventory = new HashMap<String, Integer>();    // https
 HUD hud = new HUD(true, true, true);
 Timer boomerangTimer = new Timer(3);
 Level lose = new LoseScreen();
-Truck truck = new Truck (5);
+Truck truck = new Truck (6);
 
 
 void setup() {
