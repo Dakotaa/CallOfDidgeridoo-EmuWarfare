@@ -18,6 +18,7 @@ class LevelOne extends Level {
     }
 
     allowItems = false;
+    gunWorking = true;
 
     truck.setX(200);
     truck.setY(200);

@@ -7,6 +7,7 @@ class LevelVietnam extends Level {
   void setupLevel() {
     backgroundColour = color(19, 110, 0);
     showHUD = true;
+    gunWorking = true;
     allowItems = true;
     for (int i = 0; i < 30; ++i) {
       emus.add(new VietEmu(random(width*.75, width), random(300, height-300), random(0.1, 0.4)));

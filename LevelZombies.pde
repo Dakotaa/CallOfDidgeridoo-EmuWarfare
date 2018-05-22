@@ -12,6 +12,7 @@ class LevelZombies extends Level {
     backgroundColour = color(100);
     showHUD = true;
     allowItems = true;
+    gunWorking = true;
     guns.add(new Gun_M60(200));
     for (Gun g : guns) {
       g.setAmmo(g.getMaxAmmo());
