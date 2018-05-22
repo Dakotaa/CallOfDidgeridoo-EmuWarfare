@@ -11,7 +11,7 @@ import ddf.minim.*;
 Minim minim;
 AudioPlayer gunshot, explosionSound, oof, music1, fortunateson, nasheed;
 // Declaring all images, image arrays, booleans, and other global variables.
-PImage lewisGun, miniGun, M60, emuPhoto, emuPhotoFlipped, explosion, boomerang, vegemite, grenade, landmine, flash;
+PImage lewisGun, miniGun, M60, emuPhoto, emuPhotoFlipped, explosion, boomerang, vegemite, grenade, landmine, flash, titleImage;
 PImage[] emuRun = new PImage[34];    // https://processing.org/discourse/beta/num_1192465513.html
 PImage[] emuRunFlip = new PImage[34];
 PImage[] buffEmuRun = new PImage[39];
@@ -117,6 +117,7 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
   landmine = loadImage("landmine.png");
   landmine.resize((int) (landmine.width*.075), (int) (landmine.height*.075));
   flash = loadImage("flash.png");
+  titleImage = loadImage("titlescreen.png");
   flash.resize((int) (flash.width*.15), (int) (flash.height*.15));
 
   for (int i = 1; i < emuRun.length; i++) {
@@ -373,14 +374,16 @@ void keyReleased() {
       truck.setDown(false);
       break;
     case 9:    // Leave to title screen
-      level = 0;
-      for (Level l : levels) {    // Clears all levels
-        l.clearLevel();
+      if (isDone) {
+        level = 0;
+        for (Level l : levels) {    // Clears all levels
+          l.clearLevel();
+        }
+        levels.clear();
+        levels.add(new TitleScreen()); // Adds the title screen level
+        gameOver = false;
+        break;
       }
-      levels.clear();
-      levels.add(new TitleScreen()); // Adds the title screen level
-      gameOver = false;
-      break;
     }
   }
 }

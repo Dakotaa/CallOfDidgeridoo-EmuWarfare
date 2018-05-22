@@ -4,9 +4,10 @@ class TitleScreen extends Level {
 
   void update() {
     pushMatrix();
-    
     background(0);
     fill(255);
+    imageMode(CORNER);
+    image(titleImage, 0, 0);
     textAlign(CENTER);
     textFont(stamp100);
     text("CALL OF DIDGERIDOO: Emu Warfare", width/2, 100);
@@ -24,7 +25,7 @@ class TitleScreen extends Level {
     popMatrix();
 
     for (Button b : buttons) {
-      b.update();  
+      b.update();
     }
   }
 }
