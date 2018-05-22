@@ -123,9 +123,9 @@ class Truck {
               image(carDamage[0], 0, 0);
               image(vietCarDamage[0], 0, 0);
             }
-            popMatrix();
           }
         }
+        popMatrix();
       }
     }
   }
