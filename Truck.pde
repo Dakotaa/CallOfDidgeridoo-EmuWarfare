@@ -100,7 +100,6 @@ class Truck {
         translate(myLocation.x, myLocation.y);
         rotate(-myHeading);
         for (Level l : levels) {
-          l.update();
           if (l instanceof LevelOne|| l instanceof LevelTwo) {  
             if (myHP < 0.25) {
               image(carDamage[2], 0, 0);
@@ -122,6 +121,17 @@ class Truck {
             } else if (myHP < 0.75) {
               image(carDamage[0], 0, 0);
               image(vietCarDamage[0], 0, 0);
+            }
+          } else if (l instanceof LevelAfghan) {
+            if (myHP < 0.25) {
+              image(carDamage[2], 0, 0);
+              image(afghanCarDamage[2], 0, 0);
+            } else if (myHP < 0.5) {
+              image(carDamage[1], 0, 0);
+              image(afghanCarDamage[1], 0, 0);
+            } else if (myHP < 0.75) {
+              image(carDamage[0], 0, 0);
+              image(afghanCarDamage[0], 0, 0);
             }
           }
         }
