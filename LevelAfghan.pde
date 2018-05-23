@@ -12,7 +12,7 @@ class LevelAfghan extends Level {
     allowItems = true;
     gunWorking = true;
     for (int i = 0; i < 10; ++i) {
-      emus.add(new SuicideEmu(random(width*.75, width), random(300, height-300), random(0.1, 0.4)));
+      emus.add(new AfghanEmu(random(width*.75, width), random(300, height-300), random(0.1, 0.4)));
     }
     guns.add(new Gun_M60(200));
     for (Gun g : guns) {

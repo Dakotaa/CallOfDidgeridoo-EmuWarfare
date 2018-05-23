@@ -18,6 +18,8 @@ PImage[] buffEmuRun = new PImage[39];
 PImage[] buffEmuRunFlip = new PImage[39];
 PImage[] vietEmuRun = new PImage[24];
 PImage[] vietEmuRunFlip = new PImage[24];
+PImage[] afghanEmuRun = new PImage[11];
+PImage[] afghanEmuRunFlip = new PImage[11];
 PImage[] carDamage = new PImage[6];
 PImage[] vietCarDamage = new PImage[3];
 PImage[] afghanCarDamage = new PImage[3];
@@ -151,6 +153,12 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
   }
   for (int i = 1; i < naziEmuAttack.length; i++) {
     naziEmuAttackFlip[i] = loadImage(dataPath("NaziEmuAttackFlip/naziEmuAttack" + i + ".png"));
+  }
+  for (int i = 1; i < afghanEmuRunFlip.length; i++) {
+    afghanEmuRun[i] = loadImage(dataPath("AfghanEmuRun/AfghanEmuRun" + i + ".png"));
+  }
+  for (int i = 1; i < afghanEmuRun.length; i++) {
+    afghanEmuRunFlip[i] = loadImage(dataPath("AfghanEmuRunFlip/AfghanEmuRun" + i + ".png"));
   }
   for (int i = 0; i < explosionAnimation.length; i++) {
     explosionAnimation[i] = loadImage(dataPath("Explosion/tile0" + i + ".png"));
