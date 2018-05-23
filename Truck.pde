@@ -282,10 +282,7 @@ class Truck {
     rectMode(CENTER);
     fill(150);
     rect(0, 0, myWheelBase, myWheelBase+myWheelBase/1.5 + 30, 3, 3, myWheelBase/(myWheelBase/20), myWheelBase/(myWheelBase/20));
-    fill(200);
-    rect(0, 100, myWheelBase*.9, myWheelBase/2, 3, 3, myWheelBase/(myWheelBase/15), myWheelBase/(myWheelBase/15));
     popMatrix();
-
 
     // Moves car to other side of screen when leaving screen
     if (myLocation.x<0) myLocation.x=0;  
@@ -320,19 +317,14 @@ class Truck {
     if (up)
     { 
       if (mySpeed<myMaxSpeed) mySpeed += 0.08;
-    } else
-    {
-    }  
+    } else { }  
 
     // DOWN
-    if (down)
-    {
+    if (down) {
       if (mySpeed>0) mySpeed -= 0.15; //brake
       else 
       if (abs(mySpeed)<myMaxSpeed) mySpeed -= 0.05; // reverse
-    } else
-    {
-    }
+    } else { }
 
 
     if (abs(mySteerAngle)<0.08) mySteerAngle = 0;
