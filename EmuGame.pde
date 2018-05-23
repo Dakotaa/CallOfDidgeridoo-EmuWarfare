@@ -54,7 +54,6 @@ Timer boomerangTimer = new Timer(3);
 Level lose = new LoseScreen();
 Truck truck = new Truck (6);
 
-
 void setup() {
   thread("loadImages"); // Runs the loadImages function in another thread, this allows the loading screen to show while the images are being loaded.
   fullScreen(P2D);
@@ -92,14 +91,12 @@ void draw() {
 
 // Loads all the images in another core thread, sets isDone to true after images are loaded to stop drawing of loading screen.
 void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-speedup-loadimage
-
   // Load fonts (multiple sizes)
   typeWriterFont = createFont("TravelingTypewriter.ttf", 26);
   stamp20 = createFont("stamp.ttf", 20);
   stamp30 = createFont("stamp.ttf", 30);
   stamp50 = createFont("stamp.ttf", 50);
   stamp100 = createFont("stamp.ttf", 100);
-
   lewisGun = loadImage("lewisgun.png");
   miniGun = loadImage("minigun.png");
   M60 = loadImage("M60.png");
@@ -119,81 +116,62 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
   flash = loadImage("flash.png");
   titleImage = loadImage("titlescreen.png");
   flash.resize((int) (flash.width*.15), (int) (flash.height*.15));
-
   for (int i = 1; i < emuRun.length; i++) {
     emuRun[i] = loadImage(dataPath("EmuRun/EmuRun" + i + ".png"));    // https://forum.processing.org/two/discussion/4160/is-it-possible-to-load-files-from-a-folder-inside-the-data-folder
   }
-
   for (int i = 1; i < emuRunFlip.length; i++) {
     emuRunFlip[i] = loadImage(dataPath("EmuRunFlip/EmuRunFlip" + i + ".png"));
   }
-
   for (int i = 1; i < buffEmuRunFlip.length; i++) {
     buffEmuRun[i] = loadImage(dataPath("BuffEmuRun/BuffEmuRun" + i + ".png"));
   }
-
   for (int i = 1; i < buffEmuRun.length; i++) {
     buffEmuRunFlip[i] = loadImage(dataPath("BuffEmuRunFlip/BuffEmuRun" + i + ".png"));
   }
-
   for (int i = 1; i < buffEmuSmash.length; i++) {
     buffEmuSmash[i] = loadImage(dataPath("BuffEmuSmash/BuffEmuSmash" + i + ".png"));
   }
-
   for (int i = 1; i < buffEmuSmashFlip.length; i++) {
     buffEmuSmashFlip[i] = loadImage(dataPath("BuffEmuSmashFlip/BuffEmuSmash" + i + ".png"));
   }
-
   for (int i = 1; i < vietEmuRunFlip.length; i++) {
     vietEmuRun[i] = loadImage(dataPath("VietEmuRun/VietEmuRun" + i + ".png"));
   }
-
   for (int i = 1; i < vietEmuRun.length; i++) {
     vietEmuRunFlip[i] = loadImage(dataPath("VietEmuRunFlip/VietEmuRun" + i + ".png"));
   }
-
   for (int i = 1; i < naziEmuRunFlip.length; i++) {
     naziEmuRun[i] = loadImage(dataPath("NaziEmuRun/naziEmuRun" + i + ".png"));
   }
-
   for (int i = 1; i < naziEmuRun.length; i++) {
     naziEmuRunFlip[i] = loadImage(dataPath("NaziEmuRunFlip/naziEmuRun" + i + ".png"));
   }
-
   for (int i = 1; i < naziEmuAttackFlip.length; i++) {
     naziEmuAttack[i] = loadImage(dataPath("NaziEmuAttack/naziEmuAttack" + i + ".png"));
   }
-
   for (int i = 1; i < naziEmuAttack.length; i++) {
     naziEmuAttackFlip[i] = loadImage(dataPath("NaziEmuAttackFlip/naziEmuAttack" + i + ".png"));
   }
-
   for (int i = 0; i < explosionAnimation.length; i++) {
     explosionAnimation[i] = loadImage(dataPath("Explosion/tile0" + i + ".png"));
   }
-
   for (int i = 0; i < blood.length; i++) {
     blood[i] = loadImage(dataPath("Blood/blood" + i + ".png"));
     blood[i].resize(200, 200);
   }
-
   for (int i = 0; i < carDamage.length; i++) {
     carDamage[i] = loadImage(dataPath("CarDamage/CarDamage" + i + ".png"));
     carDamage[i].resize(204, 364);
   }
-
   for (int i = 0; i < vietCarDamage.length; i++) {
     vietCarDamage[i] = loadImage(dataPath("VietCarDamage/VietCarDamage" + i + ".png"));
     vietCarDamage[i].resize(204, 364);
   }
-
   for (int i = 0; i < afghanCarDamage.length; i++) {
     afghanCarDamage[i] = loadImage(dataPath("AfghanCarDamage/AfghanCarDamage" + i + ".png"));
     afghanCarDamage[i].resize(204, 364);
   }
-
   lewisGun.resize((int) (lewisGun.width*0.5), (int) (lewisGun.height*0.5));
-
   gunshot = minim.loadFile(dataPath("gunshot.wav"));
   explosionSound = minim.loadFile(dataPath("explode.mp3"));
   oof = minim.loadFile(dataPath("oof.wav"));
@@ -202,8 +180,6 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
   nasheed = minim.loadFile(dataPath("nasheed.mp3"));
 
   isDone = true;
-
-  //level = -1;
 }
 
 void spawnItem(String type) {

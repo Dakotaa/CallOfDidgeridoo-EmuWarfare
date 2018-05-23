@@ -107,7 +107,6 @@ class Level {
       text("FPS: " + (int) frameRate, 2, 15);
       background(backgroundColour);
       fill(0);
-      truck.update();
 
       ArrayList<Blood> bloodToRemove = new ArrayList();
       for (Blood b : bloods) {
@@ -141,6 +140,16 @@ class Level {
         }
       }
 
+      ArrayList<GroundItem> groundItemsToRemove = new ArrayList();
+      for (GroundItem g : groundItems) {
+        g.update();
+        if (g.toRemove()) {
+          groundItemsToRemove.add(g);
+        }
+      }
+
+      truck.update();
+
       ArrayList<Emu> emuRemove = new ArrayList();
       for (Emu e : emus) {
         e.update();
@@ -154,14 +163,6 @@ class Level {
           oof.play();
           oof.rewind();
           emuRemove.add(e);
-        }
-      }
-
-      ArrayList<GroundItem> groundItemsToRemove = new ArrayList();
-      for (GroundItem g : groundItems) {
-        g.update();
-        if (g.toRemove()) {
-          groundItemsToRemove.add(g);
         }
       }
 
