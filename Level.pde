@@ -128,10 +128,6 @@ class Level {
         }
       }
 
-      for (Gun g : guns) {
-        g.drawGun();
-      }
-
       ArrayList<Bullet> toRemove = new ArrayList();
       for (Bullet b : bullets) {
         b.drawBullet();
@@ -149,6 +145,11 @@ class Level {
       }
 
       truck.update();
+
+
+      for (Gun g : guns) {
+        g.drawGun();
+      }
 
       ArrayList<Emu> emuRemove = new ArrayList();
       for (Emu e : emus) {

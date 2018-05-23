@@ -4,8 +4,8 @@ class Blood {
   PImage myImage;
   boolean faded;
   Blood(float x, float y) {
-    myX = x  + random(-40, 40);
-    myY = y  + random(-40, 40);
+    myX = x  + random(-10, 10);
+    myY = y  + random(-10, 10);
     myFade = 255;
     myImage = blood[(int) random(4)].copy();
     rotate = ((int) random(1, 8)) * 45;

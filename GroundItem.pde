@@ -1,15 +1,16 @@
 class GroundItem {
   String myType;
   int myLifeSpan;
+  int alpha = 100;
   float myX, myY;
-  boolean pickedUp;
+  boolean pickedUp, alphaIncreasing;
   PImage icon;
   GroundItem (String type, int life, float x, float y) {
     myType = type;
     myLifeSpan = life;
     myX = x;
     myY = y;
-    
+
     switch (myType) {
     case "Boomerang":
       icon = boomerang.copy();
@@ -40,11 +41,23 @@ class GroundItem {
   }
 
   boolean toRemove() {
-    return pickedUp;  
+    return pickedUp;
   }
 
   void update() {
+    if (alphaIncreasing) {
+      alpha+=3;
+    } else {
+      alpha-=3;
+    }
+
+    if (alpha < 100 || alpha > 200) {
+      alphaIncreasing = !alphaIncreasing;
+    }
+
+    tint(alpha);
     image(icon, myX, myY);
+    noTint();
     pickup();
   }
 }

@@ -18,7 +18,7 @@ class Truck {
     myBaseMaxSpeed = maxSpeed;
     myMaxSpeed = myBaseMaxSpeed;
     mySteerAngle = 0;
-    myWheelBase = 200;
+    myWheelBase = 150;
     myMaxSteerAngle = PI/4;
     maxHP = 1;
     myHP = maxHP;
