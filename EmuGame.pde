@@ -195,7 +195,7 @@ void spawnItem(String type) {
 }
 
 void spawnItem() {
-  int r = (int) random(4);
+  int r = (int) random(5);
   String type = "Boomerang";
   switch (r) {
   case 0:

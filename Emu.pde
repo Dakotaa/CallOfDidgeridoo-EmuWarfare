@@ -5,6 +5,7 @@ class Emu {
   //PImage myPhoto, myPhotoF;
   int frameNum = (int) random(1, 33);
   int myGroup;
+  float myWidth, myHeight;
   Emu (float x, float y, float size) {
     mobXDistance = random (-200, 200);
     mobYDistance = random (-200, 200);
@@ -15,8 +16,12 @@ class Emu {
     myHP = size*250;
     maxHP = myHP;
     mySize = size;
+    myWidth = 0;
+    myHeight = 0;
     speedModifier = 0.3/mySize;
     myGroup = int(random(0, 10));
+    myWidth = mySize*400;
+    myHeight = mySize*406;
   }
 
   void reduceHP (float damage) {
@@ -24,7 +29,7 @@ class Emu {
     if (!bleeding) {
       bleeding = true;
     }
-    bloods.add(new Blood(myX, myY));
+    bloods.add(new Blood(myX - myWidth, myY - myHeight));
   }
 
   void reduceHP (float damage, boolean b) {
@@ -33,7 +38,7 @@ class Emu {
       if (!bleeding) {
         bleeding = true;
       }
-      bloods.add(new Blood(myX, myY));
+      bloods.add(new Blood(myX - myWidth, myY - myHeight));
     }
   }
 
@@ -219,7 +224,7 @@ class Emu {
 
     ArrayList<Bullet> toRemove = new ArrayList();
     for (Bullet b : bullets) {
-      if (b.getX() > myX-(200*mySize) && b.getX() < myX+(200*mySize) && b.getY() > myY-(203*mySize) && b.getY() < myY+(203*mySize)) {
+      if (b.getX() > myX-(myWidth/2) && b.getX() < myX+(myWidth/2) && b.getY() > myY-(myHeight/2) && b.getY() < myY+(myHeight/2)) {
         toRemove.add(b);
         reduceHP(b.getDamage());
       }
@@ -243,5 +248,6 @@ class Emu {
     fill(0);
     attack();
     healthBar();
+    rectMode(CENTER);
   }
 }

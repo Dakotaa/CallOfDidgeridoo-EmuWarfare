@@ -12,6 +12,7 @@ class AfghanEmu extends Emu {
       runPhotosF[i] = afghanEmuRunFlip[i].copy();
       runPhotosF[i].resize((int) (mySize*400), (int) (mySize*406));
     }
+
   }
 
   void attack() { 
