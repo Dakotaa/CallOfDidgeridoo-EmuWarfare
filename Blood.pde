@@ -6,8 +6,8 @@ class Blood {
   
   // Blood constructor. Gives position a random offset and rotates it by a random 45 degree angle.
   Blood(float x, float y) {
-    myX = x  + random(-50, 50);
-    myY = y  + random(-50, 50);
+    myX = x  + random(-30, 30);
+    myY = y  + random(-30, 30);
     myFade = 255;
     myImage = blood[(int) random(4)].copy();
     rotate = ((int) random(1, 8)) * 45;

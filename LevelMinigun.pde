@@ -1,5 +1,5 @@
-class LevelTwo extends Level {
-  LevelTwo() {
+class LevelMinigun extends Level {
+  LevelMinigun() {
     super();
     dropItems = true;
   }

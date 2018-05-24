@@ -100,7 +100,7 @@ class Truck {
         translate(myLocation.x, myLocation.y);
         rotate(-myHeading);
         for (Level l : levels) {
-          if (l instanceof LevelOne|| l instanceof LevelTwo) {  
+          if (l instanceof LevelOne|| l instanceof LevelMinigun) {  
             if (myHP < 0.25) {
               image(carDamage[2], 0, 0);
               image(carDamage[5], 0, 0);

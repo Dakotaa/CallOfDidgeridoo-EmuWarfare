@@ -8,6 +8,7 @@ class TitleScreen extends Level {
     fill(255);
     imageMode(CORNER);
     image(titleImage, 0, 0);
+    imageMode(CENTER);
     textAlign(CENTER);
     textFont(stamp100);
     text("CALL OF DIDGERIDOO: Emu Warfare", width/2, 100);

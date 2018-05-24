@@ -29,7 +29,7 @@ class Emu {
     if (!bleeding) {
       bleeding = true;
     }
-    bloods.add(new Blood(myX - myWidth, myY - myHeight));
+    bloods.add(new Blood(myX, myY));
   }
 
   void reduceHP (float damage, boolean b) {
@@ -38,7 +38,7 @@ class Emu {
       if (!bleeding) {
         bleeding = true;
       }
-      bloods.add(new Blood(myX - myWidth, myY - myHeight));
+      bloods.add(new Blood(myX, myY));
     }
   }
 

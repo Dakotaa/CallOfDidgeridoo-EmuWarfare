@@ -40,6 +40,7 @@ class Boomerang_Thrown extends Projectile {
 
     if (visible) {
       pushMatrix();
+      imageMode(CENTER);
       translate(myPosition.x, myPosition.y);
       rotate(frameCount/3);
       image(boomerang, 0, 0);
