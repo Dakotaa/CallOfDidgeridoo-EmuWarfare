@@ -220,6 +220,10 @@ class Level {
         }
       }
 
+      for (Rain r : rains) {
+        r.update();
+      }
+
       ArrayList<Gas> gasToRemove = new ArrayList();
       for (Gas g : gasses) {
         g.update();

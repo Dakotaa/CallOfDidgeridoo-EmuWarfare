@@ -49,6 +49,7 @@ ArrayList<Projectile> projectiles = new ArrayList();
 ArrayList<Explosion> explosions = new ArrayList();
 ArrayList<Gas> gasses = new ArrayList();
 ArrayList<GroundItem> groundItems = new ArrayList();
+ArrayList<Rain> rains = new ArrayList();
 
 HashMap<String, Integer> inventory = new HashMap<String, Integer>();    // https://codereview.stackexchange.com/questions/148821/inventory-of-objects-with-item-types-and-quantities
 
