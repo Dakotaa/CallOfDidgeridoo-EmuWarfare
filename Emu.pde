@@ -1,25 +1,25 @@
 class Emu { 
   float myHP, maxHP, myX, myY, mySize, myFade, myXVel, myYVel, speedModifier, mobXDistance, mobYDistance;
-  boolean dead, bleeding, movingUp, attacking, tracking, grouping = false;
+  boolean dead, bleeding, movingUp, attacking, tracking, grouping, leaving = false;
   boolean moving = true;
   //PImage myPhoto, myPhotoF;
   int frameNum = (int) random(1, 33);
   int myGroup;
-  float myWidth, myHeight;
+  float myWidth, myHeight, leaveX, leaveY;
   Emu (float x, float y, float size) {
     mobXDistance = random (-200, 200);
     mobYDistance = random (-200, 200);
+    leaveX = random(width + 500, width + 501) * floor(random(-3, 3));
+    leaveY = random(height + 500, height + 501) * floor(random(-3, 3));
     myX = x;
     myY = y;
-    constrain(myX, 0, width);
-    constrain(myY, 0, height);
     myHP = size*250;
     maxHP = myHP;
     mySize = size;
     myWidth = 0;
     myHeight = 0;
     speedModifier = 0.3/mySize;
-    myGroup = int(random(0, 10));
+    myGroup = int(random(0, 20));
     myWidth = mySize*400;
     myHeight = mySize*406;
   }
@@ -72,6 +72,13 @@ class Emu {
 
   void setGrouping(boolean g) {
     grouping = g;
+  }
+
+  void setLeaving (boolean l) {
+    tracking = false;
+    attacking = false;
+    grouping = false;
+    leaving = l;
   }
 
   // HEALTH BAR DRAW FUNCTION
@@ -142,6 +149,20 @@ class Emu {
     return toGroupY;
   }
 
+  float toLeaveY() {
+    float toLeaveY = 0;
+    toLeaveY = myY - leaveY;
+    toLeaveY = (toLeaveY/Math.abs(toLeaveY))*-2.5;
+    return toLeaveY;
+  }
+
+  float toLeaveX() {
+    float toLeaveX = 0;
+    toLeaveX = myX - leaveX;
+    toLeaveX = (toLeaveX/Math.abs(toLeaveX))*-2.5;
+    return toLeaveX;
+  }
+
   float bob() {
     float yVel = 0;
     if (frameCount%(int)random(60, 200) == 0) {
@@ -166,6 +187,8 @@ class Emu {
       xVel = toTruckX();
     } else if (grouping) {
       xVel = toGroupX();
+    } else if (leaving) {
+      xVel = toLeaveX();
     } else {
       xVel = toMobX();
     }
@@ -178,6 +201,8 @@ class Emu {
       yVel = toTruckY() + bob();
     } else if (grouping) {
       yVel = toGroupY();
+    } else if (leaving) {
+      yVel = toLeaveY();
     } else {
       yVel = toMobY();
     }
@@ -197,6 +222,10 @@ class Emu {
   }
 
   void update() {
+    if (keepEmusOnScreen) {
+      constrain(myX, 0, width);
+      constrain(myY, 0, height);
+    }
     grouping = group;    // Sets this emu's grouping and tracking variable based on the global group and track variable (set in the gun shoot method)
     tracking = track;
     if (attacking) {

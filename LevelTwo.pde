@@ -32,7 +32,8 @@ class LevelTwo extends Level {
     inventory.put("Landmine", 10);
     inventory.put("Gas", 10);
 
-    textScene[0] = "";
+    textScene[0] = "November 2, 1932 \n \n \nA herd of 50 emus have been spotted near Campon, Australia. \nThe Australians once again deployed Sergeant S. McMurray and Gunner J. O'Hallora, under the command of Major G.P.W Meredith.\n\n";
+    endScene[0] = "Operation Update - November 2, 1932 \n  \n  \nAfter killing only a few birds, the rest have scattered.\n\nPlans are being made for another attack on the enemy.";
   }
 
 
@@ -40,9 +41,17 @@ class LevelTwo extends Level {
     super.update();
 
     if (emusAlive() < 27) {
+      group = false;
+      keepEmusOnScreen = false;
       gunWorking = false;
       for (Emu e : emus) {
-        e.setTracking(false);
+        e.setLeaving(true);
+      }
+      endTimer++;
+      fill(0, endTimer/3);
+      rect(width/2, height/2, width, height);
+      if (endTimer > 700) {
+        levelEnded = true;  
       }
     }
   }

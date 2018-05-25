@@ -1,10 +1,11 @@
 class Level {
   float mobLocationX, mobLocationY;
   String[] textScene = new String[1];
-  PVector[] groups = new PVector[10];
-  int scene = 0;
-  int character = 0;
+  String[] endScene = new String[1];
+  PVector[] groups = new PVector[20];
+  int scene, character, endTimer= 0;
   boolean textComplete;
+  boolean levelEnded;
   boolean showHUD, gunWorking, dropItems = true;
   color backgroundColour;
   Level() {
@@ -36,8 +37,11 @@ class Level {
     fortunateson.pause();
     nasheed.pause();
     track = false;
+    levelEnded = false;
+    keepEmusOnScreen = true;
     character = 0;
     scene = 0;
+    endTimer = 0;
   }
 
   float getGroupLocationX(int groupNum) {
@@ -85,6 +89,21 @@ class Level {
 
       if (character == textScene[scene].length()) {
         textComplete = true;
+      }
+    } else if (levelEnded) {
+      pushMatrix();
+      background(255);
+      fill(0);
+      String text = endScene[0].substring(0, character);
+      textAlign(LEFT);
+      textFont(typeWriterFont);
+      text(text + "|", 100, 100);
+      popMatrix();
+      textFont(stamp30);
+      if (frameCount%3 == 0) {
+        if (character < endScene[0].length()) {
+          character++;
+        }
       }
     } else {
       if (frameCount%20 == 0) {
