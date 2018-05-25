@@ -51,7 +51,7 @@ class LevelTwo extends Level {
       fill(0, endTimer/3);
       rect(width/2, height/2, width, height);
       if (endTimer > 700) {
-        levelEnded = true;  
+        levelEnded = true;
       }
     }
   }

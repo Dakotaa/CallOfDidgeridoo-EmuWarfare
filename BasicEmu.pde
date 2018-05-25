@@ -4,14 +4,14 @@ class BasicEmu extends Emu {
   BasicEmu(float x, float y, float size) {
     super(x, y, size);
     for (int i = 1; i < runPhotos.length; i++) {
-     runPhotos[i] = emuRun[i].copy();
-     runPhotos[i].resize((int) (mySize*400), (int) (mySize*406));
-     }
-     
-     for (int i = 1; i < runPhotosF.length; i++) {
-     runPhotosF[i] = emuRunFlip[i].copy();
-     runPhotosF[i].resize((int) (mySize*400), (int) (mySize*406));
-     }
+      runPhotos[i] = emuRun[i].copy();
+      runPhotos[i].resize((int) (mySize*400), (int) (mySize*406));
+    }
+
+    for (int i = 1; i < runPhotosF.length; i++) {
+      runPhotosF[i] = emuRunFlip[i].copy();
+      runPhotosF[i].resize((int) (mySize*400), (int) (mySize*406));
+    }
   }
 
   void update() {
@@ -22,9 +22,9 @@ class BasicEmu extends Emu {
     }
 
     if (xVelocity() > 0) {
-     image(runPhotosF[frameNum], myX, myY);
-     } else {
-     image(runPhotos[frameNum], myX, myY);
-     }
+      image(runPhotosF[frameNum], myX, myY);
+    } else {
+      image(runPhotos[frameNum], myX, myY);
+    }
   }
 }

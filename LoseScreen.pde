@@ -1,8 +1,8 @@
 class LoseScreen extends Level {
   LoseScreen() {
-  super();
-   }
-  
+    super();
+  }
+
   void update() {
     pushMatrix();
     background(0);

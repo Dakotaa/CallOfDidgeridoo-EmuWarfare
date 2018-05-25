@@ -3,7 +3,7 @@ class Blood {
   int rotate;
   PImage myImage;
   boolean faded;
-  
+
   // Blood constructor. Gives position a random offset and rotates it by a random 45 degree angle.
   Blood(float x, float y) {
     myX = x  + random(-30, 30);
@@ -23,7 +23,7 @@ class Blood {
     } else {
       faded = true;
     }
-    
+
     pushMatrix();
     translate(myX, myY);
     //rotate(rotate);

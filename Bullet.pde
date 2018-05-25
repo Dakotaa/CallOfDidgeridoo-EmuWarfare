@@ -30,7 +30,7 @@ class Bullet {
   }
 
   float getDamage() {
-    return myDamage;  
+    return myDamage;
   }
 
   float getX() {

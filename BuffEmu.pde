@@ -25,7 +25,6 @@ class BuffEmu extends Emu {
       smashPhotosF[i] = buffEmuSmashFlip[i].copy();
       smashPhotosF[i].resize((int) (mySize*400), (int) (mySize*406));
     }
-    
   }
 
   void attack() { 
