@@ -33,6 +33,7 @@ class Level {
     gasses.clear();
     groundItems.clear();
     explosions.clear();
+    rains.clear();
     music1.pause();
     fortunateson.pause();
     nasheed.pause();

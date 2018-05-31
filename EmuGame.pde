@@ -67,6 +67,7 @@ void setup() {
   levels.add(new LevelOpening()); // Adds the title screen level
   buttons.add(new Button(200, 250, 100, 75, "Level\nOne", color(100, 200, 250), 2, new LevelOne()));
   buttons.add(new Button(350, 250, 100, 75, "Level\nTwo", color(100, 200, 250), 2, new LevelTwo()));
+  buttons.add(new Button(500, 250, 100, 75, "Level\nThree", color(100, 200, 250), 2, new LevelThree()));
   buttons.add(new Button(width-600, height-100, 100, 75, "Minigun\nTest", color(100, 200, 250), 2, new LevelMinigun()));
   buttons.add(new Button(width-450, height-100, 100, 75, "'Nam", color(50, 150, 50), 2, new LevelVietnam()));
   buttons.add(new Button(width-300, height-100, 100, 75, "Afghan", color(50, 150, 50), 2, new LevelAfghan()));
@@ -182,7 +183,7 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
     afghanCarDamage[i] = loadImage(dataPath("AfghanCarDamage/AfghanCarDamage" + i + ".png"));
     afghanCarDamage[i].resize(155, 280);
   }
-  
+
   lewisGun.resize((int) (lewisGun.width*0.5), (int) (lewisGun.height*0.5));
   gunshot = minim.loadFile(dataPath("gunshot.wav"));
   explosionSound = minim.loadFile(dataPath("explode.mp3"));

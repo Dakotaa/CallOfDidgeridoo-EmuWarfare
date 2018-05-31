@@ -1,6 +1,6 @@
-class LevelTwo extends Level {
+class LevelThree extends Level {
   //String[] textScene = new String[3];
-  LevelTwo() {
+  LevelThree() {
     super();
     showHUD = false;
     allowItems = false;
@@ -8,8 +8,8 @@ class LevelTwo extends Level {
   }
 
   void setupLevel() {
-    for (int i = 0; i < 40; ++i) {
-      emus.add(new BasicEmu(random(width*.75, width), random(300, height-300), random(0.1, 0.4)));
+    for (int i = 0; i < 200; ++i) {
+      emus.add(new StaticEmu(random(width*.75, width), random(300, height-300), 0.3));
     }
 
     guns.add(new Gun_Lewisgun(75));
@@ -32,17 +32,17 @@ class LevelTwo extends Level {
     inventory.put("Landmine", 10);
     inventory.put("Gas", 10);
 
-    textScene[0] = "November 2, 1932 \n \n \nA herd of 50 emus have been spotted near Campon, Australia. \nThe Australians once again deployed Sergeant S. McMurray and Gunner J. O'Hallora, under the command of Major G.P.W Meredith.\n\n";
-    endScene[0] = "Operation Update - November 2, 1932 \n  \n  \nAfter killing only a few birds, the rest have scattered.\n\nPlans are being made for another attack on the enemy.";
+    textScene[0] = "November 4, 1932 \n \n \nA massive herd has been spotted.. \nThe Australians deployed again, hoping that the huge group would make it easy to shoot the birds.\n\n";
+    endScene[0] = "Operation Update - November 2, 1932 \n  \n  \nAfter killing only about twelve birds, the guns jammed.";
   }
 
 
   void update() {
     super.update();
 
-    if (emusAlive() < 27) {
+    if (emusAlive() < 186) {
       group = false;
-      keepEmusOnScreen = false;
+      gunWorking = false;
       for (Emu e : emus) {
         e.setLeaving(true);
       }

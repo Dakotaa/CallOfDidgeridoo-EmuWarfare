@@ -22,7 +22,7 @@ class LevelOne extends Level {
     }
 
     allowItems = false;
-    gunWorking = true;
+    gunWorking = false;
 
     truck.setX(200);
     truck.setY(200);
