@@ -169,16 +169,17 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
   }
   for (int i = 0; i < carDamage.length; i++) {
     carDamage[i] = loadImage(dataPath("CarDamage/CarDamage" + i + ".png"));
-    carDamage[i].resize(204, 364);
+    carDamage[i].resize(155, 280);
   }
   for (int i = 0; i < vietCarDamage.length; i++) {
     vietCarDamage[i] = loadImage(dataPath("VietCarDamage/VietCarDamage" + i + ".png"));
-    vietCarDamage[i].resize(204, 364);
+    vietCarDamage[i].resize(155, 280);
   }
   for (int i = 0; i < afghanCarDamage.length; i++) {
     afghanCarDamage[i] = loadImage(dataPath("AfghanCarDamage/AfghanCarDamage" + i + ".png"));
-    afghanCarDamage[i].resize(204, 364);
+    afghanCarDamage[i].resize(155, 280);
   }
+  
   lewisGun.resize((int) (lewisGun.width*0.5), (int) (lewisGun.height*0.5));
   gunshot = minim.loadFile(dataPath("gunshot.wav"));
   explosionSound = minim.loadFile(dataPath("explode.mp3"));
