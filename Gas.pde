@@ -20,7 +20,7 @@ class Gas {
 
   void update() {
     if (size <= maxSize) {
-      size++;  
+      size++;
     }
     for (int i = 0; i < circles.length; i++) {
       for (Emu e : emus) {

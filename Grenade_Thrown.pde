@@ -24,6 +24,7 @@ class Grenade_Thrown extends Projectile {
 
     if (visible) {
       pushMatrix();
+      imageMode(CENTER);
       translate(myPosition.x, myPosition.y);
       if (moving) {
         rotate(frameCount/5);

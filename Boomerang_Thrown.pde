@@ -20,7 +20,7 @@ class Boomerang_Thrown extends Projectile {
         e.reduceHP(75);
       }
     }
-    
+
     if (!returning) {
       if (myPosition.x > myXEnd - 30 && myPosition.x < myXEnd + 30 && myPosition.y > myYEnd - 30 && myPosition.y < myYEnd + 30) {
         returning = true;
@@ -40,6 +40,7 @@ class Boomerang_Thrown extends Projectile {
 
     if (visible) {
       pushMatrix();
+      imageMode(CENTER);
       translate(myPosition.x, myPosition.y);
       rotate(frameCount/3);
       image(boomerang, 0, 0);

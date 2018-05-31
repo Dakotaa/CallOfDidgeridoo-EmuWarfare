@@ -1,21 +1,23 @@
 class LevelTwo extends Level {
+  //String[] textScene = new String[3];
   LevelTwo() {
     super();
-    dropItems = true;
+    showHUD = false;
+    allowItems = false;
+    dropItems = false;
   }
 
   void setupLevel() {
-    backgroundColour = color(214, 154, 0);
-    showHUD = true;
-    allowItems = true;
-    for (int i = 0; i < 50; ++i) {
-      emus.add(new StaticEmu(random(width*.75, width), random(300, height-300), random(0.1, 0.4)));
+    for (int i = 0; i < 40; ++i) {
+      emus.add(new BasicEmu(random(width*.75, width), random(300, height-300), random(0.1, 0.4)));
     }
-    guns.add(new Gun_Minigun(500));
+
+    guns.add(new Gun_Lewisgun(75));
     for (Gun g : guns) {
       g.setAmmo(g.getMaxAmmo());
     }
 
+    allowItems = false;
     gunWorking = true;
 
     truck.setX(200);
@@ -24,24 +26,33 @@ class LevelTwo extends Level {
     truck.setSpeed(0);
     truck.setHP(1);
     truck.resetMaxSpeed();
-    inventory.put("Boomerang", 0);
-    inventory.put("Vegemite", 0);
-    inventory.put("Grenade", 0);
-    inventory.put("Landmine", 0);
-    inventory.put("Gas", 0);
-    music1.rewind();
-    music1.loop(5);
+    inventory.put("Boomerang", 5);
+    inventory.put("Vegemite", 3);
+    inventory.put("Grenade", 10);
+    inventory.put("Landmine", 10);
+    inventory.put("Gas", 10);
 
-    scene = 4;
+    textScene[0] = "November 2, 1932 \n \n \nA herd of 50 emus have been spotted near Campon, Australia. \nThe Australians once again deployed Sergeant S. McMurray and Gunner J. O'Hallora, under the command of Major G.P.W Meredith.\n\n";
+    endScene[0] = "Operation Update - November 2, 1932 \n  \n  \nAfter killing only a few birds, the rest have scattered.\n\nPlans are being made for another attack on the enemy.";
   }
 
 
-  void update() {  
-    track = true;
+  void update() {
     super.update();
 
-    if (emusAlive() < 50) {
-      emus.add(new StaticEmu(random(width*.75, width), random(300, height-300), random(0.1, 0.4)));
+    if (emusAlive() < 27) {
+      group = false;
+      keepEmusOnScreen = false;
+      gunWorking = false;
+      for (Emu e : emus) {
+        e.setLeaving(true);
+      }
+      endTimer++;
+      fill(0, endTimer/3);
+      rect(width/2, height/2, width, height);
+      if (endTimer > 700) {
+        levelEnded = true;
+      }
     }
   }
 }

@@ -32,6 +32,7 @@ PImage[] naziEmuAttack = new PImage[35];
 PImage[] naziEmuAttackFlip = new PImage[35];
 PImage[] blood = new PImage[5];
 boolean isDone, autoFire, aiming, gameOver, track, group, allowItems = false;
+boolean keepEmusOnScreen = true;
 float gunInnac;
 int level = -1;
 PFont typeWriterFont, stamp20, stamp30, stamp50, stamp100;
@@ -48,6 +49,7 @@ ArrayList<Projectile> projectiles = new ArrayList();
 ArrayList<Explosion> explosions = new ArrayList();
 ArrayList<Gas> gasses = new ArrayList();
 ArrayList<GroundItem> groundItems = new ArrayList();
+ArrayList<Rain> rains = new ArrayList();
 
 HashMap<String, Integer> inventory = new HashMap<String, Integer>();    // https://codereview.stackexchange.com/questions/148821/inventory-of-objects-with-item-types-and-quantities
 
@@ -63,11 +65,12 @@ void setup() {
   //((PGraphicsOpenGL)g).textureSampling(3); // https://forum.processing.org/two/discussion/8075/why-are-text-and-graphics-so-ugly-and-blocky
   cursor(CROSS);
   levels.add(new LevelOpening()); // Adds the title screen level
-  buttons.add(new Button(200, 250, 100, 75, "Test\nLevel", color(100, 200, 250), 2, new LevelOne()));
-  buttons.add(new Button(350, 250, 100, 75, "Minigun\nTest", color(100, 200, 250), 2, new LevelTwo()));
-  buttons.add(new Button(500, 250, 100, 75, "'Nam", color(50, 150, 50), 2, new LevelVietnam()));
-  buttons.add(new Button(650, 250, 100, 75, "Afghan", color(50, 150, 50), 2, new LevelAfghan()));
-  buttons.add(new Button(800, 250, 100, 75, "Zombies", color(50, 150, 50), 2, new LevelZombies()));
+  buttons.add(new Button(200, 250, 100, 75, "Level\nOne", color(100, 200, 250), 2, new LevelOne()));
+  buttons.add(new Button(350, 250, 100, 75, "Level\nTwo", color(100, 200, 250), 2, new LevelTwo()));
+  buttons.add(new Button(width-600, height-100, 100, 75, "Minigun\nTest", color(100, 200, 250), 2, new LevelMinigun()));
+  buttons.add(new Button(width-450, height-100, 100, 75, "'Nam", color(50, 150, 50), 2, new LevelVietnam()));
+  buttons.add(new Button(width-300, height-100, 100, 75, "Afghan", color(50, 150, 50), 2, new LevelAfghan()));
+  buttons.add(new Button(width-150, height-100, 100, 75, "Zombies", color(50, 150, 50), 2, new LevelZombies()));
 
   minim = new Minim(this);
 }
@@ -196,7 +199,7 @@ void spawnItem(String type) {
 }
 
 void spawnItem() {
-  int r = (int) random(4);
+  int r = (int) random(5);
   String type = "Boomerang";
   switch (r) {
   case 0:
