@@ -35,7 +35,7 @@ class Button {
   }
 
   void update() {
-    if (mouseX > myX && mouseX < myX + myW && mouseY > myY && mouseY < myY + myH) {
+    if (mouseX > myX - myW/2 && mouseX < myX + myW/2 && mouseY > myY - myH/2 && mouseY < myY + myH/2) {
       down = true;
     } else {
       down = false;
@@ -48,12 +48,12 @@ class Button {
       fill(myColour);
     }
 
-    rectMode(CORNER);
+    rectMode(CENTER);
     rect(myX, myY, myW, myH);
     fill(255);
     textAlign(CENTER);
     textSize(20);
-    text(myLabel, myX + myW/2, myY + myH/2);
+    text(myLabel, myX, myY);
     popMatrix();
   }
 }

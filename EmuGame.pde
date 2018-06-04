@@ -65,9 +65,9 @@ void setup() {
   //((PGraphicsOpenGL)g).textureSampling(3); // https://forum.processing.org/two/discussion/8075/why-are-text-and-graphics-so-ugly-and-blocky
   cursor(CROSS);
   levels.add(new LevelOpening()); // Adds the title screen level
-  buttons.add(new Button(200, 250, 100, 75, "Level\nOne", color(100, 200, 250), 2, new LevelOne()));
-  buttons.add(new Button(350, 250, 100, 75, "Level\nTwo", color(100, 200, 250), 2, new LevelTwo()));
-  buttons.add(new Button(500, 250, 100, 75, "Level\nThree", color(100, 200, 250), 2, new LevelThree()));
+  buttons.add(new Button(width/2, 250, 125, 50, "October 30", color(100, 200, 250), 2, new LevelOne()));
+  buttons.add(new Button(width/2, 300, 125, 50, "November 2", color(100, 200, 250), 2, new LevelTwo()));
+  buttons.add(new Button(width/2, 350, 125, 50, "November 4", color(100, 200, 250), 2, new LevelThree()));
   buttons.add(new Button(width-600, height-100, 100, 75, "Minigun\nTest", color(100, 200, 250), 2, new LevelMinigun()));
   buttons.add(new Button(width-450, height-100, 100, 75, "'Nam", color(50, 150, 50), 2, new LevelVietnam()));
   buttons.add(new Button(width-300, height-100, 100, 75, "Afghan", color(50, 150, 50), 2, new LevelAfghan()));
