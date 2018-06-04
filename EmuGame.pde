@@ -31,7 +31,7 @@ PImage[] naziEmuRunFlip = new PImage[34];
 PImage[] naziEmuAttack = new PImage[35];
 PImage[] naziEmuAttackFlip = new PImage[35];
 PImage[] blood = new PImage[5];
-boolean isDone, autoFire, aiming, gameOver, track, group, allowItems = false;
+boolean isDone, autoFire, aiming, gameOver, track, group, allowItems, truckWorking = false;
 boolean keepEmusOnScreen = true;
 float gunInnac;
 int level = -1;
@@ -222,44 +222,6 @@ void spawnItem() {
   groundItems.add(new GroundItem(type, 10, random(0, width), random(0, height)));
 }
 
-// KeyPressed function to control truck
-void keyPressed() {
-  if (level != 0) {
-    switch(keyCode) {
-    case 49: 
-      hud.setSelectedItem(0);
-      break;
-    case 50: 
-      hud.setSelectedItem(1);
-      break;
-    case 51: 
-      hud.setSelectedItem(2);
-      break;
-    case 52: 
-      hud.setSelectedItem(3);
-      break;
-    case 53: 
-      hud.setSelectedItem(4);
-      break;
-    case 65: 
-      truck.setLeft(true);
-      break;
-    case 68:
-      truck.setRight(true);
-      break;
-    case 87:
-      truck.setUp(true);
-      break;
-    case 83:
-      truck.setDown(true);
-      break;
-    case 69:
-      useItem();
-      break;
-    }
-  }
-}
-
 int emusAlive() {
   return emus.size();
 }
@@ -338,29 +300,85 @@ void throwGas() {
   }
 }
 
+// KeyPressed function to control truck
+void keyPressed() {
+  if (level != 0) {
+    switch(keyCode) {
+    case 49: 
+      hud.setSelectedItem(0);
+      break;
+    case 50: 
+      hud.setSelectedItem(1);
+      break;
+    case 51: 
+      hud.setSelectedItem(2);
+      break;
+    case 52: 
+      hud.setSelectedItem(3);
+      break;
+    case 53: 
+      hud.setSelectedItem(4);
+      break;
+    case 65: 
+      if (truckWorking) {
+        truck.setLeft(true);
+      }
+      break;
+    case 68:
+      if (truckWorking) {
+        truck.setRight(true);
+      }
+      break;
+    case 87:
+      if (truckWorking) {
+        truck.setUp(true);
+      }
+      break;
+    case 83:
+      if (truckWorking) {
+        truck.setDown(true);
+      }
+      break;
+    case 69:
+      useItem();
+      break;
+    }
+  }
+}
+
 // KeyReleased function to control truck, add new emu, leave level, etc.
 void keyReleased() {
   if (level != 0) {  // Keys only work when not on the title screen
     switch(keyCode) {
     case 65:    // Moves truck left
-      truck.setLeft(false);
+      if (truckWorking) {
+        truck.setLeft(false);
+      }
       break;
     case 68:    // Moves truck right
-      truck.setRight(false);
+      if (truckWorking) {
+        truck.setRight(false);
+      }
       break;
     case 87:    // Moves truck up
-      truck.setUp(false); 
-      break;
-    case 81:
-      emus.add(new BasicEmu(mouseX, mouseY, random(0.05, 0.5)));
-      break;
-    case 82:    // Reloads gun
-      for (Gun g : guns) {
-        g.reload();
+      if (truckWorking) {
+        truck.setUp(false);
       }
       break;
     case 83:    // Moves truck down
-      truck.setDown(false);
+      if (truckWorking) {
+        truck.setDown(false);
+      }
+      break;
+    case 82:    // Reloads gun
+      if (!isDone) {
+        for (Gun g : guns) {
+          g.reload();
+        }
+      }
+      break;
+    case 81:
+      emus.add(new BasicEmu(mouseX, mouseY, random(0.05, 0.5)));
       break;
     case 9:    // Leave to title screen
       if (isDone) {

@@ -22,6 +22,7 @@ class Level {
   }
 
   void setupLevel() {
+    truckWorking = true;
   }
 
   void clearLevel() {
@@ -79,7 +80,11 @@ class Level {
       String text = textScene[scene].substring(0, character);
       textAlign(LEFT);
       textFont(typeWriterFont);
-      text(text + "|", 100, 100);
+      if (textComplete) {
+        text(text, 100, 100);
+      } else {
+        text(text + "|", 100, 100);
+      }
       popMatrix();
       textFont(stamp30);
       if (frameCount%3 == 0) {
@@ -90,6 +95,7 @@ class Level {
 
       if (character == textScene[scene].length()) {
         textComplete = true;
+        text("Click to continue", width-300, height-20);
       }
     } else if (levelEnded) {
       pushMatrix();
@@ -106,6 +112,11 @@ class Level {
           character++;
         }
       }
+
+      if (character == endScene[0].length()) {
+        text("Press TAB", width-300, height-20);
+      }
+      
     } else {
       if (frameCount%20 == 0) {
         mobLocationX += random(-10, 10);
