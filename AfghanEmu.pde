@@ -1,6 +1,8 @@
 class AfghanEmu extends Emu {
   PImage runPhotos[] = new PImage[11];
   PImage runPhotosF[] = new PImage[11];
+  PImage explodePhotos[] = new PImage[8];
+  
   AfghanEmu(float x, float y, float size) {
     super(x, y, size);  
     for (int i = 1; i < runPhotos.length; i++) {
@@ -12,11 +14,17 @@ class AfghanEmu extends Emu {
       runPhotosF[i] = afghanEmuRunFlip[i].copy();
       runPhotosF[i].resize((int) (mySize*400), (int) (mySize*406));
     }
-  }
+  
+    for (int i = 1; i < explodePhotos.length; i++) {
+      explodePhotos[i] = afghanEmuExplode[i].copy();
+      explodePhotos[i].resize((int) (mySize*400), (int) (mySize*406));
+    }
+}
 
   void attack() { 
     if (myX > truck.getX() - 100 && myX < truck.getX() + 100 && myY > truck.getY() - 100 && myY < truck.getY() + 100) {
       explosions.add(new Explosion(myX, myY, 100));
+      //image(explodePhotos[frameNum], myX, myY);
     }
   }
 
@@ -33,7 +41,8 @@ class AfghanEmu extends Emu {
     }
 
     if (myHP <= 0) {
-      explosions.add(new Explosion(myX, myY, 70));
+      explosions.add(new Explosion(myX, myY, 100));
+      //image(explodePhotos[frameNum], myX, myY);
     }
   }
 }
