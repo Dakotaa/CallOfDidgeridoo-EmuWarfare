@@ -70,6 +70,13 @@ class Level {
     scene = s;
   }
 
+  void setLevelData (int level) {
+    if (!levelEnded) {
+      data.setInt(0, "highest_level", level);
+      saveTable(data, "data/data.csv");
+    }
+  }
+
   void update() {
 
     // Typing text scene.
@@ -116,7 +123,6 @@ class Level {
       if (character == endScene[0].length()) {
         text("Press TAB", width-300, height-20);
       }
-      
     } else {
       if (frameCount%20 == 0) {
         mobLocationX += random(-10, 10);

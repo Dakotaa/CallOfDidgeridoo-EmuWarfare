@@ -50,7 +50,9 @@ class LevelOne extends Level {
         rect(width/2, height/2, width, height);
       }
     }
+
     if (endTimer > 600) {
+      setLevelData(1);
       levelEnded = true;
     }
   }

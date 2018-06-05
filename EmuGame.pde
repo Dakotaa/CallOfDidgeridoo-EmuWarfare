@@ -51,6 +51,9 @@ ArrayList<Gas> gasses = new ArrayList();
 ArrayList<GroundItem> groundItems = new ArrayList();
 ArrayList<Rain> rains = new ArrayList();
 
+Table scores;
+Table data;
+
 HashMap<String, Integer> inventory = new HashMap<String, Integer>();    // https://codereview.stackexchange.com/questions/148821/inventory-of-objects-with-item-types-and-quantities
 
 HUD hud = new HUD(true, true, true);
@@ -65,15 +68,41 @@ void setup() {
   //((PGraphicsOpenGL)g).textureSampling(3); // https://forum.processing.org/two/discussion/8075/why-are-text-and-graphics-so-ugly-and-blocky
   cursor(CROSS);
   levels.add(new LevelOpening()); // Adds the title screen level
-  buttons.add(new Button(width/2, 250, 125, 50, "October 30", color(100, 200, 250), 2, new LevelOne()));
-  buttons.add(new Button(width/2, 300, 125, 50, "November 2", color(100, 200, 250), 2, new LevelTwo()));
-  buttons.add(new Button(width/2, 350, 125, 50, "November 4", color(100, 200, 250), 2, new LevelThree()));
-  buttons.add(new Button(width-600, height-100, 100, 75, "Minigun\nTest", color(100, 200, 250), 2, new LevelMinigun()));
-  buttons.add(new Button(width-450, height-100, 100, 75, "'Nam", color(50, 150, 50), 2, new LevelVietnam()));
-  buttons.add(new Button(width-300, height-100, 100, 75, "Afghan", color(50, 150, 50), 2, new LevelAfghan()));
-  buttons.add(new Button(width-150, height-100, 100, 75, "Zombies", color(50, 150, 50), 2, new LevelZombies()));
+  buttons.add(new Button(width/2, 250, 125, 50, "October 30", color(100, 200, 250), 2, 0, new LevelOne()));
+  buttons.add(new Button(width/2, 325, 125, 50, "November 2", color(100, 200, 250), 2, 1, new LevelTwo()));
+  buttons.add(new Button(width/2, 400, 125, 50, "November 4", color(100, 200, 250), 2, 2, new LevelThree()));
+  buttons.add(new Button(width-600, height-100, 100, 75, "Minigun\nTest", color(100, 200, 250), 2, 0, new LevelMinigun()));
+  buttons.add(new Button(width-450, height-100, 100, 75, "'Nam", color(50, 150, 50), 2, 0, new LevelVietnam()));
+  buttons.add(new Button(width-300, height-100, 100, 75, "Afghan", color(50, 150, 50), 2, 0, new LevelAfghan()));
+  buttons.add(new Button(width-150, height-100, 100, 75, "Zombies", color(50, 150, 50), 2, 0, new LevelZombies()));
 
   minim = new Minim(this);
+
+  File scoreFile = new File(dataPath("scores.csv"));
+  scoreFile = new File("data/scores.csv");
+  if (scoreFile.exists()) {
+    scores = loadTable("scores.csv", "header");
+  } else {
+    scores = new Table(); 
+    scores.addColumn("name");
+    scores.addColumn("score");
+    scores.addColumn("level");
+    scores.addColumn("date");
+    saveTable(scores, "data/scores.csv");
+  }
+
+  File dataFile = new File(dataPath("data.csv"));
+  if (dataFile.exists()) {
+    data = loadTable("data.csv", "header");
+    println("loaded saved table");
+  } else {
+    data = new Table(); 
+    data.addColumn("highest_level");
+    TableRow dataRow = data.addRow();
+    dataRow.setInt("highest_level", 0);
+    saveTable(data, "data/data.csv");
+    println("created table" + data);
+  }
 }
 
 void draw() {

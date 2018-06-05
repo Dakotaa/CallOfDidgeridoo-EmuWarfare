@@ -52,6 +52,7 @@ class LevelTwo extends Level {
         rect(width/2, height/2, width, height);
       }
       if (endTimer > 700) {
+        setLevelData(2);
         levelEnded = true;
       }
     }
