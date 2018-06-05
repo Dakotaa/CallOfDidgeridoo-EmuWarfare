@@ -3,6 +3,7 @@ class Level {
   String[] textScene = new String[1];
   String[] endScene = new String[1];
   PVector[] groups = new PVector[20];
+  int emusKilled;
   int scene, character, endTimer= 0;
   boolean textComplete;
   boolean levelEnded;
@@ -68,6 +69,14 @@ class Level {
 
   void setScene (int s) {
     scene = s;
+  }
+
+  int getEmusKilled() {
+    return emusKilled;
+  }
+  
+  void setEmusKilled (int e) {
+    emusKilled = e;  
   }
 
   void setLevelData (int level) {
@@ -200,6 +209,7 @@ class Level {
           }
           oof.play();
           oof.rewind();
+          emusKilled++;
           emuRemove.add(e);
         }
       }

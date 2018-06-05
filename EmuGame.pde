@@ -36,6 +36,7 @@ boolean isDone, autoFire, aiming, gameOver, track, group, allowItems, truckWorki
 boolean keepEmusOnScreen = true;
 float gunInnac;
 int level = -1;
+String date;
 PFont typeWriterFont, stamp20, stamp30, stamp50, stamp100;
 
 // ArrayLists for objects.
@@ -104,6 +105,12 @@ void setup() {
     saveTable(data, "data/data.csv");
     println("created table" + data);
   }
+
+  int day = day();
+  int month = month();
+  int year = year();
+
+  date = new String(day + "/" + month + "/" + year);
 }
 
 void draw() {
@@ -194,7 +201,7 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
   for (int i = 1; i < afghanEmuRun.length; i++) {
     afghanEmuRunFlip[i] = loadImage(dataPath("AfghanEmuRunFlip/AfghanEmuRun" + i + ".png"));
   }
-   for (int i = 1; i < afghanEmuExplode.length; i++) {
+  for (int i = 1; i < afghanEmuExplode.length; i++) {
     afghanEmuExplode[i] = loadImage(dataPath("AfghanExplode/AfghanExplode" + i + ".png"));
   }
   for (int i = 0; i < explosionAnimation.length; i++) {
@@ -404,9 +411,9 @@ void keyReleased() {
       }
       break;
     case 82:    // Reloads gun
-        for (Gun g : guns) {
-          g.reload();
-        }
+      for (Gun g : guns) {
+        g.reload();
+      }
       break;
     case 81:
       emus.add(new BasicEmu(mouseX, mouseY, random(0.05, 0.5)));

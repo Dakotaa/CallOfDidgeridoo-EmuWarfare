@@ -35,7 +35,14 @@ class LevelMinigun extends Level {
     scene = 4;
   }
 
-
+  void clearLevel() {
+    TableRow scoreRow = scores.addRow();
+    scoreRow.setString("name", "test");
+    scoreRow.setInt("score", emusKilled);
+    scoreRow.setString("date", date);
+    saveTable(scores, "data/scores.csv");
+    super.clearLevel();
+  }
   void update() {  
     track = true;
     super.update();
