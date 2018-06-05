@@ -20,7 +20,7 @@ PImage[] vietEmuRun = new PImage[24];
 PImage[] vietEmuRunFlip = new PImage[24];
 PImage[] afghanEmuRun = new PImage[11];
 PImage[] afghanEmuRunFlip = new PImage[11];
-PImage[] afghanEmuExplode = new PImage[8];
+PImage[] afghanEmuExplode = new PImage[16];
 PImage[] carDamage = new PImage[6];
 PImage[] vietCarDamage = new PImage[3];
 PImage[] afghanCarDamage = new PImage[3];
@@ -404,11 +404,9 @@ void keyReleased() {
       }
       break;
     case 82:    // Reloads gun
-      if (!isDone) {
         for (Gun g : guns) {
           g.reload();
         }
-      }
       break;
     case 81:
       emus.add(new BasicEmu(mouseX, mouseY, random(0.05, 0.5)));
