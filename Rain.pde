@@ -1,7 +1,7 @@
 class Rain {
   float myX, myY;
   Rain () {
-    myX = random(0, width);
+    myX = random(-100, width);
     myY = random (-height, 0);
   }
 
@@ -12,7 +12,7 @@ class Rain {
     rect(myX, myY, 3, 6);
     if (myY > height) {
       myY = -10; 
-      myX = random(0, width);
+      myX = random(-100, width);
     }
   }
 }
