@@ -74,9 +74,9 @@ class Level {
   int getEmusKilled() {
     return emusKilled;
   }
-  
+
   void setEmusKilled (int e) {
-    emusKilled = e;  
+    emusKilled = e;
   }
 
   void setLevelData (int level) {
@@ -111,9 +111,12 @@ class Level {
 
       if (character == textScene[scene].length()) {
         textComplete = true;
+        typewriter.pause();
+        typewriter.rewind();
         text("Click to continue", width-300, height-20);
       }
     } else if (levelEnded) {
+      typewriter.loop(5);
       pushMatrix();
       background(255);
       fill(0);
@@ -130,6 +133,8 @@ class Level {
       }
 
       if (character == endScene[0].length()) {
+        typewriter.pause();
+        typewriter.rewind();
         text("Press TAB", width-300, height-20);
       }
     } else {

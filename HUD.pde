@@ -41,6 +41,12 @@ class HUD {
     fill(100, 100);
     rect(selectedItem*75, height-75, 75, 75);
     textAlign(CENTER);
+    
+    if (!boomerangTimer.isDone()) {
+      fill(0, 100);
+      rect(0, height-75, 75, 75);
+    }
+    
     fill(0);
     if (inventory.get("Boomerang") > 0) {
       image(boomerang, 30, height-30);

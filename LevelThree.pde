@@ -34,6 +34,8 @@ class LevelThree extends Level {
 
     textScene[0] = "November 4, 1932 \n \n \nA massive herd has been spotted.. \nThe Australians deployed again, hoping that the huge group would make it easy to shoot the birds.\n\n";
     endScene[0] = "Operation Update - November 2, 1932 \n  \n  \nAfter killing only about twelve birds, the guns jammed.";
+    
+    typewriter.loop(5);
   }
 
 
