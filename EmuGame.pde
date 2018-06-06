@@ -120,6 +120,8 @@ void draw() {
     textAlign(CENTER);
     textSize(50);
     text("LOADING...", width/2, height/2);
+    textSize(30);
+    text("The main levels of this game are based on true historical events", width/2, height/2 + 100);
     popMatrix();
   } else {  // If not loading, draw all the levels (only one level should be in the ArrayList at any time)
     if (!gameOver) {
