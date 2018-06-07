@@ -182,7 +182,6 @@ class Truck {
         // truckExplosion.setY(myLocation.y);
       }
     } else {
-      text("exploding = true", 500, 500);
       // TODO : Convert this into explosion object
       explosionTimer.update();
       //truckExplosion.update();

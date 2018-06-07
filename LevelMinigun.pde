@@ -8,7 +8,7 @@ class LevelMinigun extends Level {
     backgroundColour = color(214, 154, 0);
     showHUD = true;
     allowItems = true;
-    for (int i = 0; i < 50; ++i) {
+    for (int i = 0; i < 250; ++i) {
       emus.add(new StaticEmu(random(width*.75, width), random(300, height-300), random(0.1, 0.4)));
     }
     guns.add(new Gun_Minigun(500));
@@ -47,7 +47,7 @@ class LevelMinigun extends Level {
     track = true;
     super.update();
 
-    if (emusAlive() < 50) {
+    if (emusAlive() < 250) {
       emus.add(new StaticEmu(random(width*.75, width), random(300, height-300), random(0.1, 0.4)));
     }
   }

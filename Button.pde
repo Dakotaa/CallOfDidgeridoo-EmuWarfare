@@ -32,6 +32,7 @@ class Button {
   void pressed() {
     down = false;    // If the mouse is over the button and clicked, sets the level to one, adds a new level one instance, and sets it up.
     level = levelNum;
+    levels.clear();
     levels.add(levelType);
     for (Level l : levels) {
       l.setupLevel();

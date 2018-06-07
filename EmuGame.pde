@@ -32,10 +32,12 @@ PImage[] naziEmuRunFlip = new PImage[34];
 PImage[] naziEmuAttack = new PImage[35];
 PImage[] naziEmuAttackFlip = new PImage[35];
 PImage[] blood = new PImage[5];
-boolean isDone, autoFire, aiming, gameOver, track, group, allowItems, truckWorking = false;
+boolean isDone, autoFire, aiming, gameOver, track, group, allowItems= false;
+boolean truckWorking = true;
 boolean keepEmusOnScreen = true;
 float gunInnac;
 int level = -1;
+int emusKilled;
 String date;
 PFont typeWriterFont, stamp20, stamp30, stamp50, stamp100;
 
@@ -58,9 +60,8 @@ Table data;
 
 HashMap<String, Integer> inventory = new HashMap<String, Integer>();    // https://codereview.stackexchange.com/questions/148821/inventory-of-objects-with-item-types-and-quantities
 
-HUD hud = new HUD(true, true, true);
+HUD hud = new HUD(true, true, true, true);
 Timer boomerangTimer = new Timer(3);
-Level lose = new LoseScreen();
 Truck truck = new Truck (6);
 
 void setup() {
@@ -120,7 +121,7 @@ void draw() {
     textAlign(CENTER);
     textSize(50);
     text("LOADING...", width/2, height/2);
-    textSize(30);
+    textSize(20);
     text("The main levels of this game are based on true historical events", width/2, height/2 + 100);
     popMatrix();
   } else {  // If not loading, draw all the levels (only one level should be in the ArrayList at any time)
@@ -129,7 +130,12 @@ void draw() {
         l.update();
       }
     } else {
-      lose.update();
+      for (Level l : levels) {
+        emusKilled = l.getEmusKilled();
+      }
+      levels.clear();
+      levels.add(new LoseScreen(emusKilled));
+      gameOver = false;
     }
   }
 }
@@ -431,6 +437,29 @@ void keyReleased() {
         levels.add(new TitleScreen()); // Adds the title screen level
         gameOver = false;
         break;
+      }
+    }
+  }
+
+  for (Level l : levels) {
+    if (l instanceof LoseScreen) {
+      if (keyCode == 8) {
+        if (l.getPlayerName().length() >= 1) {
+          l.setPlayerName(l.getPlayerName().substring(0, l.getPlayerName().length()-1));
+        }
+        // Enters score
+      } else if (key == ENTER) {
+        if (scores.getRowCount() > 10) {
+          scores.removeRow(10);
+        }
+        TableRow scoreRow = scores.addRow();
+        scoreRow.setString("player", l.getPlayerName());
+        scoreRow.setInt("score", (int) emusKilled);
+        scoreRow.setString("date", date);
+        saveTable(scores, "data/scores.csv");
+        // If any other keys, types in name
+      } else {
+        l.setPlayerName(l.getPlayerName()+key);
       }
     }
   }

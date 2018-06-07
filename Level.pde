@@ -8,6 +8,7 @@ class Level {
   boolean textComplete;
   boolean levelEnded;
   boolean showHUD, gunWorking, dropItems = true;
+  String name = "";
   color backgroundColour;
   Level() {
     backgroundColour = color(214, 154, 0);
@@ -86,8 +87,18 @@ class Level {
     }
   }
 
+  String getPlayerName() {
+    return name;
+  }
+
+  void setPlayerName(String n) {
+    name = n;
+  }
+
   void update() {
 
+    println(truckWorking);
+    
     // Typing text scene.
     if (scene < textScene.length) {
       pushMatrix();

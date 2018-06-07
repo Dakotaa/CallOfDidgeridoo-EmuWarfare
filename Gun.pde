@@ -91,7 +91,7 @@ class Gun {
     myX = truck.gunX();
     myY = truck.gunY();
 
-    if (reloading) {
+    if (reloading || myAmmo == 0) {
       reload();
     }
 
