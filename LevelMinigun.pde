@@ -8,7 +8,7 @@ class LevelMinigun extends Level {
     backgroundColour = color(214, 154, 0);
     showHUD = true;
     allowItems = true;
-    for (int i = 0; i < 50; ++i) {
+    for (int i = 0; i < 250; ++i) {
       emus.add(new StaticEmu(random(width*.75, width), random(300, height-300), random(0.1, 0.4)));
     }
     guns.add(new Gun_Minigun(500));
@@ -16,6 +16,10 @@ class LevelMinigun extends Level {
       g.setAmmo(g.getMaxAmmo());
     }
 
+    for (int i = 0; i < 30; i++) {
+      bushes.add(new Bush(int(random(0, width)), int(random(0, height))));  
+    }
+    
     gunWorking = true;
 
     truck.setX(200);
@@ -35,12 +39,19 @@ class LevelMinigun extends Level {
     scene = 4;
   }
 
-
+  void clearLevel() {
+    TableRow scoreRow = scores.addRow();
+    scoreRow.setString("name", "test");
+    scoreRow.setInt("score", emusKilled);
+    scoreRow.setString("date", date);
+    saveTable(scores, "data/scores.csv");
+    super.clearLevel();
+  }
   void update() {  
     track = true;
     super.update();
 
-    if (emusAlive() < 50) {
+    if (emusAlive() < 250) {
       emus.add(new StaticEmu(random(width*.75, width), random(300, height-300), random(0.1, 0.4)));
     }
   }

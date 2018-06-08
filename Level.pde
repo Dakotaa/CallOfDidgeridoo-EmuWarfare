@@ -3,10 +3,12 @@ class Level {
   String[] textScene = new String[1];
   String[] endScene = new String[1];
   PVector[] groups = new PVector[20];
+  int emusKilled;
   int scene, character, endTimer= 0;
   boolean textComplete;
   boolean levelEnded;
   boolean showHUD, gunWorking, dropItems = true;
+  String name = "";
   color backgroundColour;
   Level() {
     backgroundColour = color(214, 154, 0);
@@ -16,8 +18,6 @@ class Level {
     constrain(mobLocationY, 0, height);
     for (int i = 0; i < groups.length; i++) {
       groups[i] = new PVector(random(50, width-50), random(40, height-40));
-      //groups[i].x = random(300, width-300);
-      //groups[i].y = random(200, height-200);
     }
   }
 
@@ -35,6 +35,7 @@ class Level {
     groundItems.clear();
     explosions.clear();
     rains.clear();
+    bushes.clear();
     music1.pause();
     fortunateson.pause();
     nasheed.pause();
@@ -70,6 +71,14 @@ class Level {
     scene = s;
   }
 
+  int getEmusKilled() {
+    return emusKilled;
+  }
+
+  void setEmusKilled (int e) {
+    emusKilled = e;
+  }
+
   void setLevelData (int level) {
     if (!levelEnded) {
       data.setInt(0, "highest_level", level);
@@ -77,7 +86,17 @@ class Level {
     }
   }
 
+  String getPlayerName() {
+    return name;
+  }
+
+  void setPlayerName(String n) {
+    name = n;
+  }
+
   void update() {
+
+    println(truckWorking);
 
     // Typing text scene.
     if (scene < textScene.length) {
@@ -102,9 +121,12 @@ class Level {
 
       if (character == textScene[scene].length()) {
         textComplete = true;
+        typewriter.pause();
+        typewriter.rewind();
         text("Click to continue", width-300, height-20);
       }
     } else if (levelEnded) {
+      typewriter.loop(5);
       pushMatrix();
       background(255);
       fill(0);
@@ -121,6 +143,8 @@ class Level {
       }
 
       if (character == endScene[0].length()) {
+        typewriter.pause();
+        typewriter.rewind();
         text("Press TAB", width-300, height-20);
       }
     } else {
@@ -181,13 +205,6 @@ class Level {
         }
       }
 
-      truck.update();
-
-
-      for (Gun g : guns) {
-        g.drawGun();
-      }
-
       ArrayList<Emu> emuRemove = new ArrayList();
       for (Emu e : emus) {
         e.update();
@@ -200,8 +217,19 @@ class Level {
           }
           oof.play();
           oof.rewind();
+          emusKilled++;
           emuRemove.add(e);
         }
+      }
+
+      for (Bush b : bushes) {
+        b.update();
+      }
+
+      truck.update();
+
+      for (Gun g : guns) {
+        g.drawGun();
       }
 
       if (gunWorking) {

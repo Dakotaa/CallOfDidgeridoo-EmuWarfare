@@ -1,11 +1,12 @@
 class HUD {
-  boolean HP, ammo, items;
+  boolean HP, ammo, items, emusKilled;
   PImage boomerangIcon;
   int selectedItem = 0;
-  HUD (boolean hp, boolean a, boolean i) {
+  HUD (boolean hp, boolean a, boolean i, boolean e) {
     HP = hp;
     ammo = a;
     items = i;
+    emusKilled = e;
   }
   void showFPS() {
     text("FPS: " + (int) frameRate, 10, 30);
@@ -21,6 +22,12 @@ class HUD {
       } else {
         text("Ammo: " + (int) g.getAmmo() + " | " + (int) g.getMaxAmmo(), 500, 30);
       }
+    }
+  }
+
+  void showEmusKilled() {
+    for (Level l : levels) {
+      text("Emus Killed: " + l.getEmusKilled(), 1100, 30);  
     }
   }
 
@@ -41,6 +48,12 @@ class HUD {
     fill(100, 100);
     rect(selectedItem*75, height-75, 75, 75);
     textAlign(CENTER);
+    
+    if (!boomerangTimer.isDone()) {
+      fill(0, 100);
+      rect(0, height-75, 75, 75);
+    }
+    
     fill(0);
     if (inventory.get("Boomerang") > 0) {
       image(boomerang, 30, height-30);
@@ -80,5 +93,6 @@ class HUD {
     showAmmo();
     showItems();
     showEmusAlive();
+    showEmusKilled();  
   }
 }

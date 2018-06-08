@@ -9,7 +9,7 @@
 import ddf.minim.*;
 
 Minim minim;
-AudioPlayer gunshot, explosionSound, oof, music1, fortunateson, nasheed;
+AudioPlayer gunshot, explosionSound, oof, music1, fortunateson, nasheed, typewriter;
 // Declaring all images, image arrays, booleans, and other global variables.
 PImage lewisGun, miniGun, M60, emuPhoto, emuPhotoFlipped, explosion, boomerang, vegemite, grenade, landmine, flash, titleImage;
 PImage[] emuRun = new PImage[34];    // https://processing.org/discourse/beta/num_1192465513.html
@@ -32,10 +32,14 @@ PImage[] naziEmuRunFlip = new PImage[34];
 PImage[] naziEmuAttack = new PImage[35];
 PImage[] naziEmuAttackFlip = new PImage[35];
 PImage[] blood = new PImage[5];
-boolean isDone, autoFire, aiming, gameOver, track, group, allowItems, truckWorking = false;
+PImage[] bushImages = new PImage[3];
+boolean isDone, autoFire, aiming, gameOver, track, group, allowItems= false;
+boolean truckWorking = true;
 boolean keepEmusOnScreen = true;
 float gunInnac;
 int level = -1;
+int emusKilled;
+String date;
 PFont typeWriterFont, stamp20, stamp30, stamp50, stamp100;
 
 // ArrayLists for objects.
@@ -45,6 +49,7 @@ ArrayList<Blood> bloods = new ArrayList();
 ArrayList<Gun> guns = new ArrayList();
 ArrayList<Level> levels = new ArrayList();
 ArrayList<Button> buttons = new ArrayList();
+ArrayList<Bush> bushes = new ArrayList();
 ArrayList<Timer> timers = new ArrayList();
 ArrayList<Projectile> projectiles = new ArrayList();
 ArrayList<Explosion> explosions = new ArrayList();
@@ -58,9 +63,8 @@ Table data;
 
 HashMap<String, Integer> inventory = new HashMap<String, Integer>();    // https://codereview.stackexchange.com/questions/148821/inventory-of-objects-with-item-types-and-quantities
 
-HUD hud = new HUD(true, true, true);
+HUD hud = new HUD(true, true, true, true);
 Timer boomerangTimer = new Timer(3);
-Level lose = new LoseScreen();
 Truck truck = new Truck (6);
 
 void setup() {
@@ -105,6 +109,12 @@ void setup() {
     saveTable(data, "data/data.csv");
     println("created table" + data);
   }
+
+  int day = day();
+  int month = month();
+  int year = year();
+
+  date = new String(day + "/" + month + "/" + year);
 }
 
 void draw() {
@@ -114,6 +124,8 @@ void draw() {
     textAlign(CENTER);
     textSize(50);
     text("LOADING...", width/2, height/2);
+    textSize(20);
+    text("The main levels of this game are based on true historical events", width/2, height/2 + 100);
     popMatrix();
   } else {  // If not loading, draw all the levels (only one level should be in the ArrayList at any time)
     if (!gameOver) {
@@ -121,7 +133,12 @@ void draw() {
         l.update();
       }
     } else {
-      lose.update();
+      for (Level l : levels) {
+        emusKilled = l.getEmusKilled();
+      }
+      levels.clear();
+      levels.add(new LoseScreen(emusKilled));
+      gameOver = false;
     }
   }
 }
@@ -195,7 +212,7 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
   for (int i = 1; i < afghanEmuRun.length; i++) {
     afghanEmuRunFlip[i] = loadImage(dataPath("AfghanEmuRunFlip/AfghanEmuRun" + i + ".png"));
   }
-   for (int i = 1; i < afghanEmuExplode.length; i++) {
+  for (int i = 1; i < afghanEmuExplode.length; i++) {
     afghanEmuExplode[i] = loadImage(dataPath("AfghanExplode/AfghanExplode" + i + ".png"));
   }
   for (int i = 0; i < explosionAnimation.length; i++) {
@@ -204,6 +221,9 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
   for (int i = 0; i < blood.length; i++) {
     blood[i] = loadImage(dataPath("Blood/blood" + i + ".png"));
     blood[i].resize(200, 200);
+  }
+  for (int i = 0; i < bushImages.length; i++) {
+    bushImages[i] = loadImage(dataPath("Bushes/bush" + i + ".png"));
   }
   for (int i = 0; i < carDamage.length; i++) {
     carDamage[i] = loadImage(dataPath("CarDamage/CarDamage" + i + ".png"));
@@ -222,6 +242,7 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
   gunshot = minim.loadFile(dataPath("gunshot.wav"));
   explosionSound = minim.loadFile(dataPath("explode.mp3"));
   oof = minim.loadFile(dataPath("oof.wav"));
+  typewriter = minim.loadFile(dataPath("typewriter.mp3"));
   music1 = minim.loadFile(dataPath("music1.mp3"));
   fortunateson = minim.loadFile(dataPath("fortunateson.mp3"));
   nasheed = minim.loadFile(dataPath("nasheed.mp3"));
@@ -405,9 +426,9 @@ void keyReleased() {
       }
       break;
     case 82:    // Reloads gun
-        for (Gun g : guns) {
-          g.reload();
-        }
+      for (Gun g : guns) {
+        g.reload();
+      }
       break;
     case 81:
       emus.add(new BasicEmu(mouseX, mouseY, random(0.05, 0.5)));
@@ -425,6 +446,29 @@ void keyReleased() {
       }
     }
   }
+
+  for (Level l : levels) {
+    if (l instanceof LoseScreen) {
+      if (keyCode == 8) {
+        if (l.getPlayerName().length() >= 1) {
+          l.setPlayerName(l.getPlayerName().substring(0, l.getPlayerName().length()-1));
+        }
+        // Enters score
+      } else if (key == ENTER) {
+        if (scores.getRowCount() > 10) {
+          scores.removeRow(10);
+        }
+        TableRow scoreRow = scores.addRow();
+        scoreRow.setString("player", l.getPlayerName());
+        scoreRow.setInt("score", (int) emusKilled);
+        scoreRow.setString("date", date);
+        saveTable(scores, "data/scores.csv");
+        // If any other keys, types in name
+      } else {
+        l.setPlayerName(l.getPlayerName()+key);
+      }
+    }
+  }
 }
 
 void mousePressed() {
@@ -439,6 +483,8 @@ void mousePressed() {
       if (level >= 0) {
         for (Level l : levels) {
           if (l.getScene() == 0) {
+            typewriter.pause();
+            typewriter.rewind();
             l.setScene(l.getScene() + 1);
           }
         }

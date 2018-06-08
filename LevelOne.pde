@@ -15,6 +15,10 @@ class LevelOne extends Level {
       rains.add(new Rain());
     }
 
+    for (int i = 0; i < 30; i++) {
+      bushes.add(new Bush(int(random(0, width)), int(random(0, height))));  
+    }
+
     guns.add(new Gun_Lewisgun(75));
     for (Gun g : guns) {
       g.setAmmo(g.getMaxAmmo());
@@ -38,6 +42,8 @@ class LevelOne extends Level {
 
     textScene[0] = "October 30, 1932 \n \n \nMajor G.P.W Meredith,\n \nA herd of 50 emus have been spotted near Campon, Australia. \nWe're assigning Sergeant S. McMurray and Gunner J. O'Hallora to help you deal with them.\n\nYou'll have a pickup truck and a mounted Lewis light machine gun.\n \n \nGood luck,\nPrime Minister Lyons";
     endScene[0] = "Operation Update - October 30, 1932 \n  \n  \nIt began raining as soon as we set out.\nBy the time we made it to the area the emus were spotted, the mud made it impossible to move our truck.\n\nUpon spotting us, the emus scattered.\n\nWe fear that this delay and chance for them to escape will make our objective harder to complete, as the emus are\nnow scatted across multiple areas.\n\n - Major G.P.W Meredith";
+
+    typewriter.loop(5);
   }
 
 
