@@ -70,7 +70,7 @@ Truck truck = new Truck (6);
 void setup() {
   thread("loadImages"); // Runs the loadImages function in another thread, this allows the loading screen to show while the images are being loaded.
   fullScreen(P2D);
-  frameRate(10);
+  frameRate(60);
   //((PGraphicsOpenGL)g).textureSampling(3); // https://forum.processing.org/two/discussion/8075/why-are-text-and-graphics-so-ugly-and-blocky
   cursor(CROSS);
   levels.add(new LevelOpening()); // Adds the title screen level
