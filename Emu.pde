@@ -5,6 +5,7 @@ class Emu {
   //PImage myPhoto, myPhotoF;
   int frameNum = (int) random(1, 33);
   int myGroup;
+  //int frameNum2 = 1;
   float myWidth, myHeight, leaveX, leaveY;
   Emu (float x, float y, float size) {
     mobXDistance = random (-200, 200);
@@ -273,6 +274,7 @@ class Emu {
     if (frameCount%2 == 0) {
       frameNum++;
     }
+   
 
     fill(0);
     attack();

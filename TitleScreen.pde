@@ -2,6 +2,7 @@ class TitleScreen extends Level {
   TitleScreen() {
   }
 
+//all of the text and images needed for the title screen, extension of level, calls the buttons
   void update() {
     pushMatrix();
     background(0);

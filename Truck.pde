@@ -1,13 +1,16 @@
 // https://www.openprocessing.org/sketch/141841
 class Truck {
+  //declaration of floats, booleans, and pVectors
   PVector myLocation;
   PVector frontWheel;
   PVector backWheel;
   float myHeading, mySpeed, myBaseMaxSpeed, myMaxSpeed, mySteerAngle, myMaxSteerAngle, myWheelBase, myMinWheelBase, myMaxWheelBase, myHP, maxHP, carSize;
   boolean plus, minus, up, down, left, right, steerLock, exploding, timerStarted; 
 
+  //timer for how long the explosion of the truck lasts
   Timer explosionTimer = new Timer(8);
 
+  //truck object(what all it's variables mean
   Truck(float maxSpeed) {
 
 
@@ -25,10 +28,12 @@ class Truck {
     carSize = 8;
   }
 
+  //return function for speed
   float getSpeed() {
     return mySpeed;
   }
 
+  //location of vehicle on x and y plane
   void setX (float x) {
     myLocation.x = x;
   }
@@ -36,6 +41,8 @@ class Truck {
   void setY (float y) {
     myLocation.y = y;
   }
+
+  //return function for truck x and y locations  
   float getX() {
     return myLocation.x;
   }
@@ -43,6 +50,8 @@ class Truck {
   float getY() {
     return myLocation.y;
   }
+
+  //return functions for gun x and y locations
   float gunX() {
     return myLocation.x;
   }
@@ -50,6 +59,7 @@ class Truck {
   float gunY() {
     return myLocation.y;
   }
+
   void setHeading(float heading) {
     myHeading = heading;
   }
@@ -92,6 +102,7 @@ class Truck {
     myMaxSpeed = 6;
   }
 
+  //this is the function for the damage on the car, it determines what HP the vehicle is at as well as what level it is on(using instanceof), once this is decided it implements the proper images onto the trucks location
   void carDamage() {
     if (myHP > 0) {
       if (myHP != maxHP) {
@@ -140,6 +151,7 @@ class Truck {
     }
   }
 
+  //continuously centered health bar that goes down and changes color depending on the amount of health left
   void healthBar() {
     if (myHP > 0) {
       if (myHP != maxHP) {
@@ -157,15 +169,7 @@ class Truck {
     }
   }
 
-  void myDamage() {
-    if (myHP > 0) {
-      if (myHP != maxHP) {
-        if (myHP > (maxHP*0.75)) {
-        }
-      }
-    }
-  }
-
+  //checks if the vehicle is exploding by check if the HP is less than or equal to zero, clears the gun and spawns the explosion image at the trucks location, emus in location have their HP reduced, after explosion timer is up gameOver becomes true 
   void explode() {
     if (!exploding) {
       if (myHP <= 0) {
@@ -177,15 +181,10 @@ class Truck {
             e.reduceHP(500);
           }
         }
-
-        //truckExplosion.setX(myLocation.x);
-        // truckExplosion.setY(myLocation.y);
       }
     } else {
       text("exploding = true", 500, 500);
-      // TODO : Convert this into explosion object
       explosionTimer.update();
-      //truckExplosion.update();
       if (explosionTimer.isDone()) {
         exploding = false;
         explosionTimer.setSeconds(8);
@@ -194,6 +193,7 @@ class Truck {
     }
   }
 
+  //if your speed is greater than 2 and you hit an emu it kills them and reduces the driver's HP
   void hitEmu() {
     for (Emu e : emus) {
       if (e.getX() > myLocation.x - 100 && e.getX() < myLocation.x + 100 && e.getY() > myLocation.y - 100 && e.getY() < myLocation.y + 100) {
@@ -229,8 +229,7 @@ class Truck {
     pushMatrix();
     translate(frontWheel.x+sin(myHeading+PI/2)*myWheelBase/2, frontWheel.y+cos(myHeading+PI/2)*myWheelBase/2);
     // sin(myHeading+PI/2) and cos(myHeading+PI/2) helps to place wheel to correct position shifted to side by (myWheelBase/7)
-    // otherwise it would circle adound front regarding to a heading
-    // I don't know to work well with these Processing matrix translate/rotate things
+    // otherwise it would circle around the front regarding to a heading
 
     rotate(-mySteerAngle-myHeading);
     rectMode(CENTER);
@@ -284,15 +283,9 @@ class Truck {
     rect(0, 0, myWheelBase, myWheelBase+myWheelBase/1.5 + 30, 3, 3, myWheelBase/(myWheelBase/20), myWheelBase/(myWheelBase/20));
     popMatrix();
 
-    // Moves car to other side of screen when leaving screen
-    if (myLocation.x<0) myLocation.x=0;  
-    if (myLocation.x>width) myLocation.x=width;  
-    if (myLocation.y<0) myLocation.y=0;  
-    if (myLocation.y>height) myLocation.y=height;
-
     myHeading = atan2(frontWheel.x - backWheel.x, frontWheel.y - backWheel.y );
 
-
+    //locks the tires in place when you steer too far to the left and right
     if (left) {
       if (mySteerAngle < myMaxSteerAngle) mySteerAngle += 0.08;
       if (mySteerAngle>myMaxSteerAngle) mySteerAngle = myMaxSteerAngle;
@@ -303,7 +296,7 @@ class Truck {
     }
 
 
-    // RIGHT
+    // Right
     if (right) {
       if (mySteerAngle >  -myMaxSteerAngle)  mySteerAngle -= 0.08;
       if (mySteerAngle<-myMaxSteerAngle) mySteerAngle = -myMaxSteerAngle;
@@ -313,18 +306,21 @@ class Truck {
       }
     }
 
+/* check with Dakota */
     // UP
     if (up)
     { 
       if (mySpeed<myMaxSpeed) mySpeed += 0.08;
-    } else { }  
+    } else {
+    }  
 
     // DOWN
     if (down) {
       if (mySpeed>0) mySpeed -= 0.15; //brake
       else 
       if (abs(mySpeed)<myMaxSpeed) mySpeed -= 0.05; // reverse
-    } else { }
+    } else {
+    }
 
 
     if (abs(mySteerAngle)<0.08) mySteerAngle = 0;
@@ -335,6 +331,7 @@ class Truck {
 
     if ((!up && !down) && (abs(mySpeed)<0.01))  mySpeed=0;
 
+    //calling of major functions into the update function
     carDamage();
     setMaxSpeed();
     healthBar();

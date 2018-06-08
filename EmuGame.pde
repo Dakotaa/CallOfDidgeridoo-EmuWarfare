@@ -20,7 +20,7 @@ PImage[] vietEmuRun = new PImage[24];
 PImage[] vietEmuRunFlip = new PImage[24];
 PImage[] afghanEmuRun = new PImage[11];
 PImage[] afghanEmuRunFlip = new PImage[11];
-PImage[] afghanEmuExplode = new PImage[16];
+PImage[] afghanEmuExplode = new PImage[24];
 PImage[] carDamage = new PImage[6];
 PImage[] vietCarDamage = new PImage[3];
 PImage[] afghanCarDamage = new PImage[3];
@@ -48,6 +48,7 @@ ArrayList<Button> buttons = new ArrayList();
 ArrayList<Timer> timers = new ArrayList();
 ArrayList<Projectile> projectiles = new ArrayList();
 ArrayList<Explosion> explosions = new ArrayList();
+ArrayList<AfghanExplode> afghanExplode = new ArrayList();
 ArrayList<Gas> gasses = new ArrayList();
 ArrayList<GroundItem> groundItems = new ArrayList();
 ArrayList<Rain> rains = new ArrayList();
@@ -65,7 +66,7 @@ Truck truck = new Truck (6);
 void setup() {
   thread("loadImages"); // Runs the loadImages function in another thread, this allows the loading screen to show while the images are being loaded.
   fullScreen(P2D);
-  frameRate(60);
+  frameRate(10);
   //((PGraphicsOpenGL)g).textureSampling(3); // https://forum.processing.org/two/discussion/8075/why-are-text-and-graphics-so-ugly-and-blocky
   cursor(CROSS);
   levels.add(new LevelOpening()); // Adds the title screen level
