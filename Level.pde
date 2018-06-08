@@ -18,8 +18,6 @@ class Level {
     constrain(mobLocationY, 0, height);
     for (int i = 0; i < groups.length; i++) {
       groups[i] = new PVector(random(50, width-50), random(40, height-40));
-      //groups[i].x = random(300, width-300);
-      //groups[i].y = random(200, height-200);
     }
   }
 
@@ -37,6 +35,7 @@ class Level {
     groundItems.clear();
     explosions.clear();
     rains.clear();
+    bushes.clear();
     music1.pause();
     fortunateson.pause();
     nasheed.pause();
@@ -98,7 +97,7 @@ class Level {
   void update() {
 
     println(truckWorking);
-    
+
     // Typing text scene.
     if (scene < textScene.length) {
       pushMatrix();
@@ -206,13 +205,6 @@ class Level {
         }
       }
 
-      truck.update();
-
-
-      for (Gun g : guns) {
-        g.drawGun();
-      }
-
       ArrayList<Emu> emuRemove = new ArrayList();
       for (Emu e : emus) {
         e.update();
@@ -228,6 +220,16 @@ class Level {
           emusKilled++;
           emuRemove.add(e);
         }
+      }
+
+      for (Bush b : bushes) {
+        b.update();
+      }
+
+      truck.update();
+
+      for (Gun g : guns) {
+        g.drawGun();
       }
 
       if (gunWorking) {

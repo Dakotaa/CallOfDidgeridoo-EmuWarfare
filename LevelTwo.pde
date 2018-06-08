@@ -20,6 +20,10 @@ class LevelTwo extends Level {
     allowItems = false;
     gunWorking = true;
 
+    for (int i = 0; i < 30; i++) {
+      bushes.add(new Bush(int(random(0, width)), int(random(0, height))));  
+    }
+    
     truck.setX(200);
     truck.setY(200);
     truck.setHeading(PI);

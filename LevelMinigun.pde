@@ -16,6 +16,10 @@ class LevelMinigun extends Level {
       g.setAmmo(g.getMaxAmmo());
     }
 
+    for (int i = 0; i < 30; i++) {
+      bushes.add(new Bush(int(random(0, width)), int(random(0, height))));  
+    }
+    
     gunWorking = true;
 
     truck.setX(200);

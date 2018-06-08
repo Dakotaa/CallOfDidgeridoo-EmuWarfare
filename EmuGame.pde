@@ -32,6 +32,7 @@ PImage[] naziEmuRunFlip = new PImage[34];
 PImage[] naziEmuAttack = new PImage[35];
 PImage[] naziEmuAttackFlip = new PImage[35];
 PImage[] blood = new PImage[5];
+PImage[] bushImages = new PImage[3];
 boolean isDone, autoFire, aiming, gameOver, track, group, allowItems= false;
 boolean truckWorking = true;
 boolean keepEmusOnScreen = true;
@@ -48,6 +49,7 @@ ArrayList<Blood> bloods = new ArrayList();
 ArrayList<Gun> guns = new ArrayList();
 ArrayList<Level> levels = new ArrayList();
 ArrayList<Button> buttons = new ArrayList();
+ArrayList<Bush> bushes = new ArrayList();
 ArrayList<Timer> timers = new ArrayList();
 ArrayList<Projectile> projectiles = new ArrayList();
 ArrayList<Explosion> explosions = new ArrayList();
@@ -218,6 +220,9 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
   for (int i = 0; i < blood.length; i++) {
     blood[i] = loadImage(dataPath("Blood/blood" + i + ".png"));
     blood[i].resize(200, 200);
+  }
+  for (int i = 0; i < bushImages.length; i++) {
+    bushImages[i] = loadImage(dataPath("Bushes/bush" + i + ".png"));
   }
   for (int i = 0; i < carDamage.length; i++) {
     carDamage[i] = loadImage(dataPath("CarDamage/CarDamage" + i + ".png"));
