@@ -223,8 +223,8 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
     blood[i] = loadImage(dataPath("Blood/blood" + i + ".png"));
     blood[i].resize(200, 200);
   }
-  for (int i = 0; i < bushImages.length; i++) {
-    bushImages[i] = loadImage(dataPath("jungleImages/jungleImage" + i + ".png"));
+  for (int i = 0; i < jungleImages.length; i++) {
+    jungleImages[i] = loadImage(dataPath("jungleImages/jungleImage" + i + ".png"));
   }
   
     for (int i = 0; i < bushImages.length; i++) {

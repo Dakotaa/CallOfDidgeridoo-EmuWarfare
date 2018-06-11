@@ -1,15 +1,14 @@
 class Decor {
   int myX, myY, theta;
-  float sizeFactor;
+  float maxSizeFactor, sizeFactor;
   boolean rotate;
   PImage myImage;
-  Decor (int x, int y, boolean r, PImage[] images) {
+  Decor (int x, int y, float size, boolean r, PImage[] images) {
     myX = x;
     myY = y;
     rotate = r;
-
-    myImage = bushImages[int(random(0, images.length))].copy();
-    sizeFactor = random(0.2, 0.4);
+    myImage = images[floor(random(0, images.length))].copy();
+    sizeFactor = size;
     
     myImage.resize(int(myImage.width * sizeFactor), int(myImage.height * sizeFactor));
     if (rotate) {

@@ -17,6 +17,10 @@ class LevelVietnam extends Level {
       g.setAmmo(g.getMaxAmmo());
     }
 
+    for (int i = 0; i < 20; i++) {
+      decorations.add(new Decor(int(random(width-600, width)), int(random(0, height)), random(0.4, 0.6), false, jungleImages));
+    }
+
     truck.setX(200);
     truck.setY(200);
     truck.setHeading(PI);
