@@ -35,7 +35,7 @@ class Level {
     groundItems.clear();
     explosions.clear();
     rains.clear();
-    bushes.clear();
+    decorations.clear();
     music1.pause();
     fortunateson.pause();
     nasheed.pause();
@@ -177,6 +177,10 @@ class Level {
         }
       }
 
+      for (Decor d : decorations) {
+        d.update();
+      }
+      
       ArrayList<Projectile> projectilesToRemove = new ArrayList();
       for (Projectile p : projectiles) {
         p.update();
@@ -222,9 +226,6 @@ class Level {
         }
       }
 
-      for (Bush b : bushes) {
-        b.update();
-      }
 
       truck.update();
 
