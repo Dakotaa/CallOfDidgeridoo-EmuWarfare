@@ -21,7 +21,7 @@ class LevelTwo extends Level {
     gunWorking = true;
 
     for (int i = 0; i < 30; i++) {
-      bushes.add(new Bush(int(random(0, width)), int(random(0, height))));  
+      decorations.add(new Decor(int(random(0, width)), int(random(0, height)), true, bushImages));  
     }
     
     truck.setX(200);
