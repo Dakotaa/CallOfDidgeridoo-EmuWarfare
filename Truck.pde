@@ -212,6 +212,11 @@ class Truck {
 
   void update() {
 
+    if (myLocation.x<0) myLocation.x=0;  
+    if (myLocation.x>width) myLocation.x=width;  
+    if (myLocation.y<0) myLocation.y=0;  
+    if (myLocation.y>height) myLocation.y=height;
+
     frontWheel = new PVector(myLocation.x+(myWheelBase/2)*sin(myHeading), myLocation.y+(myWheelBase/2)*cos(myHeading));
     backWheel = new PVector(myLocation.x-(myWheelBase/2)*sin(myHeading), myLocation.y-(myWheelBase/2)*cos(myHeading));
     // front axle
@@ -274,7 +279,6 @@ class Truck {
     myLocation.set(frontWheel.x+backWheel.x, frontWheel.y+backWheel.y, 0) ;
     myLocation.div(2);
     // end: back wheels
-
     pushMatrix();
     translate(myLocation.x, myLocation.y);
     rotate(-myHeading);
@@ -306,7 +310,7 @@ class Truck {
       }
     }
 
-/* check with Dakota */
+    /* check with Dakota */
     // UP
     if (up)
     { 
