@@ -27,7 +27,7 @@ class HUD {
 
   void showEmusKilled() {
     for (Level l : levels) {
-      text("Emus Killed: " + l.getEmusKilled(), 1100, 30);  
+      text("Emus Killed: " + l.getEmusKilled(), 1100, 30);
     }
   }
 
@@ -48,12 +48,12 @@ class HUD {
     fill(100, 100);
     rect(selectedItem*75, height-75, 75, 75);
     textAlign(CENTER);
-    
+
     if (!boomerangTimer.isDone()) {
       fill(0, 100);
       rect(0, height-75, 75, 75);
     }
-    
+
     fill(0);
     if (inventory.get("Boomerang") > 0) {
       image(boomerang, 30, height-30);
@@ -91,8 +91,9 @@ class HUD {
     showFPS();
     showHP();
     showAmmo();
-    showItems();
     showEmusAlive();
-    showEmusKilled();  
+    showEmusKilled();
+
+    showItems();
   }
 }
