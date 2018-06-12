@@ -8,7 +8,7 @@ class LevelFour extends Level {
   }
 
   void setupLevel() {
-      emus.add(new BossEmu(random(width*.75, width), random(300, height-300), 1.2));
+      emus.add(new BossEmu(random(width*.75, width), random(300, height-300), 1.0));
 
     guns.add(new Gun_Lewisgun(75));
     for (Gun g : guns) {
