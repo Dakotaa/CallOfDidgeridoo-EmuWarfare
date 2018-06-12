@@ -20,9 +20,11 @@ class BossEmu extends Emu {
     }
   }
 
-  void update() {
-    super.update();
+  void spitAttack() {
+    projectiles.add(new Spit(new PVector(myX, myY), 15, 90, truck.getX(), truck.getY()));
+  }
 
+  void update() {
     if (frameNum > runPhotos.length - 1) {
       frameNum = 1;
     }
@@ -31,6 +33,69 @@ class BossEmu extends Emu {
       image(runPhotosF[frameNum], myX, myY);
     } else {
       image(runPhotos[frameNum], myX, myY);
+    }
+    
+    if (keepEmusOnScreen) {
+      constrain(myX, 0, width);
+      constrain(myY, 0, height);
+    }
+    
+    tracking = true;
+    
+    if (attacking) {
+      moving = false;
+    } else {
+      moving = true;
+    }
+
+    if (!grouping) {
+      if (frameCount%(int(random(20, 40))) == 0) {
+        myXVel = xVelocity();
+        myYVel = yVelocity();
+      }
+    } else {
+      if (frameCount%(int(random(10, 20))) == 0) {
+        myXVel = xVelocity();
+        myYVel = yVelocity();
+      }
+    }
+
+    if (moving) {
+      myX += myXVel*speedModifier;
+      myY += myYVel*speedModifier;
+    }
+
+    ArrayList<Bullet> toRemove = new ArrayList();
+    for (Bullet b : bullets) {
+      if (b.getX() > myX-(myWidth/2) && b.getX() < myX+(myWidth/2) && b.getY() > myY-(myHeight/2) && b.getY() < myY+(myHeight/2)) {
+        toRemove.add(b);
+        reduceHP(b.getDamage());
+      }
+    }
+    bullets.removeAll(toRemove);
+
+    if (bleeding) {
+      if (frameCount%((int) random(180, 500)) == 0) {
+        bloods.add(new Blood(myX, myY));
+      }
+    }
+
+    if (myHP <= 0) {
+      dead = true;
+    }
+    fill(157, 100, 67);
+    if (frameCount%2 == 0) {
+      frameNum++;
+    }
+
+
+    fill(0);
+    attack();
+    healthBar();
+    rectMode(CENTER);
+    
+    if (frameCount%30 == 0) {
+      spitAttack();  
     }
   }
 }
