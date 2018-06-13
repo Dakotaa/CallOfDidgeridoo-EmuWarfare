@@ -24,7 +24,9 @@ class BossEmu extends Emu {
   }
 
   void spitAttack() {
-    projectiles.add(new Spit(new PVector(myX, myY), 15, 90, truck.getX(), truck.getY()));
+    for (int i = -2; i < 2; i++) {
+      projectiles.add(new Spit(new PVector(myX, myY), 20, i, truck.getX(), truck.getY()));
+    }
   }
 
   void attack() { 

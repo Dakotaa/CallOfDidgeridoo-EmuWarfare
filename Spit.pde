@@ -1,8 +1,10 @@
 class Spit extends Projectile {
+  float offset;
   Spit(PVector position, float velocity, float theta, float xEnd, float yEnd) {
     super(position, velocity, theta, xEnd, yEnd);
     myPosition = position;
     myVelocity = new PVector(20, 20);
+    offset = theta;
 
     for (Emu e : emus) {
       if (myXEnd > e.getX()) {
@@ -39,12 +41,16 @@ class Spit extends Projectile {
       }
     }
 
-    return myTheta;
+    return myTheta += offset*3;
   }
 
   void update() {
     super.update();
-    rect(myPosition.x, myPosition.y, 30, 30);
+    pushMatrix();
+    translate(myPosition.x, myPosition.y);
+    rotate(myTheta);
+    image(spitImage, 0, 0);
+    popMatrix();
 
     if (myPosition.x > truck.getX() - 100 && myPosition.x < truck.getX() + 100 && myPosition.y > truck.getY() - 100 && myPosition.y < truck.getY() + 100) {
       truck.reduceHP(0.1);

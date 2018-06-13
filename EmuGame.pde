@@ -11,7 +11,7 @@ import ddf.minim.*;
 Minim minim;
 AudioPlayer gunshot, explosionSound, oof, music1, fortunateson, nasheed, typewriter, spit;
 // Declaring all images, image arrays, booleans, and other global variables.
-PImage lewisGun, miniGun, M60, emuPhoto, emuPhotoFlipped, explosion, boomerang, vegemite, grenade, landmine, flash, titleImage;
+PImage lewisGun, miniGun, M60, emuPhoto, emuPhotoFlipped, explosion, boomerang, vegemite, grenade, landmine, flash, titleImage, spitImage;
 PImage[] emuRun = new PImage[34];    // https://processing.org/discourse/beta/num_1192465513.html
 PImage[] emuRunFlip = new PImage[34];
 PImage[] buffEmuRun = new PImage[39];
@@ -172,6 +172,8 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
   flash = loadImage("flash.png");
   titleImage = loadImage("titlescreen.png");
   flash.resize((int) (flash.width*.15), (int) (flash.height*.15));
+  spitImage = loadImage("spit.png");
+  spitImage.resize((int) (spitImage.width*.15), (int) (spitImage.height*.15));
   for (int i = 1; i < emuRun.length; i++) {
     emuRun[i] = loadImage(dataPath("EmuRun/EmuRun" + i + ".png"));    // https://forum.processing.org/two/discussion/4160/is-it-possible-to-load-files-from-a-folder-inside-the-data-folder
   }

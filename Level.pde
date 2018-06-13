@@ -95,9 +95,6 @@ class Level {
   }
 
   void update() {
-
-    println(truckWorking);
-
     //Typing text scene.
     if (scene < textScene.length) {
       pushMatrix();
