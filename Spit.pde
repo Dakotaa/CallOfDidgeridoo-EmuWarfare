@@ -3,7 +3,7 @@ class Spit extends Projectile {
     super(position, velocity, theta, xEnd, yEnd);
     myPosition = position;
     myVelocity = new PVector(20, 20);
-    
+
     for (Emu e : emus) {
       if (myXEnd > e.getX()) {
         myTheta = atan((e.getY() - myYEnd)/(e.getX() - myXEnd));
@@ -11,7 +11,7 @@ class Spit extends Projectile {
         myTheta = (atan((myYEnd-e.getY())/(myXEnd - e.getX()))) + radians(180);
       }
     }
-    
+
     this.velocity = velocity;
     myXEnd = xEnd;
     myYEnd = yEnd;
@@ -45,8 +45,8 @@ class Spit extends Projectile {
   void update() {
     super.update();
     rect(myPosition.x, myPosition.y, 30, 30);
-    
-    if (myPosition.x > truck.getX() - 200 && myPosition.y < truck.getX() + 200 && myPosition.y > truck.getY() - 200 && myPosition.x < truck.getY() + 200) {
+
+    if (myPosition.x > truck.getX() - 100 && myPosition.x < truck.getX() + 100 && myPosition.y > truck.getY() - 100 && myPosition.y < truck.getY() + 100) {
       truck.reduceHP(0.1);
       toRemove = true;
     }

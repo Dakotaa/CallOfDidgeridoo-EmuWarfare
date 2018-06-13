@@ -2,6 +2,8 @@ class BossEmu extends Emu {
   PImage runPhotos[] = new PImage[34];
   PImage runPhotosF[] = new PImage[34];
   float myTheta;
+  int frame = 0;
+  boolean spitting;
   //emu object that does not change size(easier for larger amounts of emus, better performance)
   BossEmu(float x, float y, float size) {
     super(x, y, size);
@@ -108,9 +110,17 @@ class BossEmu extends Emu {
     rectMode(CENTER);
 
     if (frameCount%120 == 0) {
+      spitting = true;
       spit.play();
       spit.rewind();
-      if (frameCount%120 == 0) {
+    }
+
+    if (spitting) {
+      frame++;
+
+      if (frame >= 110) {
+        frame = 0;
+        spitting = false;
         spitAttack();
       }
     }
