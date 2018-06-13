@@ -78,6 +78,7 @@ void setup() {
   buttons.add(new Button(width/2, 250, 125, 50, "October 30", color(100, 200, 250), 2, 0, new LevelOne()));
   buttons.add(new Button(width/2, 325, 125, 50, "November 2", color(100, 200, 250), 2, 1, new LevelTwo()));
   buttons.add(new Button(width/2, 400, 125, 50, "November 4", color(100, 200, 250), 2, 2, new LevelThree()));
+  buttons.add(new Button(width/2, 475, 125, 50, "November 6", color(100, 200, 250), 2, 3, new LevelFour()));
   buttons.add(new Button(width-600, height-100, 100, 75, "Minigun\nTest", color(100, 200, 250), 2, 0, new LevelMinigun()));
   buttons.add(new Button(width-450, height-100, 100, 75, "'Nam", color(50, 150, 50), 2, 0, new LevelVietnam()));
   buttons.add(new Button(width-300, height-100, 100, 75, "Afghan", color(50, 150, 50), 2, 0, new LevelAfghan()));
@@ -226,8 +227,8 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
   for (int i = 0; i < jungleImages.length; i++) {
     jungleImages[i] = loadImage(dataPath("jungleImages/jungleImage" + i + ".png"));
   }
-  
-    for (int i = 0; i < bushImages.length; i++) {
+
+  for (int i = 0; i < bushImages.length; i++) {
     bushImages[i] = loadImage(dataPath("Bushes/bush" + i + ".png"));
   }
   for (int i = 0; i < carDamage.length; i++) {

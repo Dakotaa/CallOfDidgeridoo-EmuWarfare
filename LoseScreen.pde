@@ -27,11 +27,7 @@ class LoseScreen extends Level {
     textSize(50);
     textSize(20);
     text("High Scores", 960, 330); 
-    if (frameCount%2 == 0) {
-      text("Enter your name: " + name, 960, 360);
-    } else {
-      text("Enter your name: " + name + "|", 960, 360);
-    }
+    text("Enter your name: " + name, 960, 360);
     for (int i = 0; i < scores.getRowCount(); i++) {
       if (scores.getRowCount() > 0) {
         text(scores.getString(i, 4), width/2 - 60, 430 + i*40);

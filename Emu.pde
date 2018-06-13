@@ -1,6 +1,6 @@
 class Emu { 
   float myHP, maxHP, myX, myY, mySize, myFade, myXVel, myYVel, speedModifier, mobXDistance, mobYDistance;
-  boolean dead, bleeding, movingUp, attacking, tracking, grouping, leaving = false;
+  boolean dead, bleeding, movingUp, attacking, tracking, grouping, leaving, exploded = false;
   boolean moving = true;
   //PImage myPhoto, myPhotoF;
   int frameNum = (int) random(1, 33);
@@ -46,6 +46,10 @@ class Emu {
   boolean isDead() {
     return dead;
   }
+  
+  boolean getExploded() {
+    return exploded;  
+  }
 
   float getX() {
     return myX;
@@ -61,6 +65,10 @@ class Emu {
 
   float getHeight() {
     return (mySize*406);
+  }
+
+  void setExploded(boolean e) {
+    exploded = e;  
   }
 
   void setAttacking(boolean a) {

@@ -1,6 +1,4 @@
 class StaticEmu extends Emu {
-  PImage runPhotos[] = new PImage[34];
-  PImage runPhotosF[] = new PImage[34];
   //emu object that does not change size(easier for larger amounts of emus, better performance)
   StaticEmu(float x, float y, float size) {
     super(x, y, size);
@@ -13,7 +11,7 @@ class StaticEmu extends Emu {
   void update() {
     super.update();
 
-    if (frameNum > runPhotos.length - 1) {
+    if (frameNum > emuRun.length - 1) {
       frameNum = 1;
     }
 

@@ -31,7 +31,10 @@ class Explosion {
     if (!completed) {
       for (Emu e : emus) {
         if (e.getX() > myX - myRadius && e.getX() < myX + myRadius && e.getY() > myY - myRadius && e.getY() < myY + myRadius) {
-          e.reduceHP(500);
+          if (!e.getExploded()) {
+            e.setExploded(true);
+            e.reduceHP(500);
+          }
         }
       }
 
