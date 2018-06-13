@@ -18,6 +18,7 @@ class LevelZombies extends Level {
       g.setAmmo(g.getMaxAmmo());
     }
 
+//sets xpos, ypos, heading, speed, HP, and maxSpeec, and items in inventory
     truck.setX(200);
     truck.setY(200);
     truck.setHeading(PI);

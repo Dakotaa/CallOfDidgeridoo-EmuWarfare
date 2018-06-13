@@ -24,10 +24,12 @@ class LevelOne extends Level {
       g.setAmmo(g.getMaxAmmo());
     }
 
+//disables item use, gun use, and movement
     allowItems = false;
     gunWorking = false;
     truckWorking = false;
 
+//sets xpos, ypos, heading, speed, HP, and maxSpeec, and items in inventory
     truck.setX(200);
     truck.setY(200);
     truck.setHeading(PI);

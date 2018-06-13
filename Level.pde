@@ -96,7 +96,9 @@ class Level {
 
   void update() {
 
-    // Typing text scene.
+    println(truckWorking);
+
+    //Typing text scene.
     if (scene < textScene.length) {
       pushMatrix();
       background(255);
@@ -298,10 +300,6 @@ class Level {
 
       if (showHUD) {
         hud.update();
-      }
-      
-      if (allowItems) {
-        hud.showItems();  
       }
     }
   }

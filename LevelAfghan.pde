@@ -23,6 +23,7 @@ class LevelAfghan extends Level {
       decorations.add(new Decor(int(random(0, width)), int(random(0, height)), random(0.2, 0.4), false, bushImages));
     }
 
+//sets xpos, ypos, heading, speed, HP, and maxSpeec, and items in inventory, as well as music
     truck.setX(200);
     truck.setY(200);
     truck.setHeading(PI);
