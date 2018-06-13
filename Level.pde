@@ -98,7 +98,7 @@ class Level {
 
     println(truckWorking);
 
-    // Typing text scene.
+    //Typing text scene.
     if (scene < textScene.length) {
       pushMatrix();
       background(255);
