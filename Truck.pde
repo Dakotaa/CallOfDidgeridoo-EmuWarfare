@@ -12,8 +12,6 @@ class Truck {
 
   //truck object(what all it's variables mean
   Truck(float maxSpeed) {
-
-
     up = down = left = right = steerLock = false;
     myLocation = new PVector(860, 540);
     myHeading = PI;
