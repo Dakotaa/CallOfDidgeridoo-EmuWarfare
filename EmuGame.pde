@@ -9,7 +9,7 @@
 import ddf.minim.*;
 
 Minim minim;
-AudioPlayer gunshot, explosionSound, oof, music1, fortunateson, nasheed, typewriter, spit;
+AudioPlayer gunshot, explosionSound, oof, music1, fortunateson, nasheed, typewriter, spit, ree;
 // Declaring all images, image arrays, booleans, and other global variables.
 PImage lewisGun, miniGun, M60, emuPhoto, emuPhotoFlipped, explosion, boomerang, vegemite, grenade, landmine, flash, titleImage, spitImage;
 PImage[] emuRun = new PImage[34];    // https://processing.org/discourse/beta/num_1192465513.html
@@ -255,6 +255,7 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
   fortunateson = minim.loadFile(dataPath("fortunateson.mp3"));
   nasheed = minim.loadFile(dataPath("nasheed.mp3"));
   spit = minim.loadFile(dataPath("spit.mp3"));
+  ree = minim.loadFile(dataPath("ree.mp3"));
 
   isDone = true;
 }

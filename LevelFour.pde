@@ -1,5 +1,6 @@
 class LevelFour extends Level {
   //String[] textScene = new String[3];
+  boolean bossDead;
   LevelFour() {
     super();
     showHUD = false;
@@ -8,9 +9,9 @@ class LevelFour extends Level {
   }
 
   void setupLevel() {
-      emus.add(new BossEmu(random(width*.75, width), random(300, height-300), 0.8));
+    emus.add(new BossEmu(random(width*.75, width), random(300, height-300), 0.8));
 
-    guns.add(new Gun_Lewisgun(75));
+    guns.add(new Gun_Minigun(5000));
     for (Gun g : guns) {
       g.setAmmo(g.getMaxAmmo());
     }
@@ -38,6 +39,7 @@ class LevelFour extends Level {
     endScene[0] = "Operation Update - November 4, 1932 \n  \n  \nWe waited until the emus arrived, then opened fire. \nUnfortunately, after killing only about a dozen of them, our gun jammed.\nThis gave them the opportunity to run away.\nWe were able to run a few down and hit them with our truck, but the majority escaped.\n\n - Major G.P.W Meredith";
 
     typewriter.loop(5);
+    bossDead = false;
   }
 
 
@@ -45,17 +47,15 @@ class LevelFour extends Level {
     super.update();
     hud.showItems();
 
+    if (bossDead) {
+      track = true;
+      if (frameCount%2 == 0) {
+        emus.add(new StaticEmu(random(width, width*1.1), random(0, height), random(0.1, 0.4)));
+      }
+    }
+
     if (emusAlive() == 0) {
-      group = false;
-      endTimer++;
-      if (!levelEnded) {
-        fill(0, endTimer/3);
-        rect(0, 0, width, height);
-      }
-      if (endTimer > 700) {
-        setLevelData(4);
-        levelEnded = true;
-      }
+      bossDead = true;
     }
   }
 }
