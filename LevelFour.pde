@@ -43,6 +43,7 @@ class LevelFour extends Level {
 
   void update() {
     super.update();
+    hud.showItems();
 
     if (emusAlive() == 0) {
       group = false;

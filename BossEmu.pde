@@ -2,8 +2,8 @@ class BossEmu extends Emu {
   PImage runPhotos[] = new PImage[34];
   PImage runPhotosF[] = new PImage[34];
   float myTheta;
-  int frame = 0;
-  boolean spitting;
+  int frame, shots = 0;
+  boolean spitting, rapidSpitting;
   //emu object that does not change size(easier for larger amounts of emus, better performance)
   BossEmu(float x, float y, float size) {
     super(x, y, size);
@@ -23,9 +23,9 @@ class BossEmu extends Emu {
     }
   }
 
-  void spitAttack() {
-    for (int i = -2; i < 2; i++) {
-      projectiles.add(new Spit(new PVector(myX, myY), 20, i, truck.getX(), truck.getY()));
+  void spitAttack(int low, int high) {
+    for (int i = low; i < high; i++) {
+      projectiles.add(new Spit(new PVector(myX, myY), 13, i, truck.getX(), truck.getY()));
     }
   }
 
@@ -117,13 +117,31 @@ class BossEmu extends Emu {
       spit.rewind();
     }
 
+    if (rapidSpitting) {
+      if (frameCount%4 == 0) {
+        projectiles.add(new Spit(new PVector(myX, myY), 13, 0, truck.getX(), truck.getY()));
+        shots++;
+      }
+
+      if (shots == 10) {
+        rapidSpitting = false;
+        shots = 0;
+      }
+    }
+
     if (spitting) {
       frame++;
 
       if (frame >= 110) {
+        if (myHP > 3000) {
+          spitAttack(0, 1);
+        } else if (myHP > 2000) {
+          spitAttack(-2, 2);
+        } else if (myHP < 1000) {
+          rapidSpitting = true;
+        }
         frame = 0;
         spitting = false;
-        spitAttack();
       }
     }
   }

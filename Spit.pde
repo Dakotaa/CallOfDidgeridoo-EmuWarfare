@@ -5,13 +5,15 @@ class Spit extends Projectile {
     myPosition = position;
     myVelocity = new PVector(20, 20);
     offset = theta;
-
+    
     for (Emu e : emus) {
       if (myXEnd > e.getX()) {
         myTheta = atan((e.getY() - myYEnd)/(e.getX() - myXEnd));
       } else {
         myTheta = (atan((myYEnd-e.getY())/(myXEnd - e.getX()))) + radians(180);
       }
+      
+      myTheta+=radians(offset*6);
     }
 
     this.velocity = velocity;
@@ -41,7 +43,7 @@ class Spit extends Projectile {
       }
     }
 
-    return myTheta += offset*3;
+    return myTheta + offset*3;
   }
 
   void update() {
@@ -53,7 +55,7 @@ class Spit extends Projectile {
     popMatrix();
 
     if (myPosition.x > truck.getX() - 100 && myPosition.x < truck.getX() + 100 && myPosition.y > truck.getY() - 100 && myPosition.y < truck.getY() + 100) {
-      truck.reduceHP(0.1);
+      truck.reduceHP(0.01);
       toRemove = true;
     }
   }
