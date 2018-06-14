@@ -30,16 +30,16 @@ class AfghanEmu extends Emu {
     }
 
     if (myHP <= 0) {
-      afghanExplode.add(new AfghanExplode(myX, myY, 100));
-      //explosions.add(new Explosion(myX, myY, 100));
+      //afghanExplode.add(new AfghanExplode(myX, myY, 100));
+      explosions.add(new Explosion(myX, myY, 100));
     }
   }
 
   void attack() { 
     if (myX > truck.getX() - 100 && myX < truck.getX() + 100 && myY > truck.getY() - 100 && myY < truck.getY() + 100) {
 
-      afghanExplode.add(new AfghanExplode(myX, myY, 100));
-      //explosions.add(new Explosion(myX, myY, 100));
+     //afghanExplode.add(new AfghanExplode(myX, myY, 100));
+      explosions.add(new Explosion(myX, myY, 100));
     }
   }
 }
