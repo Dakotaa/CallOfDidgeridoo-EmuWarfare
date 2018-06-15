@@ -5,7 +5,7 @@ class Truck {
   PVector frontWheel;
   PVector backWheel;
   float myHeading, mySpeed, myBaseMaxSpeed, myMaxSpeed, mySteerAngle, myMaxSteerAngle, myWheelBase, myMinWheelBase, myMaxWheelBase, myHP, maxHP, carSize;
-  boolean plus, minus, up, down, left, right, steerLock, exploding, timerStarted; 
+  boolean plus, minus, up, down, left, right, steerLock, exploding, exploded, timerStarted; 
 
   //timer for how long the explosion of the truck lasts
   Timer explosionTimer = new Timer(8);
@@ -170,14 +170,17 @@ class Truck {
   //checks if the vehicle is exploding by check if the HP is less than or equal to zero, clears the gun and spawns the explosion image at the trucks location, emus in location have their HP reduced, after explosion timer is up gameOver becomes true 
   void explode() {
     if (!exploding) {
-      if (myHP <= 0) {
-        explosions.add(new Explosion(myLocation.x, myLocation.y, 300));
-        explosionTimer.setSeconds(8);
-        exploding = true;
-        guns.clear();
-        for (Emu e : emus) {
-          if (e.getX() > myLocation.x - 300 && e.getX() < myLocation.x + 300 && e.getY() > myLocation.y - 300 && e.getY() < myLocation.y + 300) {
-            e.reduceHP(500);
+      if (!exploded) {
+        if (myHP <= 0) {
+          exploded = true;
+          explosions.add(new Explosion(myLocation.x, myLocation.y, 300));
+          explosionTimer.setSeconds(8);
+          exploding = true;
+          guns.clear();
+          for (Emu e : emus) {
+            if (e.getX() > myLocation.x - 300 && e.getX() < myLocation.x + 300 && e.getY() > myLocation.y - 300 && e.getY() < myLocation.y + 300) {
+              e.reduceHP(500);
+            }
           }
         }
       }
@@ -185,7 +188,6 @@ class Truck {
       explosionTimer.update();
       if (explosionTimer.isDone()) {
         exploding = false;
-        explosionTimer.setSeconds(8);
         for (Level l : levels) {
           if (l instanceof LevelFour) {
             l.setEndTimerState(true);

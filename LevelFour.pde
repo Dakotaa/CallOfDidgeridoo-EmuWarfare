@@ -45,29 +45,31 @@ class LevelFour extends Level {
 
   void update() {
     super.update();
-    hud.showItems();
 
-    if (bossDead) {
-      track = true;
-      if (frameCount%2 == 0) {
-        emus.add(new StaticEmu(random(width, width*1.1), random(0, height), random(0.1, 0.4)));
+    if (scene == 1 && !levelEnded) {
+      hud.showItems();
+
+      if (bossDead) {
+        track = true;
+        if (frameCount%2 == 0) {
+          emus.add(new StaticEmu(random(width, width*1.1), random(0, height), random(0.1, 0.4)));
+        }
       }
-    }
 
-    if (emusAlive() == 0) {
-      bossDead = true;
-    }
+      if (emusAlive() == 0) {
+        bossDead = true;
+      }
 
-    if (endTimerState) {
-      endTimer++;
-      if (!levelEnded) {
+      if (endTimerState) {
+        endTimer++;
+        rectMode(CENTER);
         fill(0, endTimer/2);
         rect(width/2, height/2, width, height);
       }
-    }
 
-    if (endTimer > 600) {
-      levelEnded = true;
+      if (endTimer > 600) {
+        levelEnded = true;
+      }
     }
   }
 }
