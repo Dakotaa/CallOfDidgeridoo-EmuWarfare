@@ -59,7 +59,9 @@ class LevelThree extends Level {
         rect(width/2, height/2, width, height);
       }
       if (endTimer > 700) {
-        setLevelData(3);
+        if (getLevelData() < 3) {
+          setLevelData(3);
+        }
         levelEnded = true;
       }
     }

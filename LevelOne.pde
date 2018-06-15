@@ -16,7 +16,7 @@ class LevelOne extends Level {
     }
 
     for (int i = 0; i < 30; i++) {
-      decorations.add(new Decor(int(random(0, width)), int(random(0, height)), random(0.2, 0.4), false, bushImages));  
+      decorations.add(new Decor(int(random(0, width)), int(random(0, height)), random(0.2, 0.4), false, bushImages));
     }
 
     guns.add(new Gun_Lewisgun(75));
@@ -24,12 +24,12 @@ class LevelOne extends Level {
       g.setAmmo(g.getMaxAmmo());
     }
 
-//disables item use, gun use, and movement
+    //disables item use, gun use, and movement
     allowItems = false;
     gunWorking = false;
     truckWorking = false;
 
-//sets xpos, ypos, heading, speed, HP, and maxSpeec, and items in inventory
+    //sets xpos, ypos, heading, speed, HP, and maxSpeec, and items in inventory
     truck.setX(200);
     truck.setY(200);
     truck.setHeading(PI);
@@ -51,17 +51,21 @@ class LevelOne extends Level {
 
   void update() {
     super.update();
-    if (scene != 0) {
-      endTimer++;
-      if (!levelEnded) {
-        fill(0, endTimer/2);
-        rect(width/2, height/2, width, height);
+    if (scene == 1 && !levelEnded) {
+      if (scene != 0) {
+        endTimer++;
+        if (!levelEnded) {
+          fill(0, endTimer/2);
+          rect(width/2, height/2, width, height);
+        }
       }
-    }
 
-    if (endTimer > 600) {
-      setLevelData(1);
-      levelEnded = true;
+      if (endTimer > 600) {
+        if (getLevelData() < 1) {
+          setLevelData(1);
+        }
+        levelEnded = true;
+      }
     }
   }
 }

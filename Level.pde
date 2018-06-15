@@ -93,6 +93,10 @@ class Level {
       saveTable(data, "data/data.csv");
     }
   }
+  
+  int getLevelData () {
+    return (data.getInt(0, "high_level"));  
+  }
 
   String getPlayerName() {
     return name;
