@@ -172,6 +172,7 @@ class Truck {
     if (!exploding) {
       if (myHP <= 0) {
         explosions.add(new Explosion(myLocation.x, myLocation.y, 300));
+        explosionTimer.setSeconds(8);
         exploding = true;
         guns.clear();
         for (Emu e : emus) {
@@ -181,12 +182,17 @@ class Truck {
         }
       }
     } else {
-      text("exploding = true", 500, 500);
       explosionTimer.update();
       if (explosionTimer.isDone()) {
         exploding = false;
         explosionTimer.setSeconds(8);
-        gameOver = true;
+        for (Level l : levels) {
+          if (l instanceof LevelFour) {
+            l.setEndTimerState(true);
+          } else {
+            gameOver = true;
+          }
+        }
       }
     }
   }

@@ -57,5 +57,17 @@ class LevelFour extends Level {
     if (emusAlive() == 0) {
       bossDead = true;
     }
+
+    if (endTimerState) {
+      endTimer++;
+      if (!levelEnded) {
+        fill(0, endTimer/2);
+        rect(width/2, height/2, width, height);
+      }
+    }
+
+    if (endTimer > 600) {
+      levelEnded = true;
+    }
   }
 }

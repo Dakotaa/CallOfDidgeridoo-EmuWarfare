@@ -6,7 +6,7 @@ class Level {
   int emusKilled;
   int scene, character, endTimer= 0;
   boolean textComplete;
-  boolean levelEnded;
+  boolean levelEnded, soundStarted, endTimerState;
   boolean showHUD, gunWorking, dropItems = true;
   String name = "";
   color backgroundColour;
@@ -67,6 +67,10 @@ class Level {
     return scene;
   }
 
+  boolean getEndTimerState() {
+    return endTimerState;  
+  }
+
   void setScene (int s) {
     scene = s;
   }
@@ -77,6 +81,10 @@ class Level {
 
   void setEmusKilled (int e) {
     emusKilled = e;
+  }
+
+  void setEndTimerState(boolean b) {
+    endTimerState = b;  
   }
 
   void setLevelData (int level) {
@@ -123,7 +131,11 @@ class Level {
         text("Click to continue", width-300, height-20);
       }
     } else if (levelEnded) {
-      typewriter.loop(5);
+      if (!soundStarted) {
+        soundStarted = true;
+        typewriter.rewind();
+        typewriter.loop(5);
+      }
       pushMatrix();
       background(255);
       fill(0);

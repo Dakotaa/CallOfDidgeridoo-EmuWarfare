@@ -5,6 +5,7 @@ class LevelOpening extends Level {
   }
 
   void setupLevel() {
+    typewriter.rewind();
     typewriter.loop(5);
   }
 
