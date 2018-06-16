@@ -45,6 +45,7 @@ class Level {
     character = 0;
     scene = 0;
     endTimer = 0;
+    endTimerState = false;
   }
 
   float getGroupLocationX(int groupNum) {
