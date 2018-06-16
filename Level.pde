@@ -70,7 +70,6 @@ class Level {
   boolean getEndTimerState() {
     return endTimerState;  
   }
-
   void setScene (int s) {
     scene = s;
   }
@@ -95,7 +94,7 @@ class Level {
   }
   
   int getLevelData () {
-    return (data.getInt(0, "high_level"));  
+    return (data.getInt(0, "highest_level"));  
   }
 
   String getPlayerName() {
