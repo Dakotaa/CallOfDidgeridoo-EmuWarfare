@@ -40,6 +40,7 @@ boolean keepEmusOnScreen = true;
 float gunInnac;
 int level = -1;
 int emusKilled;
+int itemsLoaded;
 String date;
 PFont typeWriterFont, stamp20, stamp30, stamp50, stamp100;
 
@@ -70,7 +71,7 @@ Truck truck = new Truck (6);
 
 void setup() {
   thread("loadImages"); // Runs the loadImages function in another thread, this allows the loading screen to show while the images are being loaded.
-  fullScreen(P2D, 2);
+  fullScreen(P2D);
   frameRate(60);
   //((PGraphicsOpenGL)g).textureSampling(3); // https://forum.processing.org/two/discussion/8075/why-are-text-and-graphics-so-ugly-and-blocky
   cursor(CROSS);
@@ -126,8 +127,15 @@ void draw() {
     textAlign(CENTER);
     textSize(50);
     text("LOADING...", width/2, height/2);
+    rectMode(CORNER);
+    fill(255);
+    noStroke();
+    rect(width/2 - 300, height/2 + 50, 600, 50);
+    fill(0);
+    rect(width/2 - 297, height/2 + 53, itemsLoaded * 10, 44);
+    fill(255);
     textSize(20);
-    text("The main levels of this game are based on true historical events", width/2, height/2 + 100);
+    text("The main levels of this game are based on true historical events", width/2, height/2 + 150);
     popMatrix();
   } else {  // If not loading, draw all the levels (only one level should be in the ArrayList at any time)
     if (!gameOver) {
@@ -149,113 +157,171 @@ void draw() {
 void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-speedup-loadimage
   // Load fonts (multiple sizes)
   typeWriterFont = createFont("TravelingTypewriter.ttf", 26);
+  itemsLoaded++;
   stamp20 = createFont("stamp.ttf", 20);
+  itemsLoaded++;
   stamp30 = createFont("stamp.ttf", 30);
+  itemsLoaded++;
   stamp50 = createFont("stamp.ttf", 50);
+  itemsLoaded++;
   stamp100 = createFont("stamp.ttf", 100);
+  itemsLoaded++;
   lewisGun = loadImage("lewisgun.png");
+  itemsLoaded++;
   miniGun = loadImage("minigun.png");
+  itemsLoaded++;
   M60 = loadImage("M60.png");
+  itemsLoaded++;
   M60.resize(int(M60.width*.2), int(M60.height*.2));
+  itemsLoaded++;
   miniGun.resize((int) (miniGun.width*.75), (int) (miniGun.height*.75));
+  itemsLoaded++;
   emuPhoto = loadImage("emu.png");
+  itemsLoaded++;
   boomerang = loadImage("Boomerang.png");
-  boomerang.resize((int) (boomerang.width*0.15), (int) (boomerang.height*0.15));
-  emuPhotoFlipped = loadImage("emuflipped.png");
-  explosion = loadImage("explosion.png");
-  vegemite = loadImage("vegemite.png");
-  vegemite.resize((int) (vegemite.width*.4), (int) (vegemite.height*.4));
-  grenade = loadImage("grenade.png");
-  grenade.resize((int) (grenade.width*.2), (int) (grenade.height*.2));
-  landmine = loadImage("landmine.png");
-  landmine.resize((int) (landmine.width*.075), (int) (landmine.height*.075));
-  flash = loadImage("flash.png");
-  titleImage = loadImage("titlescreen.png");
-  flash.resize((int) (flash.width*.15), (int) (flash.height*.15));
-  spitImage = loadImage("spit.png");
-  spitImage.resize((int) (spitImage.width*.15), (int) (spitImage.height*.15));
+  itemsLoaded++;
+  boomerang.resize((int) (boomerang.width*0.15), (int) (boomerang.height*0.15)); 
+  itemsLoaded++;
+  emuPhotoFlipped = loadImage("emuflipped.png"); 
+  itemsLoaded++;
+  explosion = loadImage("explosion.png"); 
+  itemsLoaded++;
+  vegemite = loadImage("vegemite.png"); 
+  itemsLoaded++;
+  vegemite.resize((int) (vegemite.width*.4), (int) (vegemite.height*.4)); 
+  itemsLoaded++;
+  grenade = loadImage("grenade.png"); 
+  itemsLoaded++;
+  grenade.resize((int) (grenade.width*.2), (int) (grenade.height*.2)); 
+  itemsLoaded++;
+  landmine = loadImage("landmine.png"); 
+  itemsLoaded++;
+  landmine.resize((int) (landmine.width*.075), (int) (landmine.height*.075)); 
+  itemsLoaded++;
+  flash = loadImage("flash.png"); 
+  itemsLoaded++;
+  titleImage = loadImage("titlescreen.png"); 
+  itemsLoaded++;
+  flash.resize((int) (flash.width*.15), (int) (flash.height*.15)); 
+  itemsLoaded++;
+  spitImage = loadImage("spit.png"); 
+  itemsLoaded++;
+  spitImage.resize((int) (spitImage.width*.15), (int) (spitImage.height*.15)); 
+  itemsLoaded++;
   for (int i = 1; i < emuRun.length; i++) {
     emuRun[i] = loadImage(dataPath("EmuRun/EmuRun" + i + ".png"));    // https://forum.processing.org/two/discussion/4160/is-it-possible-to-load-files-from-a-folder-inside-the-data-folder
-  }
+  } 
+  itemsLoaded++;
   for (int i = 1; i < emuRunFlip.length; i++) {
     emuRunFlip[i] = loadImage(dataPath("EmuRunFlip/EmuRunFlip" + i + ".png"));
-  }
+  } 
+  itemsLoaded++;
   for (int i = 1; i < buffEmuRunFlip.length; i++) {
     buffEmuRun[i] = loadImage(dataPath("BuffEmuRun/BuffEmuRun" + i + ".png"));
-  }
+  } 
+  itemsLoaded++;
   for (int i = 1; i < buffEmuRun.length; i++) {
     buffEmuRunFlip[i] = loadImage(dataPath("BuffEmuRunFlip/BuffEmuRun" + i + ".png"));
-  }
+  } 
+  itemsLoaded++;
   for (int i = 1; i < buffEmuSmash.length; i++) {
     buffEmuSmash[i] = loadImage(dataPath("BuffEmuSmash/BuffEmuSmash" + i + ".png"));
-  }
+  } 
+  itemsLoaded++;
   for (int i = 1; i < buffEmuSmashFlip.length; i++) {
     buffEmuSmashFlip[i] = loadImage(dataPath("BuffEmuSmashFlip/BuffEmuSmash" + i + ".png"));
-  }
+  } 
+  itemsLoaded++;
   for (int i = 1; i < vietEmuRunFlip.length; i++) {
     vietEmuRun[i] = loadImage(dataPath("VietEmuRun/VietEmuRun" + i + ".png"));
-  }
+  } 
+  itemsLoaded++;
   for (int i = 1; i < vietEmuRun.length; i++) {
     vietEmuRunFlip[i] = loadImage(dataPath("VietEmuRunFlip/VietEmuRun" + i + ".png"));
-  }
+  } 
+  itemsLoaded++;
   for (int i = 1; i < naziEmuRunFlip.length; i++) {
     naziEmuRun[i] = loadImage(dataPath("NaziEmuRun/naziEmuRun" + i + ".png"));
-  }
+  } 
+  itemsLoaded++;
   for (int i = 1; i < naziEmuRun.length; i++) {
     naziEmuRunFlip[i] = loadImage(dataPath("NaziEmuRunFlip/naziEmuRun" + i + ".png"));
-  }
+  } 
+  itemsLoaded++;
   for (int i = 1; i < naziEmuAttackFlip.length; i++) {
     naziEmuAttack[i] = loadImage(dataPath("NaziEmuAttack/naziEmuAttack" + i + ".png"));
-  }
+  } 
+  itemsLoaded++;
   for (int i = 1; i < naziEmuAttack.length; i++) {
     naziEmuAttackFlip[i] = loadImage(dataPath("NaziEmuAttackFlip/naziEmuAttack" + i + ".png"));
-  }
+  } 
+  itemsLoaded++;
   for (int i = 1; i < afghanEmuRunFlip.length; i++) {
     afghanEmuRun[i] = loadImage(dataPath("AfghanEmuRun/AfghanEmuRun" + i + ".png"));
-  }
+  } 
+  itemsLoaded++;
   for (int i = 1; i < afghanEmuRun.length; i++) {
     afghanEmuRunFlip[i] = loadImage(dataPath("AfghanEmuRunFlip/AfghanEmuRun" + i + ".png"));
-  }
+  } 
+  itemsLoaded++;
   for (int i = 1; i < afghanEmuExplode.length; i++) {
     afghanEmuExplode[i] = loadImage(dataPath("AfghanExplode/AfghanExplode" + i + ".png"));
-  }
+  } 
+  itemsLoaded++;
   for (int i = 0; i < explosionAnimation.length; i++) {
     explosionAnimation[i] = loadImage(dataPath("Explosion/tile0" + i + ".png"));
-  }
+  } 
+  itemsLoaded++;
   for (int i = 0; i < blood.length; i++) {
     blood[i] = loadImage(dataPath("Blood/blood" + i + ".png"));
     blood[i].resize(200, 200);
-  }
+  } 
+  itemsLoaded++;
   for (int i = 0; i < jungleImages.length; i++) {
     jungleImages[i] = loadImage(dataPath("jungleImages/jungleImage" + i + ".png"));
-  }
+  } 
+  itemsLoaded++;
 
   for (int i = 0; i < bushImages.length; i++) {
     bushImages[i] = loadImage(dataPath("Bushes/bush" + i + ".png"));
-  }
+  } 
+  itemsLoaded++;
   for (int i = 0; i < carDamage.length; i++) {
     carDamage[i] = loadImage(dataPath("CarDamage/CarDamage" + i + ".png"));
     carDamage[i].resize(155, 280);
-  }
+  } 
+  itemsLoaded++;
   for (int i = 0; i < vietCarDamage.length; i++) {
     vietCarDamage[i] = loadImage(dataPath("VietCarDamage/VietCarDamage" + i + ".png"));
     vietCarDamage[i].resize(155, 280);
-  }
+  } 
+  itemsLoaded++;
   for (int i = 0; i < afghanCarDamage.length; i++) {
     afghanCarDamage[i] = loadImage(dataPath("AfghanCarDamage/AfghanCarDamage" + i + ".png"));
     afghanCarDamage[i].resize(155, 280);
-  }
+  } 
+  itemsLoaded++;
 
-  lewisGun.resize((int) (lewisGun.width*0.5), (int) (lewisGun.height*0.5));
-  gunshot = minim.loadFile(dataPath("gunshot.wav"));
-  explosionSound = minim.loadFile(dataPath("explode.mp3"));
-  oof = minim.loadFile(dataPath("oof.wav"));
-  typewriter = minim.loadFile(dataPath("typewriter.mp3"));
-  music1 = minim.loadFile(dataPath("music1.mp3"));
-  fortunateson = minim.loadFile(dataPath("fortunateson.mp3"));
-  nasheed = minim.loadFile(dataPath("nasheed.mp3"));
-  spit = minim.loadFile(dataPath("spit.mp3"));
-  ree = minim.loadFile(dataPath("ree.mp3"));
+  lewisGun.resize((int) (lewisGun.width*0.5), (int) (lewisGun.height*0.5)); 
+  itemsLoaded++;
+  gunshot = minim.loadFile(dataPath("gunshot.wav")); 
+  itemsLoaded++;
+  explosionSound = minim.loadFile(dataPath("explode.mp3")); 
+  itemsLoaded++;
+  oof = minim.loadFile(dataPath("oof.wav")); 
+  itemsLoaded++;
+  typewriter = minim.loadFile(dataPath("typewriter.mp3")); 
+  itemsLoaded++;
+  music1 = minim.loadFile(dataPath("music1.mp3")); 
+  itemsLoaded++;
+  fortunateson = minim.loadFile(dataPath("fortunateson.mp3")); 
+  itemsLoaded++;
+  nasheed = minim.loadFile(dataPath("nasheed.mp3")); 
+  itemsLoaded++;
+  spit = minim.loadFile(dataPath("spit.mp3")); 
+  itemsLoaded++;
+  ree = minim.loadFile(dataPath("ree.mp3")); 
+  itemsLoaded++;
 
   isDone = true;
 }
