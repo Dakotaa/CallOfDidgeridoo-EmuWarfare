@@ -276,7 +276,7 @@ class Emu {
     }
 
     if (myHP <= 0) {
-      dead = true;
+      //dead = true;
     }
     fill(157, 100, 67);
     if (frameCount%2 == 0) {

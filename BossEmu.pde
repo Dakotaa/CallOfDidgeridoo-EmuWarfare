@@ -4,6 +4,7 @@ class BossEmu extends Emu {
   PImage runPhotosF[] = new PImage[34];
   PImage smashPhotos[] = new PImage[30];
   PImage smashPhotosF[] = new PImage[30];
+  PImage emuReePhotos[] = new PImage[121];
   float myTheta;
   int frame, shots, fastFrames = 0;
   boolean spitting, rapidSpitting, fast;
@@ -32,6 +33,14 @@ class BossEmu extends Emu {
     for (int i = 1; i < smashPhotosF.length; i++) {
       smashPhotosF[i] = buffEmuSmashFlip[i].copy();
       smashPhotosF[i].resize((int) (mySize*400), (int) (mySize*406));
+    }
+    for (int i = 1; i < smashPhotosF.length; i++) {
+      smashPhotosF[i] = buffEmuSmashFlip[i].copy();
+      smashPhotosF[i].resize((int) (mySize*400), (int) (mySize*406));
+    }
+      for (int i = 1; i < emuReePhotos.length; i++) {
+      emuReePhotos[i] = emuRee[i].copy();
+      emuReePhotos[i].resize((int) (mySize*450), (int) (mySize*456));
     }
   }
 
@@ -80,7 +89,7 @@ class BossEmu extends Emu {
     track = true;
 
     if (myHP <= 0) {
-      dead = true;
+      image(emuReePhotos[frameNum], myX, myY);
       ree.rewind();
       ree.play();
     }
