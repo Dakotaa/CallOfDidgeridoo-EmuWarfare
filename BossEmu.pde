@@ -1,5 +1,5 @@
 class BossEmu extends Emu {
-  boolean smashing;
+  boolean smashing, reeing;
   PImage runPhotos[] = new PImage[34];
   PImage runPhotosF[] = new PImage[34];
   PImage smashPhotos[] = new PImage[30];
@@ -38,7 +38,7 @@ class BossEmu extends Emu {
       smashPhotosF[i] = buffEmuSmashFlip[i].copy();
       smashPhotosF[i].resize((int) (mySize*400), (int) (mySize*406));
     }
-      for (int i = 1; i < emuReePhotos.length; i++) {
+    for (int i = 1; i < emuReePhotos.length; i++) {
       emuReePhotos[i] = emuRee[i].copy();
       emuReePhotos[i].resize((int) (mySize*450), (int) (mySize*456));
     }
@@ -65,6 +65,7 @@ class BossEmu extends Emu {
 
   void update() {
     super.update();
+    reeing = false;
 
     if (frameNum > runPhotos.length - 1) {
       frameNum = 1;
@@ -73,26 +74,36 @@ class BossEmu extends Emu {
       if (frameNum > smashPhotos.length - 1) {
         frameNum = 1;
       }
-      if (xVelocity() > 0) {
+      if (xVelocity() > 0 && reeing == false) {
         image(smashPhotosF[frameNum], myX, myY);
-      } else {
+      } else if (xVelocity() < 0 && reeing == false) {
         image(smashPhotos[frameNum], myX, myY);
       }
     } else {
-      if (xVelocity() > 0) {
+      if (xVelocity() > 0 && reeing == false) {
         image(runPhotosF[frameNum], myX, myY);
-      } else {
+      } else if (xVelocity() < 0 && reeing == false) {
         image(runPhotos[frameNum], myX, myY);
+      } else if (myHP <= 0) {
+        reeing = true;
+        if (reeing) {
+          image(emuReePhotos[frameNum], myX, myY);
+          ree.rewind();
+          ree.play();
+        }
       }
     }
 
     track = true;
 
-    if (myHP <= 0) {
-      image(emuReePhotos[frameNum], myX, myY);
-      ree.rewind();
-      ree.play();
-    }
+    //if (myHP <= 0) {
+    //  reeing = true;
+    //  if (reeing) {
+    //    image(emuReePhotos[frameNum], myX, myY);
+    //    ree.rewind();
+    //    ree.play();
+    //  }
+    //}
 
     fill(157, 100, 67);
 
