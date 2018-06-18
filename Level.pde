@@ -6,7 +6,7 @@ class Level {
   int emusKilled;
   int scene, character, endTimer= 0;
   boolean textComplete;
-  boolean levelEnded, soundStarted, endTimerState;
+  boolean levelEnded, soundStarted, endTimerState, bossDead;
   boolean showHUD, gunWorking, dropItems = true;
   String name = "";
   color backgroundColour;
@@ -44,8 +44,10 @@ class Level {
     keepEmusOnScreen = true;
     character = 0;
     scene = 0;
+    bossDead = false;
     endTimer = 0;
     endTimerState = false;
+    truck.exploded = false;
   }
 
   float getGroupLocationX(int groupNum) {
@@ -58,6 +60,10 @@ class Level {
 
   float getMobLocationX() {
     return mobLocationX;
+  }
+
+  boolean getBossDead() {
+    return bossDead;  
   }
 
   float getMobLocationY() {

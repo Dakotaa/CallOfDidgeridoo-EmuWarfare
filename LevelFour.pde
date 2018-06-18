@@ -1,6 +1,5 @@
 class LevelFour extends Level {
   //String[] textScene = new String[3];
-  boolean bossDead;
   LevelFour() {
     super();
     showHUD = false;

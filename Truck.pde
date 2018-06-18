@@ -109,18 +109,7 @@ class Truck {
         translate(myLocation.x, myLocation.y);
         rotate(-myHeading);
         for (Level l : levels) {
-          if (l instanceof LevelOne ||l instanceof LevelTwo ||l instanceof LevelThree || l instanceof LevelFour || l instanceof LevelMinigun) {  
-            if (myHP < 0.25) {
-              image(carDamage[2], 0, 0);
-              image(carDamage[5], 0, 0);
-            } else if (myHP < 0.5) {
-              image(carDamage[1], 0, 0);
-              image(carDamage[4], 0, 0);
-            } else if (myHP < 0.75) {
-              image(carDamage[0], 0, 0);
-              image(carDamage[3], 0, 0);
-            }
-          } else if (l instanceof LevelVietnam) {
+          if (l instanceof LevelVietnam) {
             if (myHP < 0.25) {
               image(carDamage[2], 0, 0);
               image(vietCarDamage[2], 0, 0);
@@ -141,6 +130,17 @@ class Truck {
             } else if (myHP < 0.75) {
               image(carDamage[0], 0, 0);
               image(afghanCarDamage[0], 0, 0);
+            }
+          } else {
+            if (myHP < 0.25) {
+              image(carDamage[2], 0, 0);
+              image(carDamage[5], 0, 0);
+            } else if (myHP < 0.5) {
+              image(carDamage[1], 0, 0);
+              image(carDamage[4], 0, 0);
+            } else if (myHP < 0.75) {
+              image(carDamage[0], 0, 0);
+              image(carDamage[3], 0, 0);
             }
           }
         }
@@ -190,7 +190,11 @@ class Truck {
         exploding = false;
         for (Level l : levels) {
           if (l instanceof LevelFour) {
-            l.setEndTimerState(true);
+            if (l.getBossDead()) {
+              l.setEndTimerState(true);
+            } else {
+              gameOver = true;
+            }
           } else {
             gameOver = true;
           }
@@ -199,13 +203,19 @@ class Truck {
     }
   }
 
-  //if your speed is greater than 2 and you hit an emu it kills them and reduces the driver's HP
+  //if your speed is greater than 2 and you hit an emu it kills them and reduces the driver's HP, if the emu is not the boss emu. If it is the boss emu, hitting it stops and damages the car.
   void hitEmu() {
     for (Emu e : emus) {
-      if (e.getX() > myLocation.x - 100 && e.getX() < myLocation.x + 100 && e.getY() > myLocation.y - 100 && e.getY() < myLocation.y + 100) {
-        if (mySpeed > 2) {
-          e.reduceHP(50);
+      if (e instanceof BossEmu) {
+        if (e.getX() > myLocation.x - 100 && e.getX() < myLocation.x + 100 && e.getY() > myLocation.y - 100 && e.getY() < myLocation.y + 100) {
           reduceHP(0.005);
+        }
+      } else {
+        if (e.getX() > myLocation.x - 100 && e.getX() < myLocation.x + 100 && e.getY() > myLocation.y - 100 && e.getY() < myLocation.y + 100) {
+          if (mySpeed > 2) {
+            e.reduceHP(50);
+            reduceHP(0.005);
+          }
         }
       }
     }

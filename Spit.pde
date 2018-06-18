@@ -55,7 +55,7 @@ class Spit extends Projectile {
     popMatrix();
 
     if (myPosition.x > truck.getX() - 100 && myPosition.x < truck.getX() + 100 && myPosition.y > truck.getY() - 100 && myPosition.y < truck.getY() + 100) {
-      truck.reduceHP(0.01);
+      truck.reduceHP(0.04);
       toRemove = true;
     }
   }

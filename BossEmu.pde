@@ -1,10 +1,12 @@
 class BossEmu extends Emu {
+  boolean smashing;
   PImage runPhotos[] = new PImage[34];
   PImage runPhotosF[] = new PImage[34];
+  PImage smashPhotos[] = new PImage[30];
+  PImage smashPhotosF[] = new PImage[30];
   float myTheta;
-  int frame, shots = 0;
-  boolean spitting, rapidSpitting;
-  //emu object that does not change size(easier for larger amounts of emus, better performance)
+  int frame, shots, fastFrames = 0;
+  boolean spitting, rapidSpitting, fast;
   BossEmu(float x, float y, float size) {
     super(x, y, size);
     myHP = 5000;
@@ -13,31 +15,42 @@ class BossEmu extends Emu {
     speedModifier = 1;
 
     for (int i = 1; i < runPhotos.length; i++) {
-      runPhotos[i] = emuRun[i].copy();
+      runPhotos[i] = buffEmuRun[i].copy();
       runPhotos[i].resize((int) (mySize*400), (int) (mySize*406));
     }
 
     for (int i = 1; i < runPhotosF.length; i++) {
-      runPhotosF[i] = emuRunFlip[i].copy();
+      runPhotosF[i] = buffEmuRunFlip[i].copy();
       runPhotosF[i].resize((int) (mySize*400), (int) (mySize*406));
     }
-  }
 
-  void spitAttack(int low, int high) {
-    for (int i = low; i < high; i++) {
-      projectiles.add(new Spit(new PVector(myX, myY), 13, i, truck.getX(), truck.getY()));
+    for (int i = 1; i < smashPhotos.length; i++) {
+      smashPhotos[i] = buffEmuSmash[i].copy();
+      smashPhotos[i].resize((int) (mySize*400), (int) (mySize*406));
+    }
+
+    for (int i = 1; i < smashPhotosF.length; i++) {
+      smashPhotosF[i] = buffEmuSmashFlip[i].copy();
+      smashPhotosF[i].resize((int) (mySize*400), (int) (mySize*406));
     }
   }
 
+  // Regular spit attack. Will shoot any amount of spits, as defined by low and high angles.
+  void spitAttack(int low, int high) {
+    for (int i = low; i < high; i++) {
+      projectiles.add(new Spit(new PVector(myX, myY), 10, i, truck.getX(), truck.getY()));
+    }
+  }
+
+  // Overwridden attack function, does more damage than a regular emu.
   void attack() { 
-    if (myX > truck.getX() - 100 && myX < truck.getX() + 100 && myY > truck.getY() - 100 && myY < truck.getY() + 100) { 
-      attacking = true;
-      if (frameCount%(int(random(100, 130))) == 0) { 
-        truck.reduceHP(0.08);
-        attacking = false;
+    if (myX > truck.getX() - 100 && myX < truck.getX() + 100 && myY > truck.getY() - 100 && myY < truck.getY() + 100) {
+      smashing = true;
+      if (frameCount%(int(random(125, 175))) == 0) { 
+        truck.reduceHP(0.03);
       }
     } else {
-      attacking = false;
+      smashing = false;
     }
   }
 
@@ -47,14 +60,24 @@ class BossEmu extends Emu {
     if (frameNum > runPhotos.length - 1) {
       frameNum = 1;
     }
-
-    if (xVelocity() > 0) {
-      image(runPhotosF[frameNum], myX, myY);
+    if (smashing) {
+      if (frameNum > smashPhotos.length - 1) {
+        frameNum = 1;
+      }
+      if (xVelocity() > 0) {
+        image(smashPhotosF[frameNum], myX, myY);
+      } else {
+        image(smashPhotos[frameNum], myX, myY);
+      }
     } else {
-      image(runPhotos[frameNum], myX, myY);
+      if (xVelocity() > 0) {
+        image(runPhotosF[frameNum], myX, myY);
+      } else {
+        image(runPhotos[frameNum], myX, myY);
+      }
     }
-    
-    tracking = true;
+
+    track = true;
 
     if (myHP <= 0) {
       dead = true;
@@ -70,22 +93,37 @@ class BossEmu extends Emu {
 
     fill(0);
 
-    if (frameCount%120 == 0) {
+    if (frameCount%240 == 0) {
       spitting = true;
       spit.play();
       spit.rewind();
     }
 
+    if (frameCount%360 == 0) {
+      fast = true;
+    }
+
     if (rapidSpitting) {
-      if (frameCount%4 == 0) {
-        projectiles.add(new Spit(new PVector(myX, myY), 13, 0, truck.getX(), truck.getY()));
+      if (frameCount%5 == 0) {
+        projectiles.add(new Spit(new PVector(myX, myY), 10, 0, truck.getX(), truck.getY()));
         shots++;
       }
 
-      if (shots == 10) {
+      if (shots == 7) {
         rapidSpitting = false;
         shots = 0;
       }
+    }
+
+    if (fast) {
+      speedModifier = 3.0;
+      fastFrames++;
+      if (fastFrames > 60) {
+        fast = false;
+        fastFrames = 0;
+      }
+    } else {
+      speedModifier = 1.0;
     }
 
     if (spitting) {
