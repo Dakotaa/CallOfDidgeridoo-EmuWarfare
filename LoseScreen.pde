@@ -13,8 +13,10 @@ class LoseScreen extends Level {
     textAlign(CENTER);
     fill(255);
     text("YOU LOST.", width/2, 200);
-    text("Press ENTER to submit your score. Press TAB to return to menu.", width/2, height-200);
-
+    text("Press TAB to return to menu.", width/2, height-200);
+  
+    // High score stuff that was not completed.
+    /*
     rectMode(CENTER);
     fill(150);
     rect(960, 540, 400, 500);
@@ -37,6 +39,7 @@ class LoseScreen extends Level {
 
     text("Press ENTER to submit.", width/2, 900);
     text("RIGHT CLICK to restart.", width/2, 950);
+    */
     popMatrix();
   }
 }
