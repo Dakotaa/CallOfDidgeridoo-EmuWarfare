@@ -39,8 +39,6 @@ class LevelTwo extends Level {
 
     textScene[0] = "November 2, 1932 \n \n \nMajor G.P.W Meredith,\n \nThe rain has ceased, and some 50 emus have been spotted near Campon. \nHead out there and try again. \n \n \n \nGood luck,\nPrime Minister Lyons";
     endScene[0] = "Operation Update - October 30, 1932 \n  \n  \nAs soon as we opened fire, the birds started to split into smaller groups.\nWe were able to kill a number of birds with the machine guns, even in their small groups.\n\nHowever, they began to run away, and got out of range from our guns.\n\n\n - Major G.P.W Meredith";
-
-    typewriter.loop(5);
     truckWorking = true;
   }
 

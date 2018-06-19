@@ -10,7 +10,7 @@ class LevelFour extends Level {
   void setupLevel() {
     emus.add(new BossEmu(random(width*.75, width), random(300, height-300), 0.8));
 
-    guns.add(new Gun_Lewisgun(75));
+    guns.add(new Gun_Minigun(5000));
     for (Gun g : guns) {
       g.setAmmo(g.getMaxAmmo());
     }

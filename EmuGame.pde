@@ -9,7 +9,7 @@
 import ddf.minim.*;
 
 Minim minim;
-AudioPlayer gunshot, explosionSound, oof, music1, fortunateson, nasheed, spit, ree;
+AudioPlayer gunshot, explosionSound, oof, music1, fortunateson, nasheed, spit, ree, myHeart;
 // Declaring all images, image arrays, booleans, and other global variables.
 PImage lewisGun, miniGun, M60, emuPhoto, emuPhotoFlipped, explosion, boomerang, vegemite, grenade, landmine, flash, titleImage, spitImage;
 PImage[] emuRun = new PImage[34];    // https://processing.org/discourse/beta/num_1192465513.html
@@ -309,26 +309,37 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
 
   for (int i=0; i < typeWriterSounds.length; i++) {
     typeWriterSounds[i] = minim.loadFile(dataPath("typewriter/typewriter-" + i + ".mp3"));
+    typeWriterSounds[i].setGain(-20.0);
   }
   itemsLoaded++;
 
   lewisGun.resize((int) (lewisGun.width*0.5), (int) (lewisGun.height*0.5)); 
   itemsLoaded++;
   gunshot = minim.loadFile(dataPath("gunshot.wav")); 
+  gunshot.setGain(-10.0);
   itemsLoaded++;
   explosionSound = minim.loadFile(dataPath("explode.mp3")); 
+  explosionSound.setGain(-10.0);
   itemsLoaded++;
   oof = minim.loadFile(dataPath("oof.wav")); 
   itemsLoaded++;
   music1 = minim.loadFile(dataPath("music1.mp3")); 
+  music1.setGain(-10.0);
   itemsLoaded++;
   fortunateson = minim.loadFile(dataPath("fortunateson.mp3")); 
+  fortunateson.setGain(-10.0);
   itemsLoaded++;
   nasheed = minim.loadFile(dataPath("nasheed.mp3")); 
+  nasheed.setGain(-15.0);
   itemsLoaded++;
   spit = minim.loadFile(dataPath("spit.mp3")); 
+  spit.setGain(5.0);
   itemsLoaded++;
   ree = minim.loadFile(dataPath("ree.mp3")); 
+  ree.setGain(5.0);
+  itemsLoaded++;
+  myHeart = minim.loadFile(dataPath("myheart.mp3"));
+  myHeart.setGain(-15.0);
   itemsLoaded++;
 
   isDone = true;

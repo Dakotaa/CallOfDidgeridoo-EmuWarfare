@@ -192,6 +192,8 @@ class Truck {
           if (l instanceof LevelFour) {
             if (l.getBossDead()) {
               l.setEndTimerState(true);
+              myHeart.rewind();
+              myHeart.play();
             } else {
               gameOver = true;
             }

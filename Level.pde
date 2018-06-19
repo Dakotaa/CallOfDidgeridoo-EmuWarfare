@@ -38,6 +38,7 @@ class Level {
     decorations.clear();
     music1.pause();
     fortunateson.pause();
+    myHeart.pause();
     nasheed.pause();
     track = false;
     levelEnded = false;
@@ -164,6 +165,7 @@ class Level {
       }
 
       if (character == endScene[0].length()) {
+        textComplete = true;
         text("Press TAB", width-300, height-20);
       }
     } else {
