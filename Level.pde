@@ -36,6 +36,7 @@ class Level {
     explosions.clear();
     rains.clear();
     decorations.clear();
+    supermarine.pause();
     music1.pause();
     fortunateson.pause();
     myHeart.pause();

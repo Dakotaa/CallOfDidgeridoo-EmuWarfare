@@ -1,5 +1,6 @@
 class LevelFour extends Level {
   //String[] textScene = new String[3];
+  boolean musicPlaying;
   LevelFour() {
     super();
     showHUD = false;
@@ -8,9 +9,10 @@ class LevelFour extends Level {
   }
 
   void setupLevel() {
+    musicPlaying = false;
     emus.add(new BossEmu(random(width*.75, width), random(300, height-300), 0.8));
 
-    guns.add(new Gun_Minigun(5000));
+    guns.add(new Gun_Lewisgun(75));
     for (Gun g : guns) {
       g.setAmmo(g.getMaxAmmo());
     }
@@ -43,11 +45,18 @@ class LevelFour extends Level {
 
   void update() {
     super.update();
-
+    if (!musicPlaying) {
+      if (scene != 0) {
+        supermarine.rewind();
+        supermarine.play();
+        musicPlaying = true;
+      }
+    }
     if (scene == 1 && !levelEnded) {
       hud.showItems();
 
       if (bossDead) {
+        supermarine.pause();
         track = true;
         if (frameCount%2 == 0) {
           emus.add(new StaticEmu(random(width, width*1.1), random(0, height), random(0.1, 0.4)));
