@@ -3,10 +3,9 @@ class Level {
   String[] textScene = new String[1];
   String[] endScene = new String[1];
   PVector[] groups = new PVector[20];
-  int emusKilled;
   int scene, character, endTimer= 0;
   boolean textComplete;
-  boolean levelEnded, soundStarted, endTimerState, bossDead;
+  boolean levelEnded, soundStarted, endTimerState, bossDead, textReset;
   boolean showHUD, gunWorking, dropItems = true;
   String name = "";
   color backgroundColour;
@@ -50,6 +49,7 @@ class Level {
     endTimer = 0;
     endTimerState = false;
     truck.exploded = false;
+    textReset = false;
   }
 
   void typeWriterClick() {
@@ -149,6 +149,10 @@ class Level {
         text("Click to continue", width-300, height-20);
       }
     } else if (levelEnded) {
+      if (!textReset) {
+        character = 0;
+        textReset = true;
+      }
       pushMatrix();
       background(255);
       fill(0);

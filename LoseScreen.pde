@@ -14,7 +14,7 @@ class LoseScreen extends Level {
     fill(255);
     text("YOU LOST.", width/2, 200);
     text("Press TAB to return to menu.", width/2, height-200);
-  
+    text("You killed " + emusKilled + " emus.", width/2, 500);
     // High score stuff that was not completed.
     /*
     rectMode(CENTER);

@@ -536,6 +536,7 @@ void keyReleased() {
         for (Level l : levels) {    // Clears all levels
           l.clearLevel();
         }
+        emusKilled = 0;
 
         levels.clear();
         levels.add(new TitleScreen()); // Adds the title screen level

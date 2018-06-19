@@ -8,7 +8,7 @@ class LevelMinigun extends Level {
     backgroundColour = color(214, 154, 0);
     showHUD = true;
     allowItems = true;
-    for (int i = 0; i < 250; ++i) {
+    for (int i = 0; i < 125; ++i) {
       emus.add(new StaticEmu(random(width*.75, width), random(300, height-300), random(0.1, 0.4)));
     }
     guns.add(new Gun_Minigun(500));
@@ -17,12 +17,12 @@ class LevelMinigun extends Level {
     }
 
     for (int i = 0; i < 30; i++) {
-      decorations.add(new Decor(int(random(0, width)), int(random(0, height)), random(0.2, 0.4), false, bushImages));  
+      decorations.add(new Decor(int(random(0, width)), int(random(0, height)), random(0.2, 0.4), false, bushImages));
     }
-    
+
     gunWorking = true;
 
-//sets xpos, ypos, heading, speed, HP, and maxSpeec, and items in inventory, as well as music
+    //sets xpos, ypos, heading, speed, HP, and maxSpeec, and items in inventory, as well as music
     truck.setX(200);
     truck.setY(200);
     truck.setHeading(PI);
@@ -52,8 +52,12 @@ class LevelMinigun extends Level {
     track = true;
     super.update();
 
-    if (emusAlive() < 250) {
-      emus.add(new StaticEmu(random(width*.75, width), random(300, height-300), random(0.1, 0.4)));
+    if (emusAlive() < 100) {
+      if (truck.getX() < width/2) {
+        emus.add(new StaticEmu(random(width*.75, width), random(300, height-300), random(0.1, 0.4)));
+      } else {
+        emus.add(new StaticEmu(random(0, width*.25), random(300, height-300), random(0.1, 0.4)));
+      }
     }
   }
 }
