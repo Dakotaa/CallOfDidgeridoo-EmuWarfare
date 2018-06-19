@@ -8,8 +8,9 @@ class Emu {
   //int frameNum2 = 1;
   float myWidth, myHeight, leaveX, leaveY;
   Emu (float x, float y, float size) {
-    mobXDistance = random (-200, 200);
-    mobYDistance = random (-200, 200);
+    // sets a random distance away from the emu's mob location for it to follow
+    mobXDistance = random (-300, 300);
+    mobYDistance = random (-300, 300);
     leaveX = random(width + 500, width + 501) * floor(random(-3, 3));
     leaveY = random(height + 500, height + 501) * floor(random(-3, 3));
     myX = x;
@@ -20,19 +21,21 @@ class Emu {
     myWidth = 0;
     myHeight = 0;
     speedModifier = 0.3/mySize;
+    
+    // assigns emu to a random group (for spreading into small groups)
     myGroup = int(random(0, 20));
     myWidth = mySize*400;
     myHeight = mySize*406;
   }
 
+  // function to reduce emu's HP, make it start bleeding, and add a blood
   void reduceHP (float damage) {
     myHP-=damage;
-    if (!bleeding) {
-      bleeding = true;
-    }
+    bleeding = true;
     bloods.add(new Blood(myX, myY));
   }
 
+  // damage function that does the same as above, but has option to not make emu bleed
   void reduceHP (float damage, boolean b) {
     myHP-=damage;
     if (b) {
@@ -42,6 +45,7 @@ class Emu {
       bloods.add(new Blood(myX, myY));
     }
   }
+
 
   boolean isDead() {
     return dead;
@@ -90,7 +94,7 @@ class Emu {
     leaving = l;
   }
 
-  // HEALTH BAR DRAW FUNCTION
+  // draws health bar under emu
   void healthBar() {
     if (myHP >= 0) {
       if (myHP != maxHP) {
@@ -109,7 +113,8 @@ class Emu {
   }
 
 
-
+ // functions to calculate velocity towards the following targets
+ 
   float toTruckX() {
     float toX = myX - truck.getX();
     toX = (toX/Math.abs(toX))*-random(0.5, 2);
@@ -172,6 +177,7 @@ class Emu {
     return toLeaveX;
   }
 
+  // adds random "bobbing" to emu's velocity to make their movement seem a bit more natural
   float bob() {
     float yVel = 0;
     if (frameCount%(int)random(60, 200) == 0) {
@@ -189,7 +195,7 @@ class Emu {
     return yVel;
   }
 
-
+  // sets emu's velocities based on it's movement setting
   float xVelocity() {
     float xVel;
     if (tracking) {
@@ -218,6 +224,7 @@ class Emu {
     return yVel;
   }
 
+  // when emu is near truck, attacks at intervals, damaging truck and setting attacking to true for attack animation
   void attack() { 
     if (myX > truck.getX() - 100 && myX < truck.getX() + 100 && myY > truck.getY() - 100 && myY < truck.getY() + 100) { 
       attacking = true;
@@ -243,6 +250,7 @@ class Emu {
       moving = true;
     }
 
+    // emu changes its velocity less often when not grouping (so grouped emus stay tighter together)
     if (!grouping) {
       if (frameCount%(int(random(20, 40))) == 0) {
         myXVel = xVelocity();
@@ -255,11 +263,13 @@ class Emu {
       }
     }
 
+    // finally, moves emu based on their velocity and set speed modifier
     if (moving) {
       myX += myXVel*speedModifier;
       myY += myYVel*speedModifier;
     }
 
+    // checks if each bullet hits the emu, removes the bullet and damages emu if true
     ArrayList<Bullet> toRemove = new ArrayList();
     for (Bullet b : bullets) {
       if (b.getX() > myX-(myWidth/2) && b.getX() < myX+(myWidth/2) && b.getY() > myY-(myHeight/2) && b.getY() < myY+(myHeight/2)) {
@@ -269,12 +279,14 @@ class Emu {
     }
     bullets.removeAll(toRemove);
 
+    // if the emu is bleeding, randomly adds some blood (only for effect, does not damage emu)
     if (bleeding) {
       if (frameCount%((int) random(180, 500)) == 0) {
         bloods.add(new Blood(myX, myY));
       }
     }
 
+    // if the emu is set to be removed on kill (true for all emus except the boss), sets emu's dead flag to true, to be removed on the next frame in the level class.
     if (myHP <= 0) {
       if(removeOnKill) {
          dead = true; 

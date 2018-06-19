@@ -1,8 +1,6 @@
 class LoseScreen extends Level {
-  int killed;
-  LoseScreen(int k) {
+  LoseScreen() {
     super();
-    killed = k;
   }
 
   void update() {

@@ -1,4 +1,5 @@
 class HUD {
+  // booleans to show certain parts of the HUD
   boolean HP, ammo, items, emusKilled;
   PImage boomerangIcon;
   int selectedItem = 0;
@@ -38,6 +39,8 @@ class HUD {
   int getSelectedItem() {
     return selectedItem;
   }
+  
+  // draws inventory GUI and places items in it when they are in stock
   void showItems() {
     for (int i = 0; i < 5; i++) {
       stroke(10);

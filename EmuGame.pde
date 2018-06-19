@@ -65,6 +65,7 @@ ArrayList<Rain> rains = new ArrayList();
 Table scores;
 Table data;
 
+// Inventory hashmap, stores item types and amounts
 HashMap<String, Integer> inventory = new HashMap<String, Integer>();    // https://codereview.stackexchange.com/questions/148821/inventory-of-objects-with-item-types-and-quantities
 
 HUD hud = new HUD(true, true, true, true);
@@ -355,7 +356,7 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
 
 // Item spawning function - spawns an item with a passed in type in a random location
 void spawnItem(String type) {
-  groundItems.add(new GroundItem(type, 10, random(0, width), random(0, height)));
+  groundItems.add(new GroundItem(type, random(0, width), random(0, height)));
 }
 
 // Similar to above, but does not take in a type, instead generates a random type.
@@ -379,7 +380,7 @@ void spawnItem() {
     type = "Gas";
     break;
   }
-  groundItems.add(new GroundItem(type, 10, random(0, width), random(0, height)));
+  groundItems.add(new GroundItem(type, random(0, width), random(0, height)));
 }
 
 // function to return the emus alive at the moment.

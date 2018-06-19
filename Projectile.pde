@@ -10,6 +10,8 @@ class Projectile {
     this.velocity = velocity;
     myXEnd = xEnd;
     myYEnd = yEnd;
+    
+    // math for angle of projectile
     if (mouseX >= truck.gunX()) {
       myVelocity.y = ((float) ((velocity) * (Math.sin(Math.abs((myTheta))))));
       myVelocity.x = ((float) Math.sqrt((((velocity)*(velocity))-((myVelocity.y)*(myVelocity.y)))));

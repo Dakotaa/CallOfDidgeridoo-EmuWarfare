@@ -32,6 +32,7 @@ class Gun {
     return myTheta;
   }
 
+  // plays gunshot sound and reduces gun ammo on shooting, also causes emus to begin grouping and shows gun flash
   void shoot() {
     gunshot.rewind();
     gunshot.play();
@@ -54,6 +55,7 @@ class Gun {
     myAmmo = ammo;
   }
 
+  // reload function to increase ammo. Sets ammo to 0 and reloads bullets individually every 2 frames
   void reload() {
     if (!reloading) {
       myAmmo = 0;
@@ -61,7 +63,7 @@ class Gun {
     }
     if (reloading) {
       if (myAmmo < myMaxAmmo) {
-        if (frameCount%3 == 0) {
+        if (frameCount%2 == 0) {
           myAmmo++;
         }
 
@@ -88,13 +90,16 @@ class Gun {
 
   void drawGun() {
 
+    // ke
     myX = truck.gunX();
     myY = truck.gunY();
-
+    
+    // calls the reload function when the button is pressed (causing reloading to be true) or automatically when ammo runs out
     if (reloading || myAmmo == 0) {
       reload();
     }
 
+    // sets angle to rotate gun based on the x position of the truck (CAST)
     if (mouseX > truck.getX()) {
       myTheta = atan((truck.getY() - mouseY)/(truck.getX() - mouseX));
     } else {

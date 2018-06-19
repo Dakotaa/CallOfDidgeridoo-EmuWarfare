@@ -1,3 +1,4 @@
+// thrown grenade projectile - refer to Gas_Thrown for documentation.
 class Grenade_Thrown extends Projectile {
   boolean moving = true;
   int fuse = 0;

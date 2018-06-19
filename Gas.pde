@@ -1,3 +1,4 @@
+// gas grenade
 class Gas {
   PVector myPosition;
   PVector[] circles = new PVector[3];
@@ -22,6 +23,8 @@ class Gas {
     if (size <= maxSize) {
       size++;
     }
+    
+    // loops through the gas circles and checks for emus inside, if so, damages them with no bleeding
     for (int i = 0; i < circles.length; i++) {
       for (Emu e : emus) {
         if (e.getX() > circles[i].x - size/2 && e.getX() < circles[i].x + size/2 && e.getY() > circles[i].y - size/2 && e.getY() < circles[i].y + size/2) {
@@ -30,13 +33,20 @@ class Gas {
           }
         }
       }
+      
+      // draws the gas circles
       fill(252, 205, 33, alpha);
       ellipse(circles[i].x, circles[i].y, size, size);
+      
+      // moves circles slightly to give them a more gaseous effect
       circles[i].x += random(-1, 1);
       circles[i].y += random(-1, 1);
     }
+    
+    // reduces alpha, making gas more transparent
     alpha -= 0.4;
 
+    // when gas has dissipated, sets completed flag so the gas object will be removed on the next frame.
     if (alpha <= 0) {
       completed = true;
     }

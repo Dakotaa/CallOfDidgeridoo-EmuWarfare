@@ -8,7 +8,7 @@ final class Gun_Lewisgun extends Gun {
     myDamage = 5;
     numShots = 1;
   }
-  void reload() {
+    void reload() {
     if (!reloading) {
       myAmmo = 0;
       reloading = true;
