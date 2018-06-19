@@ -144,8 +144,6 @@ class Level {
 
       if (character == textScene[scene].length()) {
         textComplete = true;
-        typewriter.pause();
-        typewriter.rewind();
         text("Click to continue", width-300, height-20);
       }
     } else if (levelEnded) {
@@ -166,8 +164,6 @@ class Level {
       }
 
       if (character == endScene[0].length()) {
-        typewriter.pause();
-        typewriter.rewind();
         text("Press TAB", width-300, height-20);
       }
     } else {

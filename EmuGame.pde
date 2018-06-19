@@ -9,7 +9,7 @@
 import ddf.minim.*;
 
 Minim minim;
-AudioPlayer gunshot, explosionSound, oof, music1, fortunateson, nasheed, typewriter, spit, ree;
+AudioPlayer gunshot, explosionSound, oof, music1, fortunateson, nasheed, spit, ree;
 // Declaring all images, image arrays, booleans, and other global variables.
 PImage lewisGun, miniGun, M60, emuPhoto, emuPhotoFlipped, explosion, boomerang, vegemite, grenade, landmine, flash, titleImage, spitImage;
 PImage[] emuRun = new PImage[34];    // https://processing.org/discourse/beta/num_1192465513.html
@@ -78,10 +78,10 @@ void setup() {
   //((PGraphicsOpenGL)g).textureSampling(3); // https://forum.processing.org/two/discussion/8075/why-are-text-and-graphics-so-ugly-and-blocky
   cursor(CROSS);
   levels.add(new LevelOpening()); // Adds the title screen level
-  buttons.add(new Button(width/2 - 300, 250, 125, 50, "October 30", color(100, 200, 250), 2, 0, new LevelOne()));
-  buttons.add(new Button(width/2 - 300, 325, 125, 50, "November 2", color(100, 200, 250), 2, 1, new LevelTwo()));
-  buttons.add(new Button(width/2 - 300, 400, 125, 50, "November 4", color(100, 200, 250), 2, 2, new LevelThree()));
-  buttons.add(new Button(width/2 - 300, 475, 125, 50, "November 6", color(100, 200, 250), 2, 3, new LevelFour()));
+  buttons.add(new Button(width/2, 250, 125, 50, "October 30", color(100, 200, 250), 2, 0, new LevelOne()));
+  buttons.add(new Button(width/2, 325, 125, 50, "November 2", color(100, 200, 250), 2, 1, new LevelTwo()));
+  buttons.add(new Button(width/2, 400, 125, 50, "November 4", color(100, 200, 250), 2, 2, new LevelThree()));
+  buttons.add(new Button(width/2, 475, 125, 50, "November 6", color(100, 200, 250), 2, 3, new LevelFour()));
   buttons.add(new Button(width-600, height-100, 100, 75, "Minigun\nTest", color(100, 200, 250), 2, 0, new LevelMinigun()));
   buttons.add(new Button(width-450, height-100, 100, 75, "'Nam", color(50, 150, 50), 2, 0, new LevelVietnam()));
   buttons.add(new Button(width-300, height-100, 100, 75, "Afghan", color(50, 150, 50), 2, 0, new LevelAfghan()));
@@ -320,8 +320,6 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
   itemsLoaded++;
   oof = minim.loadFile(dataPath("oof.wav")); 
   itemsLoaded++;
-  typewriter = minim.loadFile(dataPath("typewriter.mp3")); 
-  itemsLoaded++;
   music1 = minim.loadFile(dataPath("music1.mp3")); 
   itemsLoaded++;
   fortunateson = minim.loadFile(dataPath("fortunateson.mp3")); 
@@ -526,8 +524,6 @@ void keyReleased() {
           l.clearLevel();
         }
 
-        typewriter.pause();
-        typewriter.rewind();
         levels.clear();
         levels.add(new TitleScreen()); // Adds the title screen level
         gameOver = false;
@@ -572,8 +568,6 @@ void mousePressed() {
       if (level >= 0) {
         for (Level l : levels) {
           if (l.getScene() == 0) {
-            typewriter.pause();
-            typewriter.rewind();
             l.setScene(l.getScene() + 1);
           }
         }

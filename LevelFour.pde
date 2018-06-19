@@ -37,7 +37,6 @@ class LevelFour extends Level {
     textScene[0] = "November 6, 1932 \n \n \nMajor G.P.W Meredith,\n \nWe are receiving negative press about this operation, due to each of our attempts being failures.\nAt this rate, we will not be able to fund this offensive much longer.\n\nHowever, I have got some new info about the enemy, one of the army observers noted that each pack seems to now have its own\nleader, a big, black-plumed bird which stands fully six feet high.\n\nTake your men out again, find this big one, and kill him.\nThis one will probably fight back, so we're going to send you out with some supplies.\n\nGood luck,\nPrime Minister Lyons";
     endScene[0] = "November 6, 1932 \n  \n  \nWe have received very unfortunate news from the front.\n\nOur scouts report a huge herd of emus, larger than any we've seen before, at the location we sent the boys out to.\n\nUpon getting closer, one of the scouts was attacked.\nIt seems these birds are enraged by the loss of their leader, and will attack anything that gets close.\n\nWe're very sorry to say that it is unlikely that Meredith or his men survived.\n\nWe've decided end our involvement with the emus, as this loss of life was not expected.\n\n - Prime Minister Lyons";
 
-    typewriter.loop(5);
     bossDead = false;
   }
 
