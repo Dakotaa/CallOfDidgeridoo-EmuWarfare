@@ -35,6 +35,7 @@ PImage[] naziEmuAttackFlip = new PImage[35];
 PImage[] blood = new PImage[5];
 PImage[] bushImages = new PImage[3];
 PImage[] jungleImages = new PImage[1];
+AudioPlayer[] typeWriterSounds = new AudioPlayer[5];
 boolean isDone, autoFire, aiming, gameOver, track, group, allowItems= false;
 boolean truckWorking = true;
 boolean keepEmusOnScreen = true;
@@ -77,14 +78,14 @@ void setup() {
   //((PGraphicsOpenGL)g).textureSampling(3); // https://forum.processing.org/two/discussion/8075/why-are-text-and-graphics-so-ugly-and-blocky
   cursor(CROSS);
   levels.add(new LevelOpening()); // Adds the title screen level
-  buttons.add(new Button(width/2, 250, 125, 50, "October 30", color(100, 200, 250), 2, 0, new LevelOne()));
-  buttons.add(new Button(width/2, 325, 125, 50, "November 2", color(100, 200, 250), 2, 1, new LevelTwo()));
-  buttons.add(new Button(width/2, 400, 125, 50, "November 4", color(100, 200, 250), 2, 2, new LevelThree()));
-  buttons.add(new Button(width/2, 475, 125, 50, "November 6", color(100, 200, 250), 2, 3, new LevelFour()));
+  buttons.add(new Button(width/2 - 300, 250, 125, 50, "October 30", color(100, 200, 250), 2, 0, new LevelOne()));
+  buttons.add(new Button(width/2 - 300, 325, 125, 50, "November 2", color(100, 200, 250), 2, 1, new LevelTwo()));
+  buttons.add(new Button(width/2 - 300, 400, 125, 50, "November 4", color(100, 200, 250), 2, 2, new LevelThree()));
+  buttons.add(new Button(width/2 - 300, 475, 125, 50, "November 6", color(100, 200, 250), 2, 3, new LevelFour()));
   buttons.add(new Button(width-600, height-100, 100, 75, "Minigun\nTest", color(100, 200, 250), 2, 0, new LevelMinigun()));
   buttons.add(new Button(width-450, height-100, 100, 75, "'Nam", color(50, 150, 50), 2, 0, new LevelVietnam()));
   buttons.add(new Button(width-300, height-100, 100, 75, "Afghan", color(50, 150, 50), 2, 0, new LevelAfghan()));
-  buttons.add(new Button(width-150, height-100, 100, 75, "Zombies", color(50, 150, 50), 2, 0, new LevelZombies()));
+  //buttons.add(new Button(width-150, height-100, 100, 75, "Zombies", color(50, 150, 50), 2, 0, new LevelZombies()));
 
   minim = new Minim(this);
 
@@ -133,7 +134,7 @@ void draw() {
     noStroke();
     rect(width/2 - 300, height/2 + 50, 600, 50);
     fill(0);
-    rect(width/2 - 297, height/2 + 53, itemsLoaded * 10, 44);
+    rect(width/2 - 297, height/2 + 53, itemsLoaded * 9, 44);
     fill(255);
     textSize(20);
     text("The main levels of this game are based on true historical events", width/2, height/2 + 150);
@@ -304,6 +305,11 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
     afghanCarDamage[i] = loadImage(dataPath("AfghanCarDamage/AfghanCarDamage" + i + ".png"));
     afghanCarDamage[i].resize(155, 280);
   } 
+  itemsLoaded++;
+
+  for (int i=0; i < typeWriterSounds.length; i++) {
+    typeWriterSounds[i] = minim.loadFile(dataPath("typewriter/typewriter-" + i + ".mp3"));
+  }
   itemsLoaded++;
 
   lewisGun.resize((int) (lewisGun.width*0.5), (int) (lewisGun.height*0.5)); 

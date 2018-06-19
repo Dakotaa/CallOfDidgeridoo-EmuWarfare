@@ -10,7 +10,7 @@ class LevelFour extends Level {
   void setupLevel() {
     emus.add(new BossEmu(random(width*.75, width), random(300, height-300), 0.8));
 
-    guns.add(new Gun_Minigun(5000));
+    guns.add(new Gun_Lewisgun(75));
     for (Gun g : guns) {
       g.setAmmo(g.getMaxAmmo());
     }
@@ -35,7 +35,7 @@ class LevelFour extends Level {
     inventory.put("Gas", 1);
 
     textScene[0] = "November 6, 1932 \n \n \nMajor G.P.W Meredith,\n \nWe are receiving negative press about this operation, due to each of our attempts being failures.\nAt this rate, we will not be able to fund this offensive much longer.\n\nHowever, I have got some new info about the enemy, one of the army observers noted that each pack seems to now have its own\nleader, a big, black-plumed bird which stands fully six feet high.\n\nTake your men out again, find this big one, and kill him.\nThis one will probably fight back, so we're going to send you out with some supplies.\n\nGood luck,\nPrime Minister Lyons";
-    endScene[0] = "Operation Update - November 4, 1932 \n  \n  \nWe waited until the emus arrived, then opened fire. \nUnfortunately, after killing only about a dozen of them, our gun jammed.\nThis gave them the opportunity to run away.\nWe were able to run a few down and hit them with our truck, but the majority escaped.\n\n - Major G.P.W Meredith";
+    endScene[0] = "November 6, 1932 \n  \n  \nWe have received very unfortunate news from the front.\n\nOur scouts report a huge herd of emus, larger than any we've seen before, at the location we sent the boys out to.\n\nUpon getting closer, one of the scouts was attacked.\nIt seems these birds are enraged by the loss of their leader, and will attack anything that gets close.\n\nWe're very sorry to say that it is unlikely that Meredith or his men survived.\n\nWe've decided end our involvement with the emus, as this loss of life was not expected.\n\n - Prime Minister Lyons";
 
     typewriter.loop(5);
     bossDead = false;

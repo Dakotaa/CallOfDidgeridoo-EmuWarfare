@@ -10,7 +10,7 @@ class BossEmu extends Emu {
   boolean spitting, rapidSpitting, fast;
   BossEmu(float x, float y, float size) {
     super(x, y, size);
-    myHP = 5000;
+    myHP = 4000;
     maxHP = myHP;
     mySize = size;
     speedModifier = 1;
@@ -150,11 +150,11 @@ class BossEmu extends Emu {
       frame++;
 
       if (frame >= 110) {
-        if (myHP > 3000) {
+        if (myHP > 2500) {
           spitAttack(0, 1);
-        } else if (myHP > 2000) {
+        } else if (myHP > 1000) {
           spitAttack(-2, 2);
-        } else if (myHP < 2000) {
+        } else if (myHP < 1000) {
           rapidSpitting = true;
         }
         frame = 0;
