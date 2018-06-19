@@ -50,6 +50,13 @@ class Level {
     truck.exploded = false;
   }
 
+  void typeWriterClick() {
+    int n = floor(random(5));
+    
+    typeWriterSounds[n].rewind();
+    typeWriterSounds[n].play();
+  }
+
   float getGroupLocationX(int groupNum) {
     return groups[groupNum].x;
   }
@@ -128,24 +135,18 @@ class Level {
       }
       popMatrix();
       textFont(stamp30);
-      if (frameCount%3 == 0) {
+      if (frameCount%4 == 0) {
         if (character < textScene[scene].length()) {
           character++;
+          typeWriterClick();
         }
       }
 
       if (character == textScene[scene].length()) {
         textComplete = true;
-        typewriter.pause();
-        typewriter.rewind();
         text("Click to continue", width-300, height-20);
       }
     } else if (levelEnded) {
-      if (!soundStarted) {
-        soundStarted = true;
-        typewriter.rewind();
-        typewriter.loop(5);
-      }
       pushMatrix();
       background(255);
       fill(0);
@@ -158,12 +159,11 @@ class Level {
       if (frameCount%3 == 0) {
         if (character < endScene[0].length()) {
           character++;
+          typeWriterClick();
         }
       }
 
       if (character == endScene[0].length()) {
-        typewriter.pause();
-        typewriter.rewind();
         text("Press TAB", width-300, height-20);
       }
     } else {

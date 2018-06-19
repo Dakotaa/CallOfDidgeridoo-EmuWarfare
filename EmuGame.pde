@@ -9,7 +9,7 @@
 import ddf.minim.*;
 
 Minim minim;
-AudioPlayer gunshot, explosionSound, oof, music1, fortunateson, nasheed, typewriter, spit, ree;
+AudioPlayer gunshot, explosionSound, oof, music1, fortunateson, nasheed, spit, ree;
 // Declaring all images, image arrays, booleans, and other global variables.
 PImage lewisGun, miniGun, M60, emuPhoto, emuPhotoFlipped, explosion, boomerang, vegemite, grenade, landmine, flash, titleImage, spitImage;
 PImage[] emuRun = new PImage[34];    // https://processing.org/discourse/beta/num_1192465513.html
@@ -35,6 +35,7 @@ PImage[] naziEmuAttackFlip = new PImage[35];
 PImage[] blood = new PImage[5];
 PImage[] bushImages = new PImage[3];
 PImage[] jungleImages = new PImage[1];
+AudioPlayer[] typeWriterSounds = new AudioPlayer[5];
 boolean isDone, autoFire, aiming, gameOver, track, group, allowItems= false;
 boolean truckWorking = true;
 boolean keepEmusOnScreen = true;
@@ -84,7 +85,7 @@ void setup() {
   buttons.add(new Button(width-600, height-100, 100, 75, "Minigun\nTest", color(100, 200, 250), 2, 0, new LevelMinigun()));
   buttons.add(new Button(width-450, height-100, 100, 75, "'Nam", color(50, 150, 50), 2, 0, new LevelVietnam()));
   buttons.add(new Button(width-300, height-100, 100, 75, "Afghan", color(50, 150, 50), 2, 0, new LevelAfghan()));
-  buttons.add(new Button(width-150, height-100, 100, 75, "Zombies", color(50, 150, 50), 2, 0, new LevelZombies()));
+  //buttons.add(new Button(width-150, height-100, 100, 75, "Zombies", color(50, 150, 50), 2, 0, new LevelZombies()));
 
   minim = new Minim(this);
 
@@ -133,7 +134,7 @@ void draw() {
     noStroke();
     rect(width/2 - 300, height/2 + 50, 600, 50);
     fill(0);
-    rect(width/2 - 297, height/2 + 53, itemsLoaded * 10, 44);
+    rect(width/2 - 297, height/2 + 53, itemsLoaded * 9, 44);
     fill(255);
     textSize(20);
     text("The main levels of this game are based on true historical events", width/2, height/2 + 150);
@@ -306,6 +307,11 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
   } 
   itemsLoaded++;
 
+  for (int i=0; i < typeWriterSounds.length; i++) {
+    typeWriterSounds[i] = minim.loadFile(dataPath("typewriter/typewriter-" + i + ".mp3"));
+  }
+  itemsLoaded++;
+
   lewisGun.resize((int) (lewisGun.width*0.5), (int) (lewisGun.height*0.5)); 
   itemsLoaded++;
   gunshot = minim.loadFile(dataPath("gunshot.wav")); 
@@ -313,8 +319,6 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
   explosionSound = minim.loadFile(dataPath("explode.mp3")); 
   itemsLoaded++;
   oof = minim.loadFile(dataPath("oof.wav")); 
-  itemsLoaded++;
-  typewriter = minim.loadFile(dataPath("typewriter.mp3")); 
   itemsLoaded++;
   music1 = minim.loadFile(dataPath("music1.mp3")); 
   itemsLoaded++;
@@ -520,8 +524,6 @@ void keyReleased() {
           l.clearLevel();
         }
 
-        typewriter.pause();
-        typewriter.rewind();
         levels.clear();
         levels.add(new TitleScreen()); // Adds the title screen level
         gameOver = false;
@@ -566,8 +568,6 @@ void mousePressed() {
       if (level >= 0) {
         for (Level l : levels) {
           if (l.getScene() == 0) {
-            typewriter.pause();
-            typewriter.rewind();
             l.setScene(l.getScene() + 1);
           }
         }
