@@ -1,19 +1,22 @@
 class BossEmu extends Emu {
-  boolean smashing, reeing;
+  boolean smashing;
+  boolean reeing = false;
   PImage runPhotos[] = new PImage[34];
   PImage runPhotosF[] = new PImage[34];
   PImage smashPhotos[] = new PImage[30];
   PImage smashPhotosF[] = new PImage[30];
   PImage emuReePhotos[] = new PImage[121];
+  int frameNum2 = 1;
   float myTheta;
   int frame, shots, fastFrames = 0;
-  boolean spitting, rapidSpitting, fast;
+  boolean spitting, rapidSpitting, fast, reed;
   BossEmu(float x, float y, float size) {
     super(x, y, size);
     myHP = 5000;
     maxHP = myHP;
     mySize = size;
     speedModifier = 1;
+    removeOnKill = false;
 
     for (int i = 1; i < runPhotos.length; i++) {
       runPhotos[i] = buffEmuRun[i].copy();
@@ -40,7 +43,7 @@ class BossEmu extends Emu {
     }
     for (int i = 1; i < emuReePhotos.length; i++) {
       emuReePhotos[i] = emuRee[i].copy();
-      emuReePhotos[i].resize((int) (mySize*450), (int) (mySize*456));
+      emuReePhotos[i].resize((int) (mySize*400), (int) (mySize*406));
     }
   }
 
@@ -64,13 +67,27 @@ class BossEmu extends Emu {
   }
 
   void update() {
-    super.update();
-    reeing = false;
+    super.update();   
 
+
+
+    if (myHP <= 0) {
+      if (!reed) {
+        ree.rewind();
+        ree.play();
+        reed = true;
+      }
+      frameNum2 ++;
+      reeing = true;
+    }
+    if (frameNum2 > emuReePhotos.length - 1) {
+      frameNum2 = 120;
+      dead = true;
+    }
     if (frameNum > runPhotos.length - 1) {
       frameNum = 1;
     }
-    if (smashing) {
+    if (smashing && reeing == false) {
       if (frameNum > smashPhotos.length - 1) {
         frameNum = 1;
       }
@@ -84,32 +101,25 @@ class BossEmu extends Emu {
         image(runPhotosF[frameNum], myX, myY);
       } else if (xVelocity() < 0 && reeing == false) {
         image(runPhotos[frameNum], myX, myY);
-      } else if (myHP <= 0) {
-        reeing = true;
-        if (reeing) {
-          image(emuReePhotos[frameNum], myX, myY);
-          ree.rewind();
-          ree.play();
-        }
+      } else {
+        spitting = false;
+        rapidSpitting = false;
+        fast = false;
+        moving = false;
+        movingUp = false;
+        image(emuReePhotos[frameNum2], myX - 50, myY);
       }
     }
 
     track = true;
-
-    //if (myHP <= 0) {
-    //  reeing = true;
-    //  if (reeing) {
-    //    image(emuReePhotos[frameNum], myX, myY);
-    //    ree.rewind();
-    //    ree.play();
-    //  }
-    //}
 
     fill(157, 100, 67);
 
     if (frameCount%2 == 0) {
       frameNum++;
     }
+
+
 
     fill(0);
 

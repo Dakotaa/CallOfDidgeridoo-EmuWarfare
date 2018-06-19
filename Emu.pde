@@ -1,7 +1,7 @@
 class Emu { 
   float myHP, maxHP, myX, myY, mySize, myFade, myXVel, myYVel, speedModifier, mobXDistance, mobYDistance;
   boolean dead, bleeding, movingUp, attacking, tracking, grouping, leaving, exploded = false;
-  boolean moving = true;
+  boolean moving, removeOnKill = true;
   //PImage myPhoto, myPhotoF;
   int frameNum = (int) random(1, 33);
   int myGroup;
@@ -276,7 +276,9 @@ class Emu {
     }
 
     if (myHP <= 0) {
-      //dead = true;
+      if(removeOnKill) {
+         dead = true; 
+      }
     }
     fill(157, 100, 67);
     if (frameCount%2 == 0) {
