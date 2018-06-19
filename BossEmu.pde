@@ -50,7 +50,7 @@ class BossEmu extends Emu {
   // Regular spit attack. Will shoot any amount of spits, as defined by low and high angles.
   void spitAttack(int low, int high) {
     for (int i = low; i < high; i++) {
-      projectiles.add(new Spit(new PVector(myX, myY), 10, i, truck.getX(), truck.getY()));
+      projectiles.add(new Spit(new PVector(myX, myY), 11, i, truck.getX(), truck.getY()));
     }
   }
 
@@ -135,7 +135,7 @@ class BossEmu extends Emu {
 
     if (rapidSpitting) {
       if (frameCount%5 == 0) {
-        projectiles.add(new Spit(new PVector(myX, myY), 10, 0, truck.getX(), truck.getY()));
+        projectiles.add(new Spit(new PVector(myX, myY), 11, 0, truck.getX(), truck.getY()));
         shots++;
       }
 
