@@ -40,10 +40,12 @@ class Button {
   }
 
   void update() {
+    // checks if the level required to use this button is unlocked in the data file
     if (data.getInt(0, "highest_level") >= permission) {
       unlocked = true;
     }
 
+    // if this level is unlocked, allows button to be used
     if (unlocked) {
       if (mouseX > myX - myW/2 && mouseX < myX + myW/2 && mouseY > myY - myH/2 && mouseY < myY + myH/2) {
         down = true;
@@ -53,6 +55,7 @@ class Button {
     }
 
     pushMatrix();
+    // changes colour of button when hovered over
     if (down) {
       fill (myColour + color(10, 50, 100));
     } else {

@@ -18,7 +18,7 @@ class LevelVietnam extends Level {
     }
 
     for (int i = 0; i < 20; i++) {
-      decorations.add(new Decor(int(random(width-600, width)), int(random(0, height)), random(0.4, 0.6), false, jungleImages));
+      decorations.add(new Decor(int(random(width-600, width)), int(random(0, height)), random(0.4, 0.6), false, jungleImages[floor(random(0, jungleImages.length))]));
     }
 
 //sets xpos, ypos, heading, speed, HP, and maxSpeec, and items in inventory

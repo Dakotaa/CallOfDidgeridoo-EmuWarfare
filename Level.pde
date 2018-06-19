@@ -261,7 +261,10 @@ class Level {
 
       if (gunWorking) {
         for (Gun g : guns) {
+          // checks if the left mouse button is pressed and the current frame is correct, according to the rate of fire of the current gun.
           if (frameCount%g.getRateOfFire()==0 && mousePressed && mouseButton == LEFT) { // https://forum.processing.org/one/topic/shoot-multiple-bullets.html
+          
+            // gun inaccuracy; when the truck is moving, the angle the bullet shoots at is more random
             if (truck.getSpeed() > 0 || truck.getSpeed() < 0) {
               gunInnac = 2;
             } else {
@@ -280,7 +283,6 @@ class Level {
                 g.shoot();
               }
             }
-            //gunShot.play(); //https://processing.org/reference/libraries/sound/SoundFile.html
           }
         }
       }

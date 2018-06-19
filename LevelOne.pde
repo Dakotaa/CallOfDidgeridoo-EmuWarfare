@@ -16,7 +16,7 @@ class LevelOne extends Level {
     }
 
     for (int i = 0; i < 30; i++) {
-      decorations.add(new Decor(int(random(0, width)), int(random(0, height)), random(0.2, 0.4), false, bushImages));
+      decorations.add(new Decor(int(random(0, width)), int(random(0, height)), random(0.2, 0.4), false, bushImages[floor(random(0, bushImages.length))]));
     }
 
     guns.add(new Gun_Lewisgun(75));

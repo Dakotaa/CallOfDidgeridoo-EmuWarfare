@@ -132,6 +132,8 @@ void draw() {
     rectMode(CORNER);
     fill(255);
     noStroke();
+    
+    // Loading bar - draws black bar based on amount of items loaded (see below)
     rect(width/2 - 300, height/2 + 50, 600, 50);
     fill(0);
     rect(width/2 - 297, height/2 + 53, itemsLoaded * 9, 44);
@@ -155,7 +157,7 @@ void draw() {
   }
 }
 
-// Loads all the images in another core thread, sets isDone to true after images are loaded to stop drawing of loading screen.
+// Loads all the images in another core thread, sets isDone to true after images are loaded to stop drawing of loading screen. After each is loaded, adds one to itemsLoaded variable to increase loading bar.
 void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-speedup-loadimage
   // Load fonts (multiple sizes)
   typeWriterFont = createFont("TravelingTypewriter.ttf", 26);
@@ -210,6 +212,8 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
   itemsLoaded++;
   spitImage.resize((int) (spitImage.width*.15), (int) (spitImage.height*.15)); 
   itemsLoaded++;
+  
+  // Loops to load all arrays of resources.
   for (int i = 1; i < emuRun.length; i++) {
     emuRun[i] = loadImage(dataPath("EmuRun/EmuRun" + i + ".png"));    // https://forum.processing.org/two/discussion/4160/is-it-possible-to-load-files-from-a-folder-inside-the-data-folder
   } 
@@ -314,6 +318,8 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
   itemsLoaded++;
 
   lewisGun.resize((int) (lewisGun.width*0.5), (int) (lewisGun.height*0.5)); 
+  
+  // Sound file loading and volume adjusting
   itemsLoaded++;
   gunshot = minim.loadFile(dataPath("gunshot.wav")); 
   gunshot.setGain(-10.0);
@@ -347,10 +353,12 @@ void loadImages() { // https://forum.processing.org/two/discussion/1360/how-to-s
   isDone = true;
 }
 
+// Item spawning function - spawns an item with a passed in type in a random location
 void spawnItem(String type) {
   groundItems.add(new GroundItem(type, 10, random(0, width), random(0, height)));
 }
 
+// Similar to above, but does not take in a type, instead generates a random type.
 void spawnItem() {
   int r = (int) random(5);
   String type = "Boomerang";
@@ -374,6 +382,7 @@ void spawnItem() {
   groundItems.add(new GroundItem(type, 10, random(0, width), random(0, height)));
 }
 
+// function to return the emus alive at the moment.
 int emusAlive() {
   return emus.size();
 }
@@ -388,6 +397,7 @@ void useItem() {
   }
 }
 
+// boomerang throwing function. If the boomerang is selected, boomerangs are available in the inventory, and the boomerang cooldown is done, adds a new boomerang projectile from the gun, using the gun's angle, theta, and removes a boomerang from the inventory, then starts the cooldown.
 void throwBoomerang() {
   if (hud.getSelectedItem() == 0) {
     if (inventory.get("Boomerang") > 0) {
@@ -410,6 +420,7 @@ void throwBoomerang() {
   }
 }
 
+// vegemite increases the truck's HP
 void useVegemite() {
   if (hud.getSelectedItem() == 1) {
     if (inventory.get("Vegemite") > 0) {
@@ -419,6 +430,7 @@ void useVegemite() {
   }
 }
 
+// throws a grenade
 void throwGrenade() {
   if (hud.getSelectedItem() == 2) {
     if (inventory.get("Grenade") > 0) {
@@ -430,6 +442,7 @@ void throwGrenade() {
   }
 }
 
+// places a landmine at the location of the truck
 void placeLandmine() {
   if (hud.getSelectedItem() == 3) {
     if (inventory.get("Landmine") > 0) {
@@ -441,6 +454,7 @@ void placeLandmine() {
   }
 }
 
+// creates and throws a gas projectile
 void throwGas() {
   if (hud.getSelectedItem() == 4) {
     if (inventory.get("Gas") > 0) {
@@ -456,6 +470,8 @@ void throwGas() {
 void keyPressed() {
   if (level != 0) {
     switch(keyCode) {
+      
+    // numbers 1-5 to select items
     case 49: 
       hud.setSelectedItem(0);
       break;
@@ -471,6 +487,7 @@ void keyPressed() {
     case 53: 
       hud.setSelectedItem(4);
       break;
+      
     case 65: 
       if (truckWorking) {
         truck.setLeft(true);
@@ -491,6 +508,8 @@ void keyPressed() {
         truck.setDown(true);
       }
       break;
+      
+    // E key to use items
     case 69:
       useItem();
       break;
@@ -546,6 +565,8 @@ void keyReleased() {
     }
   }
 
+  // some stuff for high score entering (was not implemented)
+  /*
   for (Level l : levels) {
     if (l instanceof LoseScreen) {
       if (keyCode == 8) {
@@ -568,8 +589,10 @@ void keyReleased() {
       }
     }
   }
+  */
 }
 
+// mouse pressed check for clicking buttons when in the main menu, skipping text scenes on levels.
 void mousePressed() {
   if (mouseButton == LEFT) {
     if (level == 0) {    // If in the title screen, buttons can be clicked.
@@ -588,7 +611,7 @@ void mousePressed() {
       }
     }
   }
-
+  
   if (mouseButton == RIGHT) {    // When right clicking, the gun "aiming" is true, draws the white line and makes the gun more accurate.
     aiming = true;
   }

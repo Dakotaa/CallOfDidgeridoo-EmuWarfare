@@ -1,3 +1,4 @@
+// For documentation, see Emu class.
 class AfghanEmu extends Emu {
   PImage runPhotos[] = new PImage[11];
   PImage runPhotosF[] = new PImage[11];
@@ -30,7 +31,6 @@ class AfghanEmu extends Emu {
     }
 
     if (myHP <= 0) {
-      //afghanExplode.add(new AfghanExplode(myX, myY, 100));
       explosions.add(new Explosion(myX, myY, 100));
     }
   }

@@ -11,13 +11,13 @@ class LevelMinigun extends Level {
     for (int i = 0; i < 125; ++i) {
       emus.add(new StaticEmu(random(width*.75, width), random(300, height-300), random(0.1, 0.4)));
     }
-    guns.add(new Gun_Minigun(500));
+    guns.add(new Gun_Minigun(2500));
     for (Gun g : guns) {
       g.setAmmo(g.getMaxAmmo());
     }
 
     for (int i = 0; i < 30; i++) {
-      decorations.add(new Decor(int(random(0, width)), int(random(0, height)), random(0.2, 0.4), false, bushImages));
+      decorations.add(new Decor(int(random(0, width)), int(random(0, height)), random(0.2, 0.4), false, bushImages[floor(random(0, bushImages.length))]));
     }
 
     gunWorking = true;

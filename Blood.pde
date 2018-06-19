@@ -26,7 +26,7 @@ class Blood {
 
     pushMatrix();
     translate(myX, myY);
-    //rotate(rotate);
+    rotate(rotate);
     tint(255, myFade);
     image(myImage, 0, 0);
     noTint();

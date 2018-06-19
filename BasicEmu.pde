@@ -1,3 +1,4 @@
+// For documentation, see Emu class.
 class BasicEmu extends Emu {
   PImage runPhotos[] = new PImage[34];
   PImage runPhotosF[] = new PImage[34];
@@ -20,7 +21,8 @@ class BasicEmu extends Emu {
     if (frameNum > runPhotos.length - 1) {
       frameNum = 1;
     }
-
+    
+    // animates the emu by running through the running or flipped running photos.
     if (xVelocity() > 0) {
       image(runPhotosF[frameNum], myX, myY);
     } else {

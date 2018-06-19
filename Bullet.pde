@@ -12,11 +12,14 @@ class Bullet {
     myAiming = aiming;
     myDamage = damage;
 
+    // checks if the gun is aimed, adjusts the exit angle accordingly
     if (myAiming) {
       myTheta = theta + radians(random(-gunInnac, gunInnac));
     } else {
       myTheta = theta+radians(random(-2, 2) + random(-gunInnac, gunInnac));
     }
+    
+    // math to find angle the bullet will travl at
     if (mouseX >= truck.gunX()) {
       myVelocity.y = ((float) ((velocity) * (Math.sin(Math.abs((myTheta))))));
       myVelocity.x = ((float) Math.sqrt((((velocity)*(velocity))-((myVelocity.y)*(myVelocity.y)))));

@@ -1,13 +1,16 @@
+// decor - gets a position, size, rotation, and image
 class Decor {
   int myX, myY, theta;
   float maxSizeFactor, sizeFactor;
   boolean rotate;
   PImage myImage;
-  Decor (int x, int y, float size, boolean r, PImage[] images) {
+  Decor (int x, int y, float size, boolean r, PImage image) {
     myX = x;
     myY = y;
     rotate = r;
-    myImage = images[floor(random(0, images.length))].copy();
+    
+    // chooses a random image from the passed array
+    myImage = image.copy();
     sizeFactor = size;
     
     myImage.resize(int(myImage.width * sizeFactor), int(myImage.height * sizeFactor));

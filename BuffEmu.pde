@@ -1,3 +1,4 @@
+ // For documentation, see Emu class.
 class BuffEmu extends Emu {
   boolean smashing;
   PImage runPhotos[] = new PImage[38];

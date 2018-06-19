@@ -21,7 +21,7 @@ class LevelTwo extends Level {
     gunWorking = true;
 
     for (int i = 0; i < 30; i++) {
-      decorations.add(new Decor(int(random(0, width)), int(random(0, height)), random(0.2, 0.4), false, bushImages));
+      decorations.add(new Decor(int(random(0, width)), int(random(0, height)), random(0.2, 0.4), false, bushImages[floor(random(0, bushImages.length))]));
     }
 
     //sets xpos, ypos, heading, speed, HP, and maxSpeec, and items in inventory
