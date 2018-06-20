@@ -152,7 +152,7 @@ void draw() {
         emusKilled = l.getEmusKilled();
       }
       levels.clear();
-      levels.add(new LoseScreen(emusKilled));
+      levels.add(new LoseScreen());
       gameOver = false;
     }
   }
